@@ -10,7 +10,7 @@
         <img alt="RID Issues" src="https://img.shields.io/github/issues/Walthzer/RID?style=flat-square">
     </a>
     <a href="https://github.com/acemod/ACE3/blob/master/LICENSE">
-        <img  alt="RID License" src="https://img.shields.io/badge/License-GPLv2-red.svg?style=flat-square">
+        <img  alt="RID License" src="https://img.shields.io/badge/License-GPLv3-red.svg?style=flat-square">
     </a>
 </p>
 
