@@ -1,4 +1,4 @@
-#define COMPONENT blank
+#define COMPONENT minedetector
 #define COMPONENT_BEAUTIFIED Blank
 #include "\z\rid\addons\main\script_mod.hpp"
 

@@ -1,1 +1,1 @@
-#include "\z\rid\addons\blank\script_component.hpp"
+#include "\z\rid\addons\minedetector\script_component.hpp"
