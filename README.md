@@ -9,8 +9,8 @@
     <a href="https://github.com/Walthzer/RID/issues">
     <img alt="RID Issues" src="https://img.shields.io/github/issues/Walthzer/RID?style=flat-square">
     </a>
-    <a href="https://github.com/acemod/arma-project-template/blob/master/LICENSE">
-        <img src="https://img.shields.io/badge/License-MIT-red.svg?style=flat-square" alt="ACE Project Template License">
+    <a href="https://github.com/Walthzer/RID/blob/master/LICENSE">
+    <img alt="RID license" src="https://img.shields.io/github/license/Walthzer/RID?style=flat-square">
     </a>
 </p>
 
