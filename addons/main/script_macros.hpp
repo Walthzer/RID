@@ -1,1 +1,1 @@
-#include "\z\ace\addons\main\script_macros.hpp"
+#include "\z\rid\addons\main\script_macros.hpp"

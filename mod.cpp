@@ -1,12 +1,12 @@
-name = "Advanced Combat Environment 3 - Project Template";
+name = "Realistic IED Defusal";
 picture = "logo_rid_ca.paa";
 actionName = "GitHub";
-action = "https://github.com/acemod/arma-project-template";
+action = "https://github.com/Walthzer/RID";
 description = "Project Template";
 logo = "logo_rid_ca.paa";
 logoOver = "logo_rid_ca.paa";
 tooltip = "ACE3 Project Template";
-tooltipOwned = "ACE3 Project Template Owned";
-overview = "Advanced Combat Environment 3 Project Template";
-author = "ACE3 Team";
+tooltipOwned = "RID Owned";
+overview = "Realistic IED Defusal";
+author = "Walthzer";
 overviewPicture = "logo_ace3_ca.paa";
