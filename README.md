@@ -4,13 +4,13 @@
 
 <p align="center">
     <a href="https://github.com/Walthzer/RID/releases/latest">
-        <img src="https://img.shields.io/badge/Version-0.0.1-blue.svg?style=flat-square" alt="RID Version">
+        <img  alt="RID Version" src="https://img.shields.io/badge/Version-0.0.1-blue.svg?style=flat-square">
     </a>
     <a href="https://github.com/Walthzer/RID/issues">
-    <img alt="RID Issues" src="https://img.shields.io/github/issues/Walthzer/RID?style=flat-square">
+        <img alt="RID Issues" src="https://img.shields.io/github/issues/Walthzer/RID?style=flat-square">
     </a>
-    <a href="https://github.com/Walthzer/RID/blob/master/LICENSE">
-    <img alt="RID license" src="https://img.shields.io/github/license/Walthzer/RID?style=flat-square">
+    <a href="https://github.com/acemod/ACE3/blob/master/LICENSE">
+        <img  alt="RID License" src="https://img.shields.io/badge/License-GPLv2-red.svg?style=flat-square">
     </a>
 </p>
 
