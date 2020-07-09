@@ -1,8 +1,4 @@
 <p align="center">
-    <img src="https://github.com/acemod/ACE3/raw/master/extras/assets/logo/black/ACE3-Logo.jpg" width="480">
-</p>
-
-<p align="center">
     <a href="https://github.com/Walthzer/RID/releases/latest">
         <img  alt="RID Version" src="https://img.shields.io/badge/Version-0.0.1-blue.svg?style=flat-square">
     </a>
