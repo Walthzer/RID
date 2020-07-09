@@ -12,7 +12,9 @@
 #endif
 
 #ifdef DEBUG_SETTINGS_MINEDETECTOR
-    #define DEBUG_SETTINGS DEBUG_SETTINGS_BLANK
+    #define DEBUG_SETTINGS DEBUG_SETTINGS_MINEDETECTOR
 #endif
 
 #include "\z\rid\addons\main\script_macros.hpp"
+
+#define __DR 1.3
