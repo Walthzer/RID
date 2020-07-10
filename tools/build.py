@@ -32,7 +32,6 @@ def check_for_obsolete_pbos(addonspath, file):
 def main():
     print("""
   ####################
-  # RID3 Debug Build #
   # ACE3 Debug Build #
   ####################
 """)
@@ -47,7 +46,6 @@ def main():
     failed = 0
     skipped = 0
     removed = 0
-
     
     for file in os.listdir(addonspath):
         if os.path.isfile(file):
@@ -55,6 +53,8 @@ def main():
                 removed += 1
                 print("  Removing obsolete file => " + file)
                 os.remove(file)
+    print("")        
+    
     for p in os.listdir(addonspath):
         path = os.path.join(addonspath, p)
         if not os.path.isdir(path):
