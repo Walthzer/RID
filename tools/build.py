@@ -36,7 +36,7 @@ def main():
   ####################
 """)
 
-    scriptpath = os.path.realpath(__file__)
+    scriptpath = os.path.abspath(__file__)
     projectpath = os.path.dirname(os.path.dirname(scriptpath))
     addonspath = os.path.join(projectpath, "addons")
 
@@ -71,13 +71,15 @@ def main():
         try:
             subprocess.check_output([
                 "makepbo",
-                "-NUP",
+                "-PX=thumbs.db,*.txt,*.h,*.dep,*.cpp,*.bak,*.png,*.log,*.pew",
                 "-@={}\\{}\\addons\\{}".format(MAINPREFIX,PREFIX.rstrip("_"),p),
                 p,
                 "{}{}.pbo".format(PREFIX,p)
             ], stderr=subprocess.STDOUT)
-        except:
+
+        except subprocess.CalledProcessError as inst:
             failed += 1
+            print(inst.stdout.decode())
             print("  Failed to make {}.".format(p))
         else:
             made += 1
