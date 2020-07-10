@@ -22,9 +22,9 @@ private _distance = -1;
 
 {
     private _secondaryObjectType = typeOf _x;
-	_secondaryIsCW = isNumber (configFile >> "CfgAmmo" >> _secondaryObjectType >> "isCW");
-	private _isValidObject = ((_primaryIsCW || _secondaryIsCW) && !(_primaryIsCW && _secondaryIsCW));
-	
+    _secondaryIsCW = isNumber (configFile >> "CfgAmmo" >> _secondaryObjectType >> "isCW");
+    private _isValidObject = ((_primaryIsCW || _secondaryIsCW) && !(_primaryIsCW && _secondaryIsCW));
+    
     _isDetectable = ace_minedetector_detectableClasses getVariable _secondaryObjectType;
     if (isNil "_isDetectable" || {(getModelInfo _x) select 0 == "empty.p3d"}) then {
         _isDetectable = false;

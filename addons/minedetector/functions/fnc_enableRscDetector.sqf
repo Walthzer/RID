@@ -13,11 +13,11 @@ if (isNull _display) exitwith {diag_log "Is not display"};
 
 //Flash all indicators:
 [_display] spawn {
-	params["_display"];
-	[_display, 1] call FUNC(toggleRscDetector);
-	sleep 0.1;
-	[_display, 0] call FUNC(toggleRscDetector);
-	[_display] call FUNC(screenInitRscDetector);
+    params["_display"];
+    [_display, 1] call FUNC(toggleRscDetector);
+    sleep 0.1;
+    [_display, 0] call FUNC(toggleRscDetector);
+    [_display] call FUNC(screenInitRscDetector);
 };
 
 //Allow the creation of a RscDetector reset after a timeout:
