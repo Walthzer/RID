@@ -72,8 +72,8 @@ dssignfile = ""
 prefix = "rid"
 pbo_name_prefix = "rid_"
 signature_blacklist = []
-importantFiles = ["mod.cpp", "README.md", "docs\\README_DE.md", "docs\\README_PL.md", "docs\\README.zh-TW.md", "AUTHORS.txt", "LICENSE", "logo_rid_ca.paa", "meta.cpp"]
-versionFiles = ["mod.cpp", "README.md", "docs\\README_DE.md", "docs\\README_PL.md", "docs\\README.zh-TW.md"]
+importantFiles = ["mod.cpp", "README.md","AUTHORS.txt", "LICENSE", "logo_rid_ca.paa"]
+versionFiles = ["mod.cpp", "README.md"]
 
 ciBuild = False # Used for CI builds
 
