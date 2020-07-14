@@ -1,7 +1,7 @@
 #define COMPONENT minedetector
 #define COMPONENT_BEAUTIFIED Mine Detector
 #include "\z\rid\addons\main\script_mod.hpp"
-
+#define DISABLE_COMPILE_CACHE
 // #define DEBUG_MODE_FULL
 // #define DISABLE_COMPILE_CACHE
 // #define CBA_DEBUG_SYNCHRONOUS

@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 if (CBA_missionTime - GVAR(timeOfLastDetect) > 0.05) then {
     GVAR(canCreateTimeoutResetRscDetector) = true;
-    private _display = uiNamespace getVariable GVAR(displayRscDetector);
-    if (isNull _display) exitwith {diag_log "Is not display"};
+    private _display = uiNamespace getVariable[QGVAR(displayRscDetector), displayNull];
+    if (isNull _display) exitwith {ERROR_MSG("Is not display")};
     {
         for "_i" from 1 to 8 do {
             private _alpha = if (_i <= _x) then {1} else {0};

@@ -1,7 +1,9 @@
 #include "script_component.hpp"
 params["_display"];
 
-private _screenIndicatorStatus = uiNamespace getVariable[QGVAR(screenIndcatorStatus), [1, 1, 1, 1, 9, 7]];
+//Unneccesary for now, minedetector has no settings besides on or off.
+//private _screenIndicatorStatus = uiNamespace getVariable[QGVAR(screenIndcatorStatus), [1, 1, 1, 1, 9, 7]];
+private _screenIndicatorStatus = [1, 1, 1, 1, 9, 7];
 
 //Intitilize volume&Battery level:
 for "_i" from 0 to 1 do {
@@ -18,7 +20,7 @@ for "_i" from 0 to 1 do {
 
 private _idcAffix = "1";
 for "_i" from 0 to 2 step 2 do {
-    _detectorType = if (_i == 0) then {"MD\MD"} else {"WD\WD"};
+    _detectorType = ["WD\WD","MD\MD"] select (_i==0);
     _pwr = if (_screenIndicatorStatus#(_i) == 1) then {"ON"} else {"OFF"};
     _path = format ["MD_WD\%1_%2.paa", _detectorType, _pwr];
 

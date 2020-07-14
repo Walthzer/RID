@@ -1,8 +1,8 @@
 #include "script_component.hpp"
 params["_unit", "_primaryObject", "_primaryDistance"];
 
-private _display = uiNamespace getVariable GVAR(displayRscDetector);
-if (isNull _display) exitwith {diag_log "Is not display"};
+private _display = uiNamespace getVariable[QGVAR(displayRscDetector), displayNull];
+if (isNull _display) exitwith {ERROR_MSG("Is not display")};
 
 GVAR(timeOfLastDetect) = CBA_missionTime;
 if (GVAR(canCreateTimeoutResetRscDetector)) then {

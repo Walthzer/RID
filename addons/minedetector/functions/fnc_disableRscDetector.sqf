@@ -7,11 +7,11 @@
 private _detectorType = _unit getVariable [QGVAR(detectorType), ""];
 if (currentWeapon ACE_player != _detectorType) exitWith {FUNC(deactivateRscDetector)};
 
-_display = uiNamespace getVariable GVAR(displayRscDetector');
-if (isNull _display) exitwith {diag_log "Is not display"};
+private _display = uiNamespace getVariable[QGVAR(displayRscDetector), displayNull];
+if (isNull _display) exitwith {ERROR_MSG("Is not display")};
 
 //Turn screen off:
-(_display displayCtrl 231001) ctrlSetText "MD_WD\Screen_OFF.paa";
+(_display displayCtrl 231001) ctrlSetText QPATHTOF(ui\Screen_OFF.paa);
 
 //Set PWR indicators 
 (_display displayCtrl 231109) ctrlSetTextColor [1, 1, 1, 0];
