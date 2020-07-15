@@ -3,7 +3,7 @@
 params["_unit", "_detectorType"];
 
 private _detectorConfig = [_detectorType] call ace_minedetector_getDetectorConfig;
-_unit setVariable ["rid_detectorType", _detectorType];
+_unit setVariable [QGVAR(detectorType), _detectorType];
 
 private _display = uiNamespace getVariable[QGVAR(displayRscDetector), displayNull];
 if (isNull _display) exitwith {ERROR_MSG("Is not display")};
