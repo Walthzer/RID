@@ -1,7 +1,6 @@
 #include "script_component.hpp"
 /*
  * Turn a Network Node into a Network Reciever. Storing a function to be called when a Network Caller processes the node.
- * The netowrk node is the first argument followed by
  *
  * Arguments:
  * 0: Network Node (OBJECT)
@@ -22,6 +21,6 @@ if (isNull _node) exitWith {ERROR_1("%1 is not an OBJECT")};
 //Confirm _function is not empty
 if (_function isEqualTo {}) exitWith {ERROR_1("%1 is not a valid function")};
 
-if (not (_node getVariable[GVAR(isNetworkNode), false])) then {[_node] call FUNC(createNetworkNode);};
+if (not (_node getVariable[QGVAR(isNetworkNode), false])) then {[_node] call FUNC(createNetworkNode);};
 
-_node setVariable[GVAR(NetworkReciever), [_function, _arguments]];
+_node setVariable[QGVAR(NetworkReciever), [_function, _arguments]];
