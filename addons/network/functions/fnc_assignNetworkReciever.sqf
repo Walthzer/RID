@@ -11,7 +11,7 @@
  * None
  *
  * Example:
- * [_ied, rid_fnc_detonateIED] call rid_network_fnc_assignNetworkReciever;
+ * [_ied, rid_core_fnc_detonateIED] call rid_network_fnc_assignNetworkReciever;
  *
 */
 params[["_node", objNull, [objNull]],["_function", {}, [{}]],["_arguments", [], []]];

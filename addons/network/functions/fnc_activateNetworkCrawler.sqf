@@ -9,7 +9,7 @@
  * None
  *
  * Example:
- * [145854:Empty.p3d] spawn rid_fnc_activateNetworkCrawler;
+ * [145854:Empty.p3d] spawn rid_network_fnc_activateNetworkCrawler;
  *
 */
 params[["_node", objNull, [objNull]]];
