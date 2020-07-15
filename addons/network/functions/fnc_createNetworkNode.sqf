@@ -1,0 +1,32 @@
+#include "script_component.hpp"
+/*
+ * Create an empty network node at given position.
+ * Or assign the given object network node status.
+ *
+ * Arguments:
+ * 0: Position <ARRAY> for new node OR Object <OBJECT> to assign node status.
+ *
+ * Return Value:
+ * Passed OBJECT or Created OBJECT;
+ *
+ * Example:
+ * [[125,25,1]] call rid_network_fnc_createNetworkNode;
+ *
+*/
+params["_arg"];
+
+//Confirm if argument is either an ARRAY or OBJECT
+if (not (IS_ARRAY(_arg) or IS_OBJECT(_arg))) exitWith {ERROR_1("%1 is not ARRAY nor OBJECT", _arg)};
+
+//If argument is an ARRAY, create the empty object else use the argument as the empty object
+private _object = if (IS_ARRAY(_arg)) then {
+	private _node = "Helper_Base_F" createVehicle _arg;
+	[_node, {{ _x addCuratorEditableObjects [[_this],true ] } forEach allCurators;}] remoteExec ["call", 2];
+	_node;
+} else {
+	_arg;
+};
+
+//set node status
+_object setVariable[QGVAR(isNetworkNode), true];
+_object;
