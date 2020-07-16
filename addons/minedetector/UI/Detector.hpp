@@ -36,7 +36,6 @@ class rid_detector_group
     colorText[] = {1,1,1,0};
     font = "PuristaMedium";
     sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
-    access = 0;
 };
 
 
