@@ -17,7 +17,7 @@
 private _position = _this;
 
 //play *SNAP* sound:
-playSound QGVAR(sounds_cut);
+playSound QEGVAR(pcb,sounds_cut);
 
 //Verify _effectPosition was passed:
 //if (isNull _position) exitWith {ERROR("_effectPosition was not passed")}; TODO: Actually fix this check, currently balancing on the fact nothing goes wrong! 
@@ -40,7 +40,7 @@ private _tripwireParts = _tripwiresParts select _tripwirePartsIndex;
 
 //Clean up the _tripWireNode's _tripwire_parts ARRAY.
 _tripwiresParts set [_tripwirePartsIndex, []];
-(_tripWireNodes#0) setVariable [QGVAR(tripwires_parts), _tripwiresParts];
+(_tripWireNodes#0) setVariable [QGVAR(tripwires_parts), _tripwiresParts, true];
 
 //Delete all other parts of the tripwire:
 {
