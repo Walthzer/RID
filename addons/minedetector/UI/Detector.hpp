@@ -54,7 +54,7 @@ class RscTitles
                 idc = 231001;
                 colorText[] = {1,1,1,1};
                 text = QPATHTOF(ui\Screen_OFF.paa);
-                on = QPATHTOF(ui\Screen_ON.png);
+                on = QPATHTOF(ui\Screen_ON.paa);
                 off = QPATHTOF(ui\Screen_OFF.paa);
             };
 
