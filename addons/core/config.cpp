@@ -17,7 +17,7 @@ class CfgPatches {
 #include "CfgAmmo.hpp"
 #include "CfgVehicles.hpp"
 #include "CfgCloudlets.hpp"
-#include "CfgSounds.hpp"
+#include "CfgHints.hpp"
 
 
 class rid_tripWireEffect {
@@ -30,13 +30,13 @@ class rid_tripWireEffect {
 
 class CfgMineTriggers
 {
-	class WireTrigger;
-	class rid_tripWire_base_trigger: WireTrigger
-	{
-	mineDelay=0;
-	mineTriggerMass=5;
-	mineTriggerRange=3;
-	mineWireStart[]={0, 0, -0.5};
+    class WireTrigger;
+    class rid_tripWire_base_trigger: WireTrigger
+    {
+    mineDelay=0;
+    mineTriggerMass=5;
+    mineTriggerRange=3;
+    mineWireStart[]={0, 0, -0.5};
     mineWireEnd[]={0, 0, 0.5};
-	};
+    };
 };
