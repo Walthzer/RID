@@ -1,11 +1,10 @@
 PREP(calculatePressure);
 PREP(calculateVibrations);
-PREP(controlClicked);
 PREP(createIED);
 PREP(createPressurePlate);
 PREP(createRIDTripwire);
 PREP(createVibrationDetector);
 PREP(detonateIED);
-PREP(retrievePCB);
+PREP(tryDetonateIED);
 PREP(RscDisplayAttributes_createIED);
 PREP(tripWireActivation);
