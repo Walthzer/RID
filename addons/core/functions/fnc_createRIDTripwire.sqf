@@ -25,11 +25,11 @@ private _fnc_createPart = {
 
     //Create the helper:
     private _helper = createVehicle ["rid_tripWire_helper",_position, [], 0, "CAN_COLLIDE"];
-    _helper setVariable [QGVAR(tripWireNodes), [_object0, _object1]];
+    _helper setVariable [QGVAR(tripWireNodes), [_object0, _object1], true];
 
 
     //Give the helper the Index to the position where the tripwire it is part of is stored in _object0's rid_tripwire_parts ARRAY, to allow rid_core_fnc_tripWireActivation to clean up the tripwire:
-    _helper setVariable [QGVAR(tripwire_parts_index), _tripwirePartsIndex];
+    _helper setVariable [QGVAR(tripwire_parts_index), _tripwirePartsIndex, true];
 
     //Spawn the tripwire segment:
     private _segment = createVehicle ["rid_tripWire_segment_ammo",_position, [], 0, "CAN_COLLIDE"];
@@ -43,7 +43,7 @@ _nil = _object0 call EFUNC(network,createNetworkNode);
 //Designate a space in the rid_tripwire_parts array of _object0 and retrieve the index of said space:
 private _existingTripwiresParts = _object0 getVariable [QGVAR(tripwires_parts),[]];
 private _tripwirePartsIndex = _existingTripwiresParts pushBack [];
-_object0 setVariable [QGVAR(tripwires_parts), _existingTripwiresParts];
+_object0 setVariable [QGVAR(tripwires_parts), _existingTripwiresParts, true];
 
 //Make _object1 _object0's cuck:
 [_object1, _object0] call BIS_fnc_attachToRelative;
@@ -99,4 +99,4 @@ switch (true) do {
 //Store the parts of this tripwire in the _object0, to allow tripwire clean up in -> rid_core_fnc_tripWireActivation:
 private _existingTripwiresParts = _object0 getVariable [QGVAR(tripwires_parts),[]];
 _existingTripwiresParts set [_tripwirePartsIndex, _tripwireParts];
-_object0 setVariable [QGVAR(tripwires_parts), _existingTripwiresParts];
+_object0 setVariable [QGVAR(tripwires_parts), _existingTripwiresParts, true];

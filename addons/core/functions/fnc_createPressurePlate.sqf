@@ -51,12 +51,12 @@ private _triggerXY = switch (_objectType) do {
 };
 
 //Create the PressurePlate Trigger
-_trg = createTrigger ["EmptyDetector", getPosATL _object];
+_trg = createTrigger ["EmptyDetector", getPosATL _object, false];
 _trg setTriggerArea [(_triggerXY select 0), (_triggerXY select 1), (getDir _object), true, 3];
 _trg setTriggerActivation ["ANY","PRESENT",true]; 
 _trg setTriggerStatements ["private _return = if (this and ('AllVehicles' countType thisList > 0)) then {[thisTrigger, thisList] call rid_core_fnc_calculatePressure;} else {false;}; _return;","[(thisTrigger getVariable ['rid_core_pressurePlateObject', objNull])] call rid_network_fnc_activateNetworkCrawler;",""];
-_trg setVariable [QGVAR(pressurePlateObject), _object];
-_trg setVariable [QGVAR(maxMass), _threshold];
+_trg setVariable [QGVAR(pressurePlateObject), _object, true];
+_trg setVariable [QGVAR(maxMass), _threshold, true];
 
 //Attach trigger to PressurePlate object
 _trg attachTo [_object];

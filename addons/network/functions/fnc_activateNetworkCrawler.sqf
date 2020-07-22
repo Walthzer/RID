@@ -14,13 +14,11 @@
 */
 params[["_node", objNull, [objNull]]];
 
-//Confirm _node is an OBJECT
+
 if (isNull _node) exitWith {ERROR_1("%1 is not an OBJECT", _node)};
-//Confirm _node is a Network Node
 
 if (not (_node getVariable[QGVAR(isNetworkNode), false])) exitWith {ERROR_1("%1 is not a Network Node", _node)};
 
-//Retrieve node connections, stop script if it has non
 private _nodeNetworkConnections = _node getVariable [QGVAR(networkConnections), []];
 if (count _nodeNetworkConnections == 0) exitWith {ERROR_1("%1 has no Network Connections", _node)};
 
@@ -39,7 +37,11 @@ private _fnc_retrieveNetworkConnections = {
                 private _nodeNetworkReciever = _networkComponent getVariable[QGVAR(NetworkReciever), []];
                 if (count _nodeNetworkReciever > 0) then {
                     _nodeNetworkReciever params [["_function", {}, [{}]],["_arguments", [], []]];
-                    [_networkComponent, _arguments] call _function;
+                    if(count _arguments > 0) then {
+                        [_networkComponent, _arguments] call _function;
+                    } else {
+                        _networkComponent call _function
+                    };
                 };
             };
             _networkConnections append (_networkComponent getVariable [QGVAR(networkConnections), []]);    

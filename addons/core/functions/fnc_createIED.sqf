@@ -1,94 +1,132 @@
 #include "script_component.hpp"
-#define TRACES_CONTROL 1894
 /*
- * Create an IED at a given positionATL, set its defuse difficulty and attach the defuse action.
- * 
+ * Author: Walthzer/Shark
+ * Create an IED and selects a PCB minigame fitting to given arguments. 
+ * Should the only provided trigger be external, it will keep the IED "dumb" until a network link to it is made.
+ *
  * Arguments:
- * 0: Position <ASL> (ARRAY)
- * 1: Object to spawn <Classname> (STRING)
- * 2: Defuse Difficulty <0 - ACE standard 1 - PCB Standard 2 - PCB Difficult> (NUMBER)
+ * 0: Position <ARRAY>
+ * 1: IED Type <STRING>
+ * 2: PCB Type <STRING>
+ * 3: Wires <INTEGER>
+ * 4: Trigger Type <STRING>
  *
  * Return Value:
- * Created Object.
+ * Created IED <OBJECT>
  *
  * Example:
- * [(getPosATL player),"IEDLandBig_F",1] call rid_core_fnc_createIED
+ * [[0,0,0], "IEDLandBig_F", "standard", 3, "ext"] call rid_core_fnc_createIED
  *
-*/
+ * Public: [Yes]
+ */
+params[["_position", [], [[]]], ["_iedType", "", [""]], ["_pcbType", "", [""]], ["_wires", -1, [0]], ["_trigger", "", [""]]];
 
-params ["_position","_iedType","_difficulty","_trigger","_wires"];
+if (_position isEqualTo [] || _iedType isEqualTo "" || _pcbType isEqualTo "" || _wires isEqualTo -1 || _trigger isEqualTo "") exitWith {ERROR("CreateIED: Bad argument")};
 
-//Validate _position value
-if (typeName _position != "ARRAY") exitWith { ERROR("Position invalid") };
 //Validate _iedType class exists
 if (!isClass (configFile >> "CfgVehicles" >> _iedType)) exitWith { ERROR("iedType class Invalid") };
 
-//Prepare variables
-private _iedAmmo = getText (configFile >> "CfgVehicles" >> _iedType >> "ammo");
-private _iedMagazine = getText (configFile >> "CfgAmmo" >> _iedAmmo >> "defaultMagazine");
+private _ied = createVehicle [_iedType, _position, [], 0, "CAN_COLLIDE"]; //TODO: Allow random offset to bury the IED
+_ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbType, _wires, _trigger], true];
+[_ied, {{ _x addCuratorEditableObjects [[_this],true ] } forEach allCurators;}] remoteExec ["call", 2];
 
+//Assign IED a pcb minigame
+if(_trigger != "ext") then {
+    _pcb = [_ied, _pcbType, _wires, _trigger] call EFUNC(pcb,retrievePCB);
+    _ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbType, _wires, _trigger], true];
+    _ied setVariable [QEGVAR(pcb,pcb), _pcb, true];
+    if("vib" in _trigger && {isNull (_ied getVariable[QGVAR(vibrationDetector), objNull])}) then {
+        [_ied, true] remoteExecCall [QFUNC(createVibrationDetector), 2];
+    };
+};
 
-//Action statement 
-private _fnc_statement0 = {
-    params["_target","_unit", "_pcb"];
-    
+_fnc_addExtTrigger = {
+    params["_ied"];
+    private _pcbParameters = _ied getVariable [QEGVAR(pcb,pcbParameters), []];
+    if (_pcbParameters isEqualTo []) exitWith {ERROR("Updating IED with ext trigger failed, bad argument(s)")};
+    if(count (_ied getVariable [QEGVAR(pcb,pcb), []]) > 0) then {
+        private _compositeTrigger = format["ext%1", _pcbParameters#2];
+        private _pcb = [_ied, _pcbParameters#0, _pcbParameters#1, _compositeTrigger] call EFUNC(pcb,retrievePCB);
+        _ied setVariable [QEGVAR(pcb,pcb), _pcb, true];
+        _ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbParameters#0, _pcbParameters#1, _compositeTrigger], true];
+    } else {
+        private _pcb = [_ied, _pcbParameters#0, _pcbParameters#1, "ext"] call EFUNC(pcb,retrievePCB);
+        _ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbParameters#0, _pcbParameters#1, "ext"], true];
+        _ied setVariable [QEGVAR(pcb,pcb), _pcb, true];
+    };
+	_ied setVariable[QEGVAR(network,onNewLinkCode), {}, true];
+};
+
+//Allow addition of ext trigger if network connection to IED is made.
+[_ied, _fnc_addExtTrigger] call EFUNC(network,createNetworkNode);
+[_ied, FUNC(detonateIED)] call EFUNC(network,assignNetworkReciever);
+
+//Add ace interaction:
+private _fnc_defuse = {
+    params["_target", "_unit"];
+    private _pcb = _target getVariable [QEGVAR(pcb,pcb), []];
+
     _unit action ["Deactivate", _unit, _target];
-    
-    missionNamespace setVariable [QGVAR(lookUpArray), (_pcb select 0)];
-    missionNamespace setVariable [QGVAR(correctCuts), (_pcb select 1)];
-    //Create the display.
-    createDialog (_pcb select 2);
+
+    if(_pcb isEqualTo []) exitWith {
+        systemChat "Nothing to defuse";
+    };
+    uiNamespace setVariable[QEGVAR(pcb,ied), _target];
+    createDialog ((_pcb#0)#0);
     _dialog = findDisplay 3300;
-    _dialog setVariable [QGVAR(ied),_target];
     //Show previously cuts wires as such.
     {
-        private _controlWire = (_dialog displayCtrl _x);
-        _controlWire ctrlSetTextColor [1, 1, 1, 0];
-    } forEach  (_target getVariable [QGVAR(cutWires),[]]);
+        (_dialog displayCtrl _x) ctrlSetTextColor [1, 1, 1, 0];
+        (_dialog displayCtrl _x) ctrlEnable false;
+    } forEach  (_target getVariable [QEGVAR(pcb,cutWires), []]);
     //Assign the path to the traces.paa selected.
-    ctrlSetText [TRACES_CONTROL, (_pcb select 3)];
+    ctrlSetText [1894, ((_pcb#0)#4)];
 };
 
-private _fnc_statement1 = {
-    params["_target","_unit", "[_iedMagazine]"];
-    
-    _unit action ["Deactivate", _unit, _target];
-    
-    if (!(_target getVariable [QGVAR(defused),false])) exitWith {
-        closeDialog 2;
-        [_target] call FUNC(detonateIED);
-    };
+private _fnc_dig = {
+    params["_target", "_unit"];
+    private _pcb = _target getVariable [QEGVAR(pcb,pcb), []];
+    private _pcbParameters = _target getVariable [QEGVAR(pcb,pcbParameters), []];
+	_unit action ["Deactivate", _unit, _target];
+
+	private _exitCode = {};
+	if(!(_pcb isEqualTo [])) then {
+		//Detonate IED if Vibration detector still works:
+		if(("vib" in (_pcbParameters#2)) && (QEGVAR(pcb,hasPower) in (_pcb#1)) && (QEGVAR(pcb,hasDetonator) in (_pcb#1))) exitWith {_exitCode = {_target call EFUNC(core,detonateIED)}};
+
+		//Inform player the IED is still connected:
+		if(("ext" in (_pcbParameters#2)) && (QEGVAR(pcb,hasExternal) in (_pcb#1))) exitWith {_exitCode = {systemChat "The IED won't come loose, its still connected to something"}};
+	};
+	if(!(_exitCode isEqualTo {})) exitWith {call _exitCode};
+
     private _weaponHolder = createVehicle ["Weapon_Empty", (getPosATL _target), [], 0, "CAN_COLLIDE"];
     deleteVehicle _target;
+    private _iedAmmo = getText (configFile >> "CfgVehicles" >> (TypeOf _target) >> "ammo");
+    private _iedMagazine = getText (configFile >> "CfgAmmo" >> _iedAmmo >> "defaultMagazine");
     _weaponHolder addMagazineCargo [_iedMagazine, 1];
-    
 };
 
-//Action condition 
-private _fnc_condition = {
+private _fnc_defuseCondition = {
     params["_target","_unit"];
     if (vehicle _unit != _unit || {!("ACE_DefusalKit" in ([_unit] call ace_common_fnc_uniqueItems))}) exitWith {false};
     if (ace_RequireSpecialist && {!([_unit] call ace_common_fnc_isEOD)}) exitWith {false};
     true;
 };
 
-//Prepare PCB
-private _pcb = [_difficulty, _trigger, _wires] call FUNC(retrievePCB);
-
-//Spawn IED
-private _ied = createVehicle [_iedType, _position, [], 0, "CAN_COLLIDE"];
-
-[_ied, FUNC(detonateIED), 0] call EFUNC(network,assignNetworkReciever);
-[_ied, {{ _x addCuratorEditableObjects [[_this],true ] } forEach allCurators;}] remoteExec ["call", 2];
+private _fnc_digCondition = {
+    params["_target","_unit"];
+    if (vehicle _unit != _unit || {!("ACE_EntrenchingTool" in ([_unit] call ace_common_fnc_uniqueItems))}) exitWith {false};
+    true;
+};
 
 //Prepare and Attach functions
-_action = ["Main","","", {}, _fnc_condition, {}, [], [0,0,0], 1] call ace_interact_menu_fnc_createAction;
+_action = ["Main","","", {}, {true}, {}, [], [0,0,0], 1] call ace_interact_menu_fnc_createAction;
 [_ied, 0, [], _action] call ace_interact_menu_fnc_addActionToObject;
 
-_action = ["Defuse","Defuse","z\ace\addons\explosives\UI\Defuse_ca.paa",_fnc_statement0, { true }, {}, _pcb, [0,0,0], 2] call ace_interact_menu_fnc_createAction;
+_action = ["Defuse","Defuse","z\ace\addons\explosives\UI\Defuse_ca.paa",_fnc_defuse,_fnc_defuseCondition, {}, [], [0,0,0], 2] call ace_interact_menu_fnc_createAction;
 [_ied, 0, ["Main"], _action] call ace_interact_menu_fnc_addActionToObject;
 
-_action = ["Dig_up","Dig up","",_fnc_statement1, { true }, {}, [_iedMagazine], [0,0,0], 2] call ace_interact_menu_fnc_createAction;
+_action = ["Dig_up","Dig up","",_fnc_dig,_fnc_digCondition, {}, [], [0,0,0], 2] call ace_interact_menu_fnc_createAction;
 [_ied, 0, ["Main"], _action] call ace_interact_menu_fnc_addActionToObject;
 
 _ied;
