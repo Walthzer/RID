@@ -1,14 +1,14 @@
 class CfgAmmo {
-	
-	class APERSTripMine_Wire_Ammo;
-	class rid_tripWire_base_Ammo: APERSTripMine_Wire_Ammo 
-	{
-		author = "Walthzer/Shark";
-		isCW=1;
-		SoundSetExplosion[] = {};
-		defaultMagazine="APERSTripMine_Wire_Mag";
-		hiddenSelections[]={"camo", "start", "end"};
-		hit=0;
+    
+    class APERSTripMine_Wire_Ammo;
+    class rid_tripWire_base_Ammo: APERSTripMine_Wire_Ammo 
+    {
+        author = "Walthzer/Shark";
+        isCW=1;
+        SoundSetExplosion[] = {};
+        defaultMagazine="APERSTripMine_Wire_Mag";
+        hiddenSelections[]={"camo", "start", "end"};
+        hit=0;
         indirectHit=0;
         indirectHitRange=0;
         soundHit[]={"",1,1};
@@ -22,10 +22,10 @@ class CfgAmmo {
             distance=0;
         };
     };
-	class rid_tripWire_segment_Ammo: rid_tripWire_base_Ammo
-	{
-		model=QPATHTOF(rid_tripwire);
-		mineTrigger="rid_tripWire_base_trigger";
-		mineModelDisabled="";
-	};
+    class rid_tripWire_segment_Ammo: rid_tripWire_base_Ammo
+    {
+        model=QPATHTOF(rid_tripwire);
+        mineTrigger="rid_tripWire_base_trigger";
+        mineModelDisabled="";
+    };
 };
