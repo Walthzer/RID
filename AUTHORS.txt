@@ -1,6 +1,6 @@
 ﻿# RID CONTRIBUTOR LIST
 
 # CORE TEAM
-Walthzer
+Walthzer\Shark
 
 # CONTRIBUTORS
