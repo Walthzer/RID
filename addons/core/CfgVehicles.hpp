@@ -3,6 +3,8 @@ class CfgVehicles
     class Helper_Base_F;
     class rid_tripWire_helper: Helper_Base_F {};
     
+    class rid_wireLink: Helper_Base_F {};
+
     class Items_base_F;
     class rid_wireDetonator: Items_base_F
     {
@@ -10,13 +12,19 @@ class CfgVehicles
             class activateTrigger {
                 displayName = "Press the buttons";
                 condition = "alive _target";
-                statement = QUOTE([_target] spawn EFUNC(network,activateNetworkCrawler));
+                statement = QUOTE([_target] spawn FUNC(boxTrigger));
                 icon = "";
                 exceptions = [];
                 insertChildren = "";
                 modifierFunction = "";
                 runOnHover = 0;
                 distance = 0.5;
+            };
+            class defuseTrigger: activateTrigger {
+                displayName = "Detach wires";
+                condition = QUOTE(_target getVariable['rid_core_isConnected', false]);
+                statement = QUOTE(_target setVariable['rid_core_isConnected', false]);
+                selection = "poles";
             };
         };
 
@@ -25,7 +33,6 @@ class CfgVehicles
         mapSize = 0.2;
         editorPreview = QPATHTOF(data\rid_wireDetonator_preview.jpg);
         _generalMacro = "";
-        rid_network_isNetworkNode = true;
         scope = 2;
         scopeCurator = 2;
         displayName = "Wire Detonator";
@@ -35,7 +42,7 @@ class CfgVehicles
 
         class EventHandlers
         {
-            init = QUOTE((_this select 0) setVariable['rid_network_isNetworkNode', true];);
+            init = QUOTE([_this select 0, {(_this select 0) setVariable['rid_core_isConnected', true]}] call EFUNC(network,createNetworkNode));
         };
     };
 

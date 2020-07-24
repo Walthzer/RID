@@ -6,5 +6,6 @@ PREP(createRIDTripwire);
 PREP(createVibrationDetector);
 PREP(detonateIED);
 PREP(tryDetonateIED);
+PREP(boxTrigger);
 PREP(RscDisplayAttributes_createIED);
 PREP(tripWireActivation);
