@@ -9,3 +9,5 @@ PREP(tryDetonateIED);
 PREP(boxTrigger);
 PREP(RscDisplayAttributes_createIED);
 PREP(tripWireActivation);
+PREP(removeTripWire);
+PREP(defuseTripWire);

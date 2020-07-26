@@ -37,15 +37,37 @@ private _fnc_createPart = {
     
     [_segment, _helper];
 };
+
+_fnc_spawnWireBox = {
+    (_this#2) params ["_object", "_height"];
+    private _bbr = boundingBoxReal _object;
+    private _relPos = _object modelToWorld [((_bbr#0)#0 + (_bbr#1)#0)/2,(_bbr#0)#1, (_bbr#0)#2];
+
+    private _position = [_relPos#0, _relPos#1, _height];
+    private _wireBox = createVehicle ["rid_wireBox", _position, [], 0, "CAN_COLLIDE"];
+    [_wireBox, _object] call BIS_fnc_attachToRelative;
+
+    _wireBox setVectorDir (vectorDir _object);
+    _wireBox setPosATL _position;
+
+    _wirebox setVariable[QGVAR(master), _object, true];
+    _object setVariable[QGVAR(isConnected), true, true];
+    _object setVariable[QGVAR(wireBox), _wireBox, true];
+
+    //Delete wireBox when oject is deleted:
+    _object addEventHandler ["Deleted", {
+	    params ["_entity"];
+	    deleteVehicle (_entity getVariable [QGVAR(wireBox), objNull]);
+    }];
+};
 //Setup _object0 as a networkNode
-_nil = _object0 call EFUNC(network,createNetworkNode);
+[_object0, _fnc_spawnWireBox, [_object0, _height]] call EFUNC(network,createNetworkNode);
 
 //Designate a space in the rid_tripwire_parts array of _object0 and retrieve the index of said space:
 private _existingTripwiresParts = _object0 getVariable [QGVAR(tripwires_parts),[]];
 private _tripwirePartsIndex = _existingTripwiresParts pushBack [];
 _object0 setVariable [QGVAR(tripwires_parts), _existingTripwiresParts, true];
 
-//Make _object1 _object0's cuck:
 [_object1, _object0] call BIS_fnc_attachToRelative;
 
 //Create fysical tripwire:
@@ -96,7 +118,13 @@ switch (true) do {
     };
 };
 
-//Store the parts of this tripwire in the _object0, to allow tripwire clean up in -> rid_core_fnc_tripWireActivation:
+//Store the parts of this tripwire in the _object0, to allow tripwire clean up:
 private _existingTripwiresParts = _object0 getVariable [QGVAR(tripwires_parts),[]];
 _existingTripwiresParts set [_tripwirePartsIndex, _tripwireParts];
 _object0 setVariable [QGVAR(tripwires_parts), _existingTripwiresParts, true];
+
+//Delete tripwire when oject is deleted:
+_object0 addEventHandler ["Deleted", {
+	params ["_entity"];
+	_entity call FUNC(defuseTripWire);
+}];

@@ -23,7 +23,7 @@ class CfgVehicles
             class defuseTrigger: activateTrigger {
                 displayName = "Detach wires";
                 condition = QUOTE(_target getVariable['rid_core_isConnected', false]);
-                statement = QUOTE(_target setVariable['rid_core_isConnected', false]);
+                statement = QUOTE(_target setVariable['rid_core_isConnected', false, true]);
                 selection = "poles";
             };
         };
@@ -42,8 +42,28 @@ class CfgVehicles
 
         class EventHandlers
         {
-            init = QUOTE([_this select 0, {(_this select 0) setVariable['rid_core_isConnected', true]}] call EFUNC(network,createNetworkNode));
+            init = QUOTE([_this select 0, {(_this select 0) setVariable['rid_core_isConnected', true, true]}] call EFUNC(network,createNetworkNode));
         };
+    };
+
+    class rid_wireBox: Items_base_F
+    {
+        class ACE_Actions {
+            class defuseTrigger {
+                displayName = "Detach wires";
+                condition = QUOTE((_target getVariable['rid_core_master', objNull]) getVariable['rid_core_isConnected', false]);
+                statement = QUOTE((_target getVariable['rid_core_master', objNull]) setVariable['rid_core_isConnected', false, true]);
+                distance = 0.5;
+                selection = "poles";
+            };
+        };
+        author = "Walthzer/Shark";
+        isCW=1;
+        mapSize = 0.2;
+        scope = 2;
+        scopeCurator = 1;
+        displayName = "Wire Box";
+        model = QPATHTOF(rid_wireBox);
     };
 
     class MineBase;

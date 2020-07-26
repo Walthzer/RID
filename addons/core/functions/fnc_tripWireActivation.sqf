@@ -36,18 +36,8 @@ if (_tripwiresParts isEqualTo []) exitWith {ERROR("tripWireNode has no tripwires
 private _tripwirePartsIndex = _helper getVariable [QGVAR(tripwire_parts_index), -1];
 if (_tripwirePartsIndex < 0) exitWith {ERROR("_tripwirePartsIndex is not set or invalid!")};
 
-private _tripwireParts = _tripwiresParts select _tripwirePartsIndex;
+[_tripWireNodes, _tripwirePartsIndex] call FUNC(removeTripWire);
 
-//Clean up the _tripWireNode's _tripwire_parts ARRAY.
-_tripwiresParts set [_tripwirePartsIndex, []];
-(_tripWireNodes#0) setVariable [QGVAR(tripwires_parts), _tripwiresParts, true];
-
-//Delete all other parts of the tripwire:
-{
-deleteVehicle _x;
-} forEach _tripwireParts;
-
-//Deatch the Tripwire nodes from each other:
-detach (_tripWireNodes#1);
-
-(_tripWireNodes#0) spawn EFUNC(network,activateNetworkCrawler);
+if ((_tripWireNodes#0) getVariable [QGVAR(isConnected), false]) then {
+	(_tripWireNodes#0) spawn EFUNC(network,activateNetworkCrawler);
+};
