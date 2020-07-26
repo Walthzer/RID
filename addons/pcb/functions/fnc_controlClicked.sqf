@@ -40,9 +40,7 @@ _fnc_iedCircuitChanged = {
     if(!((_connectionsLeft#_connectionsLeftIndex) == "")) then {
         _connectionsLeft set [_connectionsLeftIndex, ""];
         if(({_x == _id} count _connectionsLeft) == 0) then {
-            systemChat str _attributesArr;
             _attributesArr set [_attributesArr find _global_var, ""];
-            systemChat str _attributesArr;
         };
     };
 };
