@@ -57,9 +57,15 @@ _trg setTriggerActivation ["ANY","PRESENT",true];
 _trg setTriggerStatements ["private _return = if (this and ('AllVehicles' countType thisList > 0)) then {[thisTrigger, thisList] call rid_core_fnc_calculatePressure;} else {false;}; _return;","[(thisTrigger getVariable ['rid_core_pressurePlateObject', objNull])] call rid_network_fnc_activateNetworkCrawler;",""];
 _trg setVariable [QGVAR(pressurePlateObject), _object, true];
 _trg setVariable [QGVAR(maxMass), _threshold, true];
-
-//Attach trigger to PressurePlate object
+_object setVariable [QGVAR(pressureDetector), _trg, true];
+//Attach trigger to VibrationDetector object
 _trg attachTo [_object];
 
-//Make PressurePlate object a network node
+//Make VibrationDetector object a network node
 _object call EFUNC(network,createNetworkNode);
+
+//Delete detector when oject is deleted:
+_object addEventHandler ["Deleted", {
+	params ["_entity"];
+	deleteVehicle (_entity getVariable [QGVAR(pressureDetector), objNull]);
+}];
