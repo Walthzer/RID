@@ -41,7 +41,7 @@ if(_trigger != "ext") then {
 };
 
 _fnc_addExtTrigger = {
-    params["_ied"];
+    private _ied = (_this#2)#0;
     private _pcbParameters = _ied getVariable [QEGVAR(pcb,pcbParameters), []];
     if (_pcbParameters isEqualTo []) exitWith {ERROR("Updating IED with ext trigger failed, bad argument(s)")};
     if(count (_ied getVariable [QEGVAR(pcb,pcb), []]) > 0) then {
@@ -58,7 +58,7 @@ _fnc_addExtTrigger = {
 };
 
 //Allow addition of ext trigger if network connection to IED is made.
-[_ied, _fnc_addExtTrigger] call EFUNC(network,createNetworkNode);
+[_ied, _fnc_addExtTrigger, [_ied]] call EFUNC(network,createNetworkNode);
 [_ied, FUNC(detonateIED)] call EFUNC(network,assignNetworkReciever);
 
 //Add ace interaction:

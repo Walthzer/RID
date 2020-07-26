@@ -14,7 +14,7 @@
  *
  *Public: [Yes]
 */
-params["_arg", ["_onNewLinkCode", {}, []]];
+params["_arg", ["_onNewLinkCode", {}, []],["_arguments", [], [[]]]];
 
 //Confirm if argument is either an ARRAY or OBJECT
 if (not (IS_ARRAY(_arg) or IS_OBJECT(_arg))) exitWith {ERROR_1("%1 is not ARRAY nor OBJECT", _arg)};
@@ -32,6 +32,6 @@ private _object = if (IS_ARRAY(_arg)) then {
 //set node status
 _object setVariable[QGVAR(isNetworkNode), true, true];
 if (!(_onNewLinkCode isEqualTo {})) then {
-    _object setVariable[QGVAR(onNewLinkCode), _onNewLinkCode, true];
+    _object setVariable[QGVAR(onNewLinkCode), [_onNewLinkCode, _arguments], true];
 };
 _object;

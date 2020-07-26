@@ -21,9 +21,10 @@ params["_node0", "_node1", "_createCable"];
 if (not (IS_OBJECT(_node0) and IS_OBJECT(_node1))) exitWith {ERROR_2("%1 and %2 are not objects!", _node0, _node1)};
 
 _fnc_execNewLinkCode = {
-    params["_baseNode", "_connectionNode","_nodeIndex", ["_code", {}, []]];
+    params["_baseNode", "_connectionNode","_nodeIndex", "_this"];
+    params[["_code", {}, []],["_arguments", [], [[]]]];
     if(_nodeIndex > -1 and {!(_code isEqualTo {})}) then {
-        [_baseNode, _connectionNode] call _code;
+        [_baseNode, _connectionNode, _arguments] call _code;
     };
 };
 
