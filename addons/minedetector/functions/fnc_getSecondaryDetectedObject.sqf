@@ -14,18 +14,18 @@ private _detectorPointAGL = _worldPosition vectorAdd
 
 private _nearestObjects = nearestObjects [_detectorPointAGL, [], _radius];
 
-//Modified ACE code to only consider objects of a diffrent "detectionType" as vaild.
+//Modified ACE code to only consider objects of a different "detectionType" as vaild.
 private _isDetectable = false;
 private _secondaryObject = objNull;
 private _secondaryIsCW = false;
 private _distance = -1;
-
 {
-    private _secondaryObjectType = typeOf _x;
-    _secondaryIsCW = isNumber (configFile >> "CfgAmmo" >> _secondaryObjectType >> "isCW");
+    private _secondaryObjectClassName = typeOf _x;
+    private _secondaryObjectConfigType = ["CfgAmmo", "CfgVehicles"] select (isClass (configFile >> "CfgVehicles" >> _secondaryObjectClassName)); 
+    _secondaryIsCW = isNumber (configFile >> _secondaryObjectConfigType >> _secondaryObjectClassName >> "isCW");
     private _isValidObject = ((_primaryIsCW || _secondaryIsCW) && !(_primaryIsCW && _secondaryIsCW));
-    
-    _isDetectable = ace_minedetector_detectableClasses getVariable _secondaryObjectType;
+
+    _isDetectable = ace_minedetector_detectableClasses getVariable _secondaryObjectClassName;
     if (isNil "_isDetectable" || {(getModelInfo _x) select 0 == "empty.p3d"}) then {
         _isDetectable = false;
     };
