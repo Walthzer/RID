@@ -10,10 +10,11 @@ if (GVAR(canCreateTimeoutResetRscDetector)) then {
     [FUNC(timeoutResetRscDetector), [], 0.06] call CBA_fnc_waitAndExecute;
 };
 
-private _primaryIsCW = isNumber (configFile >> "CfgAmmo" >> (typeOf _primaryObject) >> "isCW");
+private _primaryObjectClassName = typeOf _primaryObject;
+private _primaryObjectConfigType = ["CfgAmmo", "CfgVehicles"] select (isClass (configFile >> "CfgVehicles" >> _primaryObjectClassName)); 
+private _primaryIsCW = isNumber (configFile >> _primaryObjectConfigType >> _primaryObjectClassName >> "isCW");
 
-private _detected = [[_unit, _primaryObject, _primaryIsCW], FUNC(getSecondaryDetectedObject), _unit, QGVAR(secondaryDetectedObjects), 0.15] call ace_common_cachedCall;
-//private _detected = [_unit, _primaryObject, _primaryIsCW] call FUNC(getSecondaryDetectedObject);
+private _detected = [[_unit, _primaryObject, _primaryIsCW], FUNC(getSecondaryDetectedObject), _unit, QGVAR(secondaryDetectedObjects), 0.15] call ace_common_fnc_cachedCall;
 
 _detected params ["_secondaryObject", "_secondaryIsCW", "_secondaryDistance"];
 private _argCache = [_primaryObject, _primaryDistance, _secondaryObject, _secondaryDistance];

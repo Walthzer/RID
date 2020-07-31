@@ -22,7 +22,7 @@ private _idcAffix = "1";
 for "_i" from 0 to 2 step 2 do {
     private _detectorType = ["WD\WD","MD\MD"] select (_i==0);
     private _pwr = if (_screenIndicatorStatus#(_i) == 1) then {"ON"} else {"OFF"};
-    private _path = format ["MD_WD\%1_%2.paa", _detectorType, _pwr];
+    private _path = format ["%1%2_%3.paa", QPATHTOF(ui\), _detectorType, _pwr];
 
     for "_i" from 0 to 1 do {
         private _idc = parseNumber("231" + _idcAffix + "0" + str (_i+8));

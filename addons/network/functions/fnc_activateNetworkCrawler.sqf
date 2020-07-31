@@ -40,7 +40,7 @@ private _fnc_retrieveNetworkConnections = {
                     if(count _arguments > 0) then {
                         [_networkComponent, _arguments] call _function;
                     } else {
-                        _networkComponent call _function
+                        [_networkComponent] call _function;
                     };
                 };
             };
