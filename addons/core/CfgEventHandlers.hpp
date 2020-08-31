@@ -15,3 +15,11 @@ class Extended_PostInit_EventHandlers {
         init = QUOTE(call COMPILE_FILE(XEH_postInit));
     };
 };
+
+class Extended_Killed_EventHandlers {
+    class rid_commandWireComplete {
+        class ADDON {
+            serverKilled = QUOTE(call FUNC(commandWireCut));
+        };
+    };
+};

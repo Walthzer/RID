@@ -32,7 +32,8 @@ private _fnc_createPart = {
     _helper setVariable [QGVAR(tripwire_parts_index), _tripwirePartsIndex, true];
 
     //Spawn the tripwire segment:
-    private _segment = createVehicle ["rid_tripWire_segment_ammo",_position, [], 0, "CAN_COLLIDE"];
+    private _segment = createVehicle ["rid_tripWire_segment_ammo", _position, [], 0, "CAN_COLLIDE"];
+    _segment setPosASL _position;
     _segment setVectorDir _vector;
     
     [_segment, _helper];
@@ -48,7 +49,7 @@ _fnc_spawnWireBox = {
     [_wireBox, _object] call BIS_fnc_attachToRelative;
 
     _wireBox setVectorDir (vectorDir _object);
-    _wireBox setPosATL _position;
+    _wireBox setPosASL _position;
 
     _wirebox setVariable[QGVAR(master), _object, true];
     _object setVariable[QGVAR(isConnected), true, true];
@@ -71,13 +72,16 @@ _object0 setVariable [QGVAR(tripwires_parts), _existingTripwiresParts, true];
 [_object1, _object0] call BIS_fnc_attachToRelative;
 
 //Create fysical tripwire:
-private _object0Pos = (getPosASL _object0);
+private _object0Pos = (getPosATL _object0);
 private _x0 = (_object0Pos select 0);
 private _y0 = (_object0Pos select 1);
 
-private _object1Pos = (getPosASL _object1);
+private _object1Pos = (getPosATL _object1);
 private _x1 = (_object1Pos select 0);
 private _y1 = (_object1Pos select 1);
+
+_object0Pos set [2, 0];
+_height = ((ATLToASL _object0Pos) select 2) + _height;
 
 private _nodesCenter = [(_x0 + _x1)/2, (_y0 + _y1)/2, _height];
 

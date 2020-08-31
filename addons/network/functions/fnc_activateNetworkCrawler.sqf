@@ -31,7 +31,7 @@ private _fnc_retrieveNetworkConnections = {
     private _networkConnections = [];
     {
         private _networkComponent = _x;
-        if (isNull _networkComponent) then {
+        if (isNull _networkComponent || {!alive _networkComponent}) then {
         } else {
             if (_networkComponent getVariable[QGVAR(isNetworkNode), false]) then {
                 private _nodeNetworkReciever = _networkComponent getVariable[QGVAR(NetworkReciever), []];

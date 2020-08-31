@@ -3,7 +3,7 @@
  * Box Trigger activation handler
  * 
  * Arguments:
- * Box Trigger
+ * 0: Triggerbox <OBJECT>
  *
  * Return Value:
  * Detonation succes <BOOLEAN>

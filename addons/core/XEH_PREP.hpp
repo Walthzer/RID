@@ -7,6 +7,8 @@ PREP(createVibrationDetector);
 PREP(detonateIED);
 PREP(tryDetonateIED);
 PREP(boxTrigger);
+PREP(commandWireCut);
+PREP(digForWire);
 PREP(RscDisplayAttributes_createIED);
 PREP(tripWireActivation);
 PREP(removeTripWire);

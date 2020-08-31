@@ -1,9 +1,87 @@
+class CBA_Extended_EventHandlers;
+
 class CfgVehicles
 {
+    class Man;
+    class CAManBase: Man {
+        class ACE_SelfActions {
+            class ACE_Equipment {
+                class ACE_DigForCable {
+                    displayName = "Dig for cable";
+                    condition = QUOTE([_player] call ace_common_fnc_isEngineer && {[_player] call ace_common_fnc_canDig});
+                    exceptions[] = {};
+                    statement = QUOTE(call FUNC(digForWire));
+                    showDisabled = 0;
+                };
+            };
+        };
+    };
+
+
     class Helper_Base_F;
     class rid_tripWire_helper: Helper_Base_F {};
     
     class rid_wireLink: Helper_Base_F {};
+
+    class static;
+    class rid_dirt: static {
+        author = "Walthzer/Shark";
+        mapSize = 1;
+        scope = 1;
+        cost = 1;
+        scopeCurator = 2;
+        editorPreview = "";
+        icon = "iconObject_2x1";
+        model = QPATHTOF(rid_dirt);
+        class SimpleObject {
+            animate[] = {};
+            eden = 0;
+            hide[] = {};
+            init = "''";
+            verticalOffset = 1.284;
+            verticalOffsetWorld = 0;
+        };
+    };
+
+    class rid_wireHelper: static {
+        author = "Walthzer/Shark";
+        mapSize = 1;
+        isCW=1;
+        ace_minedetector_detectable=1;
+        scope = 1;
+        scopeCurator = 1;
+        armor = 100;
+        cost = 0;
+        model = QPATHTOF(rid_wireHelper);
+        destrType="DestructDefault";
+        simulation="house";
+        driveThroughEnabled = 1;
+        //class EventHandlers {
+            //hitpart = QUOTE(_this call EFUNC(network,wireSegmentDammaged));
+        //};
+    };
+
+    class rid_commandWireCut: rid_wireHelper {
+        model = QPATHTOF(rid_commandWireCut);
+        destrType="DestructNo";
+    };
+
+    class rid_commandWireComplete: rid_wireHelper {
+        class ACE_Actions {
+            class defuseWire {
+                displayName = "Cut";
+                condition = QUOTE(alive _target);
+                statement = QUOTE(_target call FUNC(commandWireCut));
+                distance = 1;
+                selection = "poles";
+            };
+        };
+        armor = 0.5;
+        model = QPATHTOF(rid_commandWireComplete);
+        class EventHandlers {
+            class CBA_Extended_EventHandlers: CBA_Extended_EventHandlers {};
+        };
+    };
 
     class Items_base_F;
     class rid_wireDetonator: Items_base_F
@@ -30,9 +108,9 @@ class CfgVehicles
 
         author = "Walthzer/Shark";
         isCW=1;
+        ace_minedetector_detectable=1;
         mapSize = 0.2;
         editorPreview = QPATHTOF(data\rid_wireDetonator_preview.jpg);
-        _generalMacro = "";
         scope = 2;
         scopeCurator = 2;
         displayName = "Wire Detonator";
@@ -59,9 +137,10 @@ class CfgVehicles
         };
         author = "Walthzer/Shark";
         isCW=1;
+        ace_minedetector_detectable=1;
         mapSize = 0.2;
-        scope = 2;
-        scopeCurator = 1;
+        scope = 1;
+        armor = 25;
         displayName = "Wire Box";
         model = QPATHTOF(rid_wireBox);
     };
@@ -72,7 +151,6 @@ class CfgVehicles
         author = "Walthzer/Shark";
         isCW=1;
         mapSize=3.0599999;
-        editorPreview="";
         scope=2;
         ammo="rid_tripWire_base_Ammo";
         displayName = "RID Network Tripwire APERS variant"; 

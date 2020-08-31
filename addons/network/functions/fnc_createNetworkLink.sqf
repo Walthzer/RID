@@ -19,27 +19,42 @@ params["_node0", "_node1", "_createCable"];
 
 
 if (not (IS_OBJECT(_node0) and IS_OBJECT(_node1))) exitWith {ERROR_2("%1 and %2 are not objects!", _node0, _node1)};
+if (not ((_node0 getVariable[QGVAR(isNetworkNode), false]) and (_node1 getVariable[QGVAR(isNetworkNode), false]))) exitWith {ERROR_2("%1 and %2 are not Network Nodes!", _node0, _node1)};
+
+private _nodes = if (_createCable) then {
+    [_node0, _node1] call FUNC(createWire);
+} else {
+    [_node0, _node1];
+};
 
 _fnc_execNewLinkCode = {
     params["_baseNode", "_connectionNode","_nodeIndex", "_this"];
     params[["_code", {}, []],["_arguments", [], [[]]]];
-    if(_nodeIndex > -1 and {!(_code isEqualTo {})}) then {
+    if(!(_code isEqualTo {})) then {
         [_baseNode, _connectionNode, _arguments] call _code;
     };
 };
 
-if (not ((_node0 getVariable[QGVAR(isNetworkNode), false]) and (_node1 getVariable[QGVAR(isNetworkNode), false]))) exitWith {ERROR_2("%1 and %2 are not Network Nodes!", _node0, _node1)};
+private _lastIndex = (count _nodes) - 1;
+{
+    if(_forEachIndex == _lastIndex) exitWith {};
+    private _followingNode = _nodes select (_forEachIndex + 1);
 
-    _node0NetworkConnections = _node0 getVariable [QGVAR(networkConnections), []];
-    _node1NetworkConnections = _node1 getVariable [QGVAR(networkConnections), []];
+    private _nodeXNetworkConnections = _x getVariable [QGVAR(networkConnections), []];
+    private _followingNodeNetworkConnections = _followingNode getVariable [QGVAR(networkConnections), []];
     
-    _node0Index = _node0NetworkConnections pushBackUnique _node1;
-    _node1Index = _node1NetworkConnections pushBackUnique _node0;
+    private _nodeXIndex = _nodeXNetworkConnections pushBackUnique _followingNode;
+    private _followingNodeIndex = _followingNodeNetworkConnections pushBackUnique _x;
     
-    _node0 setVariable [QGVAR(networkConnections), _node0NetworkConnections, true];
-    _node1 setVariable [QGVAR(networkConnections), _node1NetworkConnections, true];
+    if (_nodeXIndex > -1) then {
+        _x setVariable [QGVAR(networkConnections), _nodeXNetworkConnections, true];
+        [_x, _followingNode, _nodeXIndex, _x getVariable [QGVAR(onNewLinkCode), {}]] call _fnc_execNewLinkCode;
+    };
+    
+    if (_followingNodeIndex > -1) then {
+        _followingNode setVariable [QGVAR(networkConnections), _followingNodeNetworkConnections, true];
+        [_followingNode, _x, _followingNodeIndex, _followingNode getVariable [QGVAR(onNewLinkCode), {}]] call _fnc_execNewLinkCode;
+    };
 
-    [_node0, _node1, _node0Index, _node0 getVariable [QGVAR(onNewLinkCode), {}]] call _fnc_execNewLinkCode;
-    [_node1, _node0, _node1Index, _node1 getVariable [QGVAR(onNewLinkCode), {}]] call _fnc_execNewLinkCode;
-
+} foreach _nodes;
 
