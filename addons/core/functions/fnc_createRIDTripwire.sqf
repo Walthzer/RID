@@ -24,7 +24,7 @@ private _fnc_createPart = {
     params["_position", "_vector", "_tripwirePartsIndex"];
 
     //Create the helper:
-    private _helper = createVehicle ["rid_tripWire_helper",_position, [], 0, "CAN_COLLIDE"];
+    private _helper = createVehicle ["rid_tripWire_helper", (ASLToATL _position), [], 0, "CAN_COLLIDE"];
     _helper setVariable [QGVAR(tripWireNodes), [_object0, _object1], true];
 
 
@@ -32,15 +32,18 @@ private _fnc_createPart = {
     _helper setVariable [QGVAR(tripwire_parts_index), _tripwirePartsIndex, true];
 
     //Spawn the tripwire segment:
-    private _segment = createVehicle ["rid_tripWire_segment_ammo", _position, [], 0, "CAN_COLLIDE"];
-    _segment setPosASL _position;
-    _segment setVectorDir _vector;
-    
+    private _segment = createVehicle ["rid_tripWire_segment_ammo", (ASLToATL _position), [], 0, "CAN_COLLIDE"];
+
+    //Do setVectorDir on the segement for ever player locally and new players if the tripWire still exists when they join.
+    private _eventHandlerId = [QGVAR(fixVector), [_segment, _vector]] call CBA_fnc_globalEventJIP;
+    [_eventHandlerId, _segment] call CBA_fnc_removeGlobalEventJIP;
+
     [_segment, _helper];
 };
 
 _fnc_spawnWireBox = {
     (_this#2) params ["_object", "_height"];
+    if (!(_object getVariable [QGVAR(wireBox), objNull] isEqualTo objNull)) exitWith {};
     private _bbr = boundingBoxReal _object;
     private _relPos = _object modelToWorld [((_bbr#0)#0 + (_bbr#1)#0)/2,(_bbr#0)#1, (_bbr#0)#2];
 
@@ -49,7 +52,7 @@ _fnc_spawnWireBox = {
     [_wireBox, _object] call BIS_fnc_attachToRelative;
 
     _wireBox setVectorDir (vectorDir _object);
-    _wireBox setPosASL _position;
+    _wireBox setPosATL _position;
 
     _wirebox setVariable[QGVAR(master), _object, true];
     _object setVariable[QGVAR(isConnected), true, true];

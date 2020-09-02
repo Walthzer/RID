@@ -122,7 +122,7 @@
         if (_dialogResult isEqualTo []) exitWith {};
         
         _tripWireHeight = parseNumber(_dialogResult select 0);
-        [_primaryNode, _secundaryNode, _tripWireHeight] remoteExecCall [QFUNC(createRIDTripwire), 2];
+        [_primaryNode, _secundaryNode, _tripWireHeight] call FUNC(createRIDTripwire);
         
     } else {
         if (true) exitWith {["Tripwire canceled: no object selected"] call Achilles_fnc_showZeusErrorMessage};
