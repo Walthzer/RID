@@ -66,6 +66,6 @@ _object call EFUNC(network,createNetworkNode);
 
 //Delete detector when oject is deleted:
 _object addEventHandler ["Deleted", {
-	params ["_entity"];
-	deleteVehicle (_entity getVariable [QGVAR(pressureDetector), objNull]);
+    params ["_entity"];
+    deleteVehicle (_entity getVariable [QGVAR(pressureDetector), objNull]);
 }];

@@ -18,9 +18,9 @@
 private _TripwiresParts = _object getVariable [QGVAR(tripwires_parts),[]];
 
 {
-	{
-		deleteVehicle _x;
-	} forEach _x;
+    {
+        deleteVehicle _x;
+    } forEach _x;
 } forEach _TripwiresParts;
 
 _object setVariable [QGVAR(tripwires_parts), [], true];

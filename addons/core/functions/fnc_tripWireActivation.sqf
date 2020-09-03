@@ -39,5 +39,5 @@ if (_tripwirePartsIndex < 0) exitWith {ERROR("_tripwirePartsIndex is not set or 
 [_tripWireNodes, _tripwirePartsIndex] call FUNC(removeTripWire);
 
 if ((_tripWireNodes#0) getVariable [QGVAR(isConnected), false]) then {
-	(_tripWireNodes#0) spawn EFUNC(network,activateNetworkCrawler);
+    (_tripWireNodes#0) spawn EFUNC(network,activateNetworkCrawler);
 };

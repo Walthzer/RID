@@ -43,17 +43,17 @@ private _fnc_dig = {
     params["_target", "_unit"];
     private _pcb = _target getVariable [QEGVAR(pcb,pcb), []];
     private _pcbParameters = _target getVariable [QEGVAR(pcb,pcbParameters), []];
-	_unit action ["Deactivate", _unit, _target];
+    _unit action ["Deactivate", _unit, _target];
 
-	private _exitCode = {};
-	if(!(_pcb isEqualTo [])) then {
-		//Detonate IED if Vibration detector still works:
-		if(("vib" in (_pcbParameters#2)) && (QEGVAR(pcb,hasPower) in (_pcb#1)) && (QEGVAR(pcb,hasDetonator) in (_pcb#1))) exitWith {_exitCode = {_target call EFUNC(core,detonateIED)}};
+    private _exitCode = {};
+    if(!(_pcb isEqualTo [])) then {
+        //Detonate IED if Vibration detector still works:
+        if(("vib" in (_pcbParameters#2)) && (QEGVAR(pcb,hasPower) in (_pcb#1)) && (QEGVAR(pcb,hasDetonator) in (_pcb#1))) exitWith {_exitCode = {_target call EFUNC(core,detonateIED)}};
 
-		//Inform player the IED is still connected:
-		if(("ext" in (_pcbParameters#2)) && (QEGVAR(pcb,hasExternal) in (_pcb#1))) exitWith {_exitCode = {systemChat "The IED won't come loose, its still connected to something"}};
-	};
-	if(!(_exitCode isEqualTo {})) exitWith {call _exitCode};
+        //Inform player the IED is still connected:
+        if(("ext" in (_pcbParameters#2)) && (QEGVAR(pcb,hasExternal) in (_pcb#1))) exitWith {_exitCode = {systemChat "The IED won't come loose, its still connected to something"}};
+    };
+    if(!(_exitCode isEqualTo {})) exitWith {call _exitCode};
 
     private _weaponHolder = createVehicle ["Weapon_Empty", (getPosATL _target), [], 0, "CAN_COLLIDE"];
     deleteVehicle _target;

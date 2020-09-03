@@ -18,6 +18,6 @@ params["_wire"];
 createVehicle ["rid_commandWireCut", (getPosATL _wire), [], 0, "CAN_COLLIDE"];
 private _cableParent = _wire getVariable [QEGVAR(network,cableParent), objNull];
 if(!(_cableParent isEqualTo objNull) && {alive _cableParent}) then {
-	_cableParent setDamage 1;
+    _cableParent setDamage 1;
 };
 deleteVehicle _wire;

@@ -54,7 +54,7 @@ _fnc_addExtTrigger = {
         _ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbParameters#0, _pcbParameters#1, "ext"], true];
         _ied setVariable [QEGVAR(pcb,pcb), _pcb, true];
     };
-	_ied setVariable[QEGVAR(network,onNewLinkCode), {}, true];
+    _ied setVariable[QEGVAR(network,onNewLinkCode), {}, true];
 };
 
 //Allow addition of ext trigger if network connection to IED is made.

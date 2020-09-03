@@ -16,20 +16,20 @@
 params["_player"];
 
 private _fnc_digCompleted = {
-	(_this#0) params ["_player", "_playerAnimation"];
-	private _digPos = getPosATL _player;
-	_digPos set [2,0];
+    (_this#0) params ["_player", "_playerAnimation"];
+    private _digPos = getPosATL _player;
+    _digPos set [2,0];
 
-	createVehicle ["rid_dirt", [_digPos#0,_digPos#1, -0.0225], [], 0, "CAN_COLLIDE"];
+    createVehicle ["rid_dirt", [_digPos#0,_digPos#1, -0.0225], [], 0, "CAN_COLLIDE"];
 
-	private _wireHelper = nearestObject[_digPos, "rid_wireHelper"];
-	if(!(_wireHelper isEqualTo objNull) && {(_wireHelper distance2D _digPos) <= 1}) then {
-		private _wire = createVehicle ["rid_commandWireComplete", _digPos, [], 0, "CAN_COLLIDE"];
-		private _cableParent = _wireHelper getVariable [QEGVAR(network,cableParent), objNull];
-		_wire setVariable [QEGVAR(network,cableParent), _cableParent, true];
-		deleteVehicle _wireHelper;
-	};
-	[_player, _playerAnimation, 1] call ace_common_fnc_doAnimation;
+    private _wireHelper = nearestObject[_digPos, "rid_wireHelper"];
+    if(!(_wireHelper isEqualTo objNull) && {(_wireHelper distance2D _digPos) <= 1}) then {
+        private _wire = createVehicle ["rid_commandWireComplete", _digPos, [], 0, "CAN_COLLIDE"];
+        private _cableParent = _wireHelper getVariable [QEGVAR(network,cableParent), objNull];
+        _wire setVariable [QEGVAR(network,cableParent), _cableParent, true];
+        deleteVehicle _wireHelper;
+    };
+    [_player, _playerAnimation, 1] call ace_common_fnc_doAnimation;
 
 };
 

@@ -16,5 +16,5 @@
 params["_box"];
 
 If(_box getVariable['rid_core_isConnected', false]) then {
-	[_box] spawn EFUNC(network,activateNetworkCrawler);
+    [_box] spawn EFUNC(network,activateNetworkCrawler);
 };

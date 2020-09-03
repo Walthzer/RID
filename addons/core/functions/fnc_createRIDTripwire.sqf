@@ -60,8 +60,8 @@ _fnc_spawnWireBox = {
 
     //Delete wireBox when oject is deleted:
     _object addEventHandler ["Deleted", {
-	    params ["_entity"];
-	    deleteVehicle (_entity getVariable [QGVAR(wireBox), objNull]);
+        params ["_entity"];
+        deleteVehicle (_entity getVariable [QGVAR(wireBox), objNull]);
     }];
 };
 //Setup _object0 as a networkNode
@@ -132,6 +132,6 @@ _object0 setVariable [QGVAR(tripwires_parts), _existingTripwiresParts, true];
 
 //Delete tripwire when oject is deleted:
 _object0 addEventHandler ["Deleted", {
-	params ["_entity"];
-	_entity call FUNC(defuseTripWire);
+    params ["_entity"];
+    _entity call FUNC(defuseTripWire);
 }];
