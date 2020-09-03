@@ -67,7 +67,7 @@ class rid_clickzone
     animTextureDefault = "#(argb,8,8,3)color(0,1,0,0)";
     color[] = {1,1,1,0};
     color2[] = {1,1,1,0};
-    colorBackground[] = {1,1,1,1};
+    colorBackground[] = {1,1,1,0};
     colorBackground2[] = {1,1,1,0};
     colorBackgroundFocused[] = {1,1,1,0};
     colorDisabled[] = {1,1,1,0};

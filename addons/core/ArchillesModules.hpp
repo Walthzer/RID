@@ -1,4 +1,4 @@
-["WFAR", "Spawn IED",
+["RID", "Spawn IED",
 {
     // Get all the passed parameters
     params [["_position", [0,0,0], [[]], 3], ["_objectUnderCursor", objNull, [objNull]]];
@@ -30,7 +30,7 @@
     [_position, _iedType, "standard", 3, _trigger] call FUNC(createIED);
 }] call Ares_fnc_RegisterCustomModule;
 
-["WFAR", "Create Network Link",
+["RID", "Create Network Link",
 {
     // Get all the passed parameters
     params [["_position", [0,0,0], [[]], 3], ["_objectUnderCursor", objNull, [objNull]]];
@@ -46,7 +46,7 @@
         private _secundaryNode = ["Objects", true] call Achilles_fnc_SelectUnits;
         if (isNil "_secundaryNode") exitWith {};
         if (not (_secundaryNode getVariable["rid_network_isNetworkNode", false])) exitWith {["Connection canceled: Object was not network node"] call Achilles_fnc_showZeusErrorMessage};
-        [_primaryNode, _secundaryNode, false] call rid_network_fnc_createNetworkLink;
+        [_primaryNode, _secundaryNode, true] call rid_network_fnc_createNetworkLink;
         
     } else {
         if (true) exitWith {["Connection canceled: Object was not network node"] call Achilles_fnc_showZeusErrorMessage};
@@ -58,11 +58,11 @@
         private _secundaryNode = ["Objects", true] call Achilles_fnc_SelectUnits;
         if (isNil "_secundaryNode") exitWith {};
         if (not (_secundaryNode getVariable["rid_network_isNetworkNode", false])) exitWith {["Connection canceled: Object was not network node"] call Achilles_fnc_showZeusErrorMessage};
-        [_primaryNode, _secundaryNode, false] call rid_network_fnc_createNetworkLink;
+        [_primaryNode, _secundaryNode, true] call rid_network_fnc_createNetworkLink;
     };
 }] call Ares_fnc_RegisterCustomModule;
 
-["WFAR", "Create Pressure Plate",
+["RID", "Create Pressure Plate",
 {
     // Get all the passed parameters
     params [["_position", [0,0,0], [[]], 3], ["_objectUnderCursor", objNull, [objNull]]];
@@ -84,7 +84,7 @@
     [_objectUnderCursor, _thresholdMass] remoteExecCall [QFUNC(createPressurePlate), 2];
 }] call Ares_fnc_RegisterCustomModule;
 
-["WFAR", "Create Vibration Detector",
+["RID", "Create Vibration Detector",
 {
     // Get all the passed parameters
     params [["_position", [0,0,0], [[]], 3], ["_objectUnderCursor", objNull, [objNull]]];
@@ -94,7 +94,7 @@
     [_objectUnderCursor] remoteExecCall [QFUNC(createVibrationDetector), 2];
 }] call Ares_fnc_RegisterCustomModule;
 
-["WFAR", "Create Tripwire",
+["RID", "Create Tripwire",
 {
     // Get all the passed parameters
     params [["_position", [0,0,0], [[]], 3], ["_objectUnderCursor", objNull, [objNull]]];
@@ -122,14 +122,14 @@
         if (_dialogResult isEqualTo []) exitWith {};
         
         _tripWireHeight = parseNumber(_dialogResult select 0);
-        [_primaryNode, _secundaryNode, _tripWireHeight] remoteExecCall [QFUNC(createRIDTripwire), 2];
+        [_primaryNode, _secundaryNode, _tripWireHeight] call FUNC(createRIDTripwire);
         
     } else {
         if (true) exitWith {["Tripwire canceled: no object selected"] call Achilles_fnc_showZeusErrorMessage};
     };
 }] call Ares_fnc_RegisterCustomModule;
 
-["WFAR", "Spawn Detonator Box",
+["RID", "Spawn Detonator Box",
 {
     // Get all the passed parameters
     params [["_position", [0,0,0], [[]], 3], ["_objectUnderCursor", objNull, [objNull]]];
