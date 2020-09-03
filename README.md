@@ -1,4 +1,7 @@
 <p align="center">
+    <img src="https://github.com/Walthzer/RID/blob/master/extras/assets/logo/white/RID_LOGO.png" width="128">
+</p>
+<p align="center">
     <a href="https://github.com/Walthzer/RID/releases/latest">
         <img  alt="RID Version" src="https://img.shields.io/badge/Version-0.2.0-blue.svg?style=flat-square">
     </a>
