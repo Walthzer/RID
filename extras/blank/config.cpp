@@ -8,7 +8,7 @@ class CfgPatches {
         requiredVersion = REQUIRED_VERSION;
         requiredAddons[] = {"rid_main"};
         author = "";
-        authors[] = {""};
+        authors[] = {"Walthzer/Shark"};
         VERSION_CONFIG;
     };
 };
