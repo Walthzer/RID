@@ -3,12 +3,12 @@
 class CfgPatches {
     class ADDON {
         name = COMPONENT_NAME;
-        units[] = {};
+        units[] = {"rid_dirt", "rid_wireHelper", "rid_commandWireCut", "rid_commandWireComplete", "rid_wireDetonator", "rid_wireBox", "rid_tripWire_segment"};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
         requiredAddons[] = {"rid_main"};
         author = "";
-        authors[] = {""};
+        authors[] = {"Walthzer/Shark"};
         VERSION_CONFIG;
     };
 };
