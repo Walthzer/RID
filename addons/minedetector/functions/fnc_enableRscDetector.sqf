@@ -6,17 +6,21 @@ private _detectorConfig = [_detectorType] call ace_minedetector_getDetectorConfi
 _unit setVariable [QGVAR(detectorType), _detectorType];
 
 private _display = uiNamespace getVariable[QGVAR(displayRscDetector), displayNull];
-if (isNull _display) exitwith {ERROR_MSG("Is not display")};
+if (isNull _display) exitwith {};
 
 //Turn screen on:
 (_display displayCtrl 231001) ctrlSetText QPATHTOF(ui\Screen_ON.paa);
 
-//Flash all indicators:
+//Flash all indicators and turn on ring indicators after:
 _display spawn {
     [_this, 1] call FUNC(toggleRscDetector);
     sleep 0.1;
     [_this, 0] call FUNC(toggleRscDetector);
     [_this] call FUNC(screenInitRscDetector);
+
+    {
+        (_this displayCtrl _x) ctrlSetTextColor [1, 1, 1, 1];
+    } forEach [231600, 231700];
 };
 
 //Allow the creation of a RscDetector reset after a timeout:

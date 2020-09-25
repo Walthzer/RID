@@ -8,7 +8,7 @@ private _detectorType = _unit getVariable [QGVAR(detectorType), ""];
 if (currentWeapon ACE_player != _detectorType) exitWith {FUNC(deactivateRscDetector)};
 
 private _display = uiNamespace getVariable[QGVAR(displayRscDetector), displayNull];
-if (isNull _display) exitwith {ERROR_MSG("Is not display")};
+if (isNull _display) exitwith {};
 
 //Turn screen off:
 (_display displayCtrl 231001) ctrlSetText QPATHTOF(ui\Screen_OFF.paa);

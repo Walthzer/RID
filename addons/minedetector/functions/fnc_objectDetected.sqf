@@ -2,7 +2,7 @@
 params["_unit", "_primaryObject", "_primaryDistance"];
 
 private _display = uiNamespace getVariable[QGVAR(displayRscDetector), displayNull];
-if (isNull _display) exitwith {ERROR_MSG("Is not display")};
+if (isNull _display) exitwith {};
 
 GVAR(timeOfLastDetect) = CBA_missionTime;
 if (GVAR(canCreateTimeoutResetRscDetector)) then {
