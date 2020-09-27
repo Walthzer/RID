@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-    <sup><strong>Requires the latest version of <a href="https://github.com/CBATeam/CBA_A3/releases">CBA A3</a> and <a href="https://github.com/acemod/ACE3/releases">ACE3</a>.<br/></strong></sup>
+    <sup><strong>Requires the latest version of <a href="https://github.com/CBATeam/CBA_A3/releases">CBA A3</a> and <a href="https://github.com/acemod/ACE3/releases">ACE3</a> and either <a href="https://github.com/zen-mod/ZEN/releases">Zeus Enhanced</a> or <a href="https://github.com/ArmaAchilles/Achilles/releases">Achilles</a><br/></strong></sup>
 </p>
 
 RID: Realistic IED Defusal adds immersive IED detection and defusal into Arma 3.
