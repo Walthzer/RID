@@ -1,6 +1,5 @@
 #include "script_component.hpp"
 #include "ArchillesModules.hpp"
-#include "ZENModules.hpp"
 
 [QGVAR(fixVector), {
     params["_wire", "_vector"];
