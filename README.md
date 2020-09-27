@@ -41,7 +41,7 @@ The network allows for multiple IED to be connected on the fly to one trigger, v
 <h3>Current Network Receivers:</h3>
 -IEDs<br />
 -Options For Custom Additions with scripts.<br />
-
+<br />
 Besides making the connectivity of IEDs more immersive, RID also adds in a defusal minigame into IEDs themselves.
 By using real life Circuit board analysis technics (limited to visual inspection, no tools are yet available) one must trace the correct wire connected to a circuitboard and cut it. But beware for anti-defusal countermeasures. One wrong cut and its over.
 
