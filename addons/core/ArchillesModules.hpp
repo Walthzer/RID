@@ -1,3 +1,7 @@
+//Check if Achilles is loaded:
+if (isClass(configFile >> "CfgPatches" >> "achilles_data_f_achilles")) then {
+INFO("RID: Achilles modules loaded!");
+
 ["RID", "Spawn IED",
 {
     // Get all the passed parameters
@@ -139,4 +143,4 @@
         [_box, {{ _x addCuratorEditableObjects [[_this],true ] } forEach allCurators;}] remoteExec ["call", 2];
     };
 }] call Ares_fnc_RegisterCustomModule;
-
+};

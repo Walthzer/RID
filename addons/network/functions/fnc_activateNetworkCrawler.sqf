@@ -20,7 +20,7 @@ if (isNull _node) exitWith {ERROR_1("%1 is not an OBJECT", _node)};
 if (not (_node getVariable[QGVAR(isNetworkNode), false])) exitWith {WARNING_1("%1 is not a Network Node", _node)};
 
 private _nodeNetworkConnections = _node getVariable [QGVAR(networkConnections), []];
-if (count _nodeNetworkConnections == 0) exitWith {ERROR_1("%1 has no Network Connections", _node)};
+if (count _nodeNetworkConnections == 0) exitWith {INFO_1("%1 has no Network Connections", _node)};
 
 private _checkedNetworkComponents = [];
 
