@@ -14,7 +14,6 @@ jobs:
       uses: actions/checkout@master
     - name: Validate SQF
       run: python3 tools/sqf_validator.py
-      continue-on-error: true # No failure due to many false-positives
     - name: Validate Config
       run: python3 tools/config_style_checker.py
     - name: Validate Stringtables
