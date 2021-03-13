@@ -30,7 +30,7 @@ private _tripWireNodes = _helper getVariable [QGVAR(tripWireNodes), []];
 if (_tripWireNodes isEqualTo []) exitWith {ERROR("Helper has no tripWireNode defined; Helper probably improperly created!")};
 
 //Retrieve other tripwireParts
-private _tripwiresParts = (_tripWireNodes#0) getVariable [QGVAR(tripwires_parts), []];
+private _tripwiresParts = (_tripWireNodes select 0) getVariable [QGVAR(tripwires_parts), []];
 if (_tripwiresParts isEqualTo []) exitWith {ERROR("tripWireNode has no tripwires, yet a tripwire activation script points to it; How did you do this???")};
 
 private _tripwirePartsIndex = _helper getVariable [QGVAR(tripwire_parts_index), -1];
@@ -38,6 +38,6 @@ if (_tripwirePartsIndex < 0) exitWith {ERROR("_tripwirePartsIndex is not set or 
 
 [_tripWireNodes, _tripwirePartsIndex] call FUNC(removeTripWire);
 
-if ((_tripWireNodes#0) getVariable [QGVAR(isConnected), false]) then {
-    (_tripWireNodes#0) spawn EFUNC(network,activateNetworkCrawler);
+if ((_tripWireNodes select 0) getVariable [QGVAR(isConnected), false]) then {
+    (_tripWireNodes select 0) spawn EFUNC(network,activateNetworkCrawler);
 };

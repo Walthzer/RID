@@ -20,7 +20,7 @@ if (!hasInterface) exitWith {};
 
 private _fnc_defuse = {
     params["_target", "_unit"];
-    private _pcb = _target getVariable [QEGVAR(pcb,pcb), []];
+    private _pcb = _target getVariable [QEGVAR(pcb,pcb), [] ];
 
     _unit action ["Deactivate", _unit, _target];
 
@@ -28,30 +28,30 @@ private _fnc_defuse = {
         systemChat "Nothing to defuse";
     };
     uiNamespace setVariable[QEGVAR(pcb,ied), _target];
-    createDialog ((_pcb#0)#0);
+    createDialog (_pcb select 0 select 0);
     _dialog = findDisplay 3300;
     //Show previously cuts wires as such.
     {
         (_dialog displayCtrl _x) ctrlSetTextColor [1, 1, 1, 0];
         (_dialog displayCtrl _x) ctrlEnable false;
-    } forEach  (_target getVariable [QEGVAR(pcb,cutWires), []]);
+    } forEach  (_target getVariable [QEGVAR(pcb,cutWires), [] ]);
     //Assign the path to the traces.paa selected.
-    ctrlSetText [1894, ((_pcb#0)#4)];
-};
+    ctrlSetText [1894, (_pcb select 0 select 4)];};
 
 private _fnc_dig = {
     params["_target", "_unit"];
-    private _pcb = _target getVariable [QEGVAR(pcb,pcb), []];
-    private _pcbParameters = _target getVariable [QEGVAR(pcb,pcbParameters), []];
+    private _pcb = _target getVariable [QEGVAR(pcb,pcb), [] ];
+    private _pcbParameters = _target getVariable [QEGVAR(pcb,pcbParameters), [] ];
     _unit action ["Deactivate", _unit, _target];
 
     private _exitCode = {};
     if(!(_pcb isEqualTo [])) then {
         //Detonate IED if Vibration detector still works:
-        if(("vib" in (_pcbParameters#2)) && (QEGVAR(pcb,hasPower) in (_pcb#1)) && (QEGVAR(pcb,hasDetonator) in (_pcb#1))) exitWith {_exitCode = {_target call EFUNC(core,detonateIED)}};
+        if(("vib" in (_pcbParameters select 2)) && (QEGVAR(pcb,hasPower) in (_pcb select 1)) && (QEGVAR(pcb,hasDetonator) in (_pcb select 1))) exitWith {_exitCode = {_target call EFUNC(core,detonateIED)}};
 
         //Inform player the IED is still connected:
-        if(("ext" in (_pcbParameters#2)) && (QEGVAR(pcb,hasExternal) in (_pcb#1))) exitWith {_exitCode = {systemChat "The IED won't come loose, its still connected to something"}};
+        if(("ext" in (_pcbParameters select 2)) && (QEGVAR(pcb,hasExternal) in (_pcb select 1))) exitWith {
+            _exitCode = {systemChat "The IED won't come loose, its still connected to something"}};
     };
     if(!(_exitCode isEqualTo {})) exitWith {call _exitCode};
 

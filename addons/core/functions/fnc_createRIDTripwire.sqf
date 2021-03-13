@@ -42,12 +42,12 @@ private _fnc_createPart = {
 };
 
 _fnc_spawnWireBox = {
-    (_this#2) params ["_object", "_height"];
+    (_this select 2) params ["_object", "_height"];
     if (!(_object getVariable [QGVAR(wireBox), objNull] isEqualTo objNull)) exitWith {};
     private _bbr = boundingBoxReal _object;
-    private _relPos = _object modelToWorld [((_bbr#0)#0 + (_bbr#1)#0)/2,(_bbr#0)#1, (_bbr#0)#2];
+    private _relPos = _object modelToWorld [((_bbr select 0 select 0) + (_bbr select 1 select 0))/2, _bbr select 0 select 1, _bbr select 0 select 2];
 
-    private _position = [_relPos#0, _relPos#1, _height];
+    private _position = [_relPos select 0, _relPos select 1, _height];
     private _wireBox = createVehicle ["rid_wireBox", _position, [], 0, "CAN_COLLIDE"];
     [_wireBox, _object] call BIS_fnc_attachToRelative;
 
@@ -126,7 +126,7 @@ switch (true) do {
 };
 
 //Store the parts of this tripwire in the _object0, to allow tripwire clean up:
-private _existingTripwiresParts = _object0 getVariable [QGVAR(tripwires_parts),[]];
+private _existingTripwiresParts = _object0 getVariable [QGVAR(tripwires_parts),[] ];
 _existingTripwiresParts set [_tripwirePartsIndex, _tripwireParts];
 _object0 setVariable [QGVAR(tripwires_parts), _existingTripwiresParts, true];
 

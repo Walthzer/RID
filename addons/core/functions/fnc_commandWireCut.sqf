@@ -9,7 +9,7 @@
  * None
  *
  * Example:
- * [_this#0] call rid_core_fnc_commandWireCut
+ * [_this select 0] call rid_core_fnc_commandWireCut
  *
  * Public: [No]
 */

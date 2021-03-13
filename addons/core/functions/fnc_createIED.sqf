@@ -41,17 +41,19 @@ if(_trigger != "ext") then {
 };
 
 _fnc_addExtTrigger = {
-    private _ied = (_this#2)#0;
+    private _ied = (_this select 2)#0;
     private _pcbParameters = _ied getVariable [QEGVAR(pcb,pcbParameters), []];
+
     if (_pcbParameters isEqualTo []) exitWith {ERROR("Updating IED with ext trigger failed, bad argument(s)")};
+
     if(count (_ied getVariable [QEGVAR(pcb,pcb), []]) > 0) then {
-        private _compositeTrigger = format["ext%1", _pcbParameters#2];
-        private _pcb = [_ied, _pcbParameters#0, _pcbParameters#1, _compositeTrigger] call EFUNC(pcb,retrievePCB);
+        private _compositeTrigger = format["ext%1", _pcbParameters select 2];
+        private _pcb = [_ied, _pcbParameters select 0, _pcbParameters select 1, _compositeTrigger] call EFUNC(pcb,retrievePCB);
         _ied setVariable [QEGVAR(pcb,pcb), _pcb, true];
-        _ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbParameters#0, _pcbParameters#1, _compositeTrigger], true];
+        _ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbParameters select 0, _pcbParameters select 1, _compositeTrigger], true];
     } else {
-        private _pcb = [_ied, _pcbParameters#0, _pcbParameters#1, "ext"] call EFUNC(pcb,retrievePCB);
-        _ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbParameters#0, _pcbParameters#1, "ext"], true];
+        private _pcb = [_ied, _pcbParameters select 0, _pcbParameters select 1, "ext"] call EFUNC(pcb,retrievePCB);
+        _ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbParameters select 0, _pcbParameters select 1, "ext"], true];
         _ied setVariable [QEGVAR(pcb,pcb), _pcb, true];
     };
     _ied setVariable[QEGVAR(network,onNewLinkCode), {}, true];
