@@ -120,7 +120,7 @@ class CfgVehicles
 
         class EventHandlers
         {
-            init = QUOTE([_this select 0, {(_this select 0) setVariable['rid_core_isConnected', true, true]}] call EFUNC(network,createNetworkNode));
+            init = QUOTE(ARR_2(_this select 0, {(_this select 0) setVariable['rid_core_isConnected', true, true]}) call EFUNC(network,createNetworkNode)); //Thank you Dahlgren
         };
     };
 
