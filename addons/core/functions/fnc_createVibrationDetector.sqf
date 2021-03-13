@@ -23,7 +23,7 @@ private _objectType = typeOf _object;
 private _triggerXY = [25, 25];
 
 //Trigger activation code for IED and Detector
-private _actionCode = [QEFUNC(network,activateNetworkCrawler),{[_this#0, [QEGVAR(pcb,hasPower), QEGVAR(pcb,hasDetonator)]] call FUNC(tryDetonateIED)}] select _isIED;
+private _actionCode = [QEFUNC(network,activateNetworkCrawler),{[_this select 0, [QEGVAR(pcb,hasPower), QEGVAR(pcb,hasDetonator)]] call FUNC(tryDetonateIED)}] select _isIED;
 
 //Create the VibrationDetector Trigger
 _trg = createTrigger ["EmptyDetector", getPosATL _object, false];

@@ -25,7 +25,7 @@ private _pcb = _ied getVariable[QGVAR(pcb), []];
 
 if(_pcb isEqualTo []) exitWith {ERROR("ControlClicked: bad argument(s)")};
 
-(_pcb#0) params ["_dialogClass", "_wires", "_wireDictionary", "_connectionsLeft"];
+(_pcb select 0) params ["_dialogClass", "_wires", "_wireDictionary", "_connectionsLeft"];
 
 private _controlIDCwOffset = ctrlIDC _controlClicked;
 private _controlIDC = _controlIDCwOffset - CTRLOFFSET;
@@ -37,7 +37,7 @@ playSound QGVAR(sounds_cut);
 
 _fnc_iedCircuitChanged = {
     params["_id", "_global_var"];
-    if(!((_connectionsLeft#_connectionsLeftIndex) == "")) then {
+    if(!(_connectionsLeft select _connectionsLeftIndex == "")) then {
         _connectionsLeft set [_connectionsLeftIndex, ""];
         if(({_x == _id} count _connectionsLeft) == 0) then {
             _attributesArr set [_attributesArr find _global_var, ""];
@@ -47,8 +47,8 @@ _fnc_iedCircuitChanged = {
 
 //Process Wire Type
 private _detonate = false;
-private _attributesArr = (_pcb#1);
-switch (_wireDictionary#_controlIDC) do {
+private _attributesArr = _pcb select 1;
+switch (_wireDictionary select _controlIDC) do {
 
     case "det": {["det", QGVAR(hasDetonator)] call _fnc_iedCircuitChanged};
     case "dec": {if(QGVAR(hasPower) in _attributesArr) then {_detonate = true}};
@@ -60,7 +60,7 @@ switch (_wireDictionary#_controlIDC) do {
     case "ext": {["ext", QGVAR(hasExternal)] call _fnc_iedCircuitChanged};
 };
 if(_detonate && {QGVAR(hasDetonator) in _attributesArr}) exitWith {_ied call EFUNC(core,detonateIED)};
-_ied setVariable[QGVAR(pcb), [_pcb#0, _attributesArr], true];
+_ied setVariable[QGVAR(pcb), [_pcb select 0, _attributesArr], true];
 
 //Store the _controlIDC so next time we open the dialog we can hide the wire:
 private _previousCutWires = (_ied getVariable [QGVAR(cutWires),[]]);

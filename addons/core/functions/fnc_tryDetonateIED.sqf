@@ -20,7 +20,7 @@ private _pcb = _ied getVariable[QEGVAR(pcb,pcb), []];
 
 private _detonate = true;
 {
-    if(!(_x in (_pcb#1))) exitWith {_detonate = false};
+    if(!(_x in (_pcb select 1))) exitWith {_detonate = false};
 } forEach _requiredArr;
 if(_detonate) exitWith {
     _ied call FUNC(detonateIED);

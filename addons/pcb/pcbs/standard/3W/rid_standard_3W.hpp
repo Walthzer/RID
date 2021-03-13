@@ -120,6 +120,6 @@ class rid_standard_3W_base {
     };
 };
 
-#include "EXT\rid_standard_3W_ext.hpp"
-#include "EXTVIB\rid_standard_3W_extvib.hpp"
-#include "VIB\rid_standard_3W_vib.hpp"
+#include "ext\rid_standard_3W_ext.hpp"
+#include "extvib\rid_standard_3W_extvib.hpp"
+#include "vib\rid_standard_3W_vib.hpp"

@@ -17,7 +17,7 @@ INFO("RID: Zeus Enhanced modules loaded!");
             ["COMBO", "Internal trigger:", [["ext", "vib"], ["No","Vibration detector"]]]
             
         ],
-        {[(_this#1), (_this#0)#0, "standard", 3, (_this#0)#1] call FUNC(createIED)},
+        {[(_this select 1), (_this select 0)#0, "standard", 3, (_this select 0)#1] call FUNC(createIED)},
         {},
         _position
     ] call zen_dialog_fnc_create;
@@ -68,10 +68,10 @@ INFO("RID: Zeus Enhanced modules loaded!");
             curatorMouseOver params ["_type", "_node"];
 
             if (isNil "_node" || {_node == _object || (not (_node getVariable["rid_network_isNetworkNode", false]))}) exitWith {
-                _this#3 set [3, COLOR_INVALID_SELECTION];
+                _this select 3 set [3, COLOR_INVALID_SELECTION];
             };
 
-            _this#3 set [3, COLOR_VALID_SELECTION];
+            _this select 3 set [3, COLOR_VALID_SELECTION];
         }
         ] call zen_common_fnc_selectPosition;
     };
@@ -91,8 +91,8 @@ INFO("RID: Zeus Enhanced modules loaded!");
             ["EDIT", ["Threshold mass:", format ["Man: 100 kg.%1Man with full kit: 140 kg.%1Humvee: 3500kg", endl]], [100, {str (parseNumber _this)}]]
         ],
         {
-            private _threshold = parseNumber ((_this#0)#0);
-            [_this#1, _threshold] remoteExecCall [QFUNC(createPressurePlate), 2];
+            private _threshold = parseNumber ((_this select 0)#0);
+            [_this select 1, _threshold] remoteExecCall [QFUNC(createPressurePlate), 2];
             ["Detector Created!"] call zen_common_fnc_showMessage;
         },
         {},
@@ -133,7 +133,7 @@ INFO("RID: Zeus Enhanced modules loaded!");
                     ["SLIDER", ["Tripwire height:","Knee high: 0.6"], [0, 50, 1, 0]]
                 ],
                 {
-                    [(_this#1)#0, (_this#1)#1, (_this#0)#0] call FUNC(createRIDTripwire);
+                    [(_this select 1)#0, (_this select 1)#1, (_this select 0)#0] call FUNC(createRIDTripwire);
                 },
                 {},
                 [_object, _secundaryNode]
@@ -149,9 +149,9 @@ INFO("RID: Zeus Enhanced modules loaded!");
             curatorMouseOver params ["_type", "_node"];
 
             if (isNil "_node" || {_node == _object}) exitWith {
-                _this#3 set [3, COLOR_INVALID_SELECTION];
+                _this select 3 set [3, COLOR_INVALID_SELECTION];
             };
-            _this#3 set [3, COLOR_VALID_SELECTION];
+            _this select 3 set [3, COLOR_VALID_SELECTION];
         }
         ] call zen_common_fnc_selectPosition;
         

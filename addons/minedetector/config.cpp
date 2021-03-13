@@ -14,4 +14,4 @@ class CfgPatches {
 };
 
 #include "CfgEventHandlers.hpp"
-#include "UI/Detector.hpp"
+#include "ui\Detector.hpp"
