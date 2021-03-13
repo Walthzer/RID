@@ -57,7 +57,7 @@ private _secondaryIndicatorStatus = [_secondaryDistance, _secondaryIsCW] call _f
 
 if (!isNull _secondaryObject) then {
     {
-        if (_x > (_indicatorStatus#_forEachIndex)) then {
+        if (_x > (_indicatorStatus select _forEachIndex)) then {
             _indicatorStatus set [_forEachIndex, _x];
         };
     } foreach _secondaryIndicatorStatus;
