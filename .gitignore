@@ -1,3 +1,4 @@
+tools/multimeter/*
 release/*
 releases/*
 keys/*
@@ -9,3 +10,4 @@ texHeaders.bin
 *.swo
 *.biprivatekey
 Thumbs.db
+*.pyc

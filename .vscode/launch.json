@@ -7,7 +7,7 @@
         {
             "name": "Python: Current File",
             "type": "python",
-            //"preLaunchTask": "setup_conda", // The name of the task defined above
+            "preLaunchTask": "setup_conda", // The name of the task defined above
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
