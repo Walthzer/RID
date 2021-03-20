@@ -65,7 +65,7 @@ _fnc_addExtTrigger = {
 
 // handling manual destruction of the IED, detonation should be instant
 _ied addEventHandler ["Hit", {
-	params ["_unit", "_source", "_damage", "_instigator"];
+    params ["_unit", "_source", "_damage", "_instigator"];
     _medDamage = random [1.5, 5, 10];
     _minDamage = random [0.001, 0.3, 1.5];
     if (_damage > _medDamage ) then {
@@ -79,7 +79,7 @@ _ied addEventHandler ["Hit", {
     };
 }];
 _ied addEventHandler ["Killed", {
-	params ["_unit", "_killer", "_instigator", "_useEffects"];
+    params ["_unit", "_killer", "_instigator", "_useEffects"];
         [_unit] call rid_core_fnc_detonateIED;
 }];
 //Attach ACE actions to IED:
