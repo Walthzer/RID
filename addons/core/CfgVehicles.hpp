@@ -6,7 +6,7 @@ class CfgVehicles
     class CAManBase: Man {
         class ACE_SelfActions {
             class ACE_Equipment {
-                class ACE_DigForCable {
+                class RID_DigForCable {
                     displayName = "Dig for cable";
                     condition = QUOTE([_player] call ace_common_fnc_isEngineer && {[_player] call ace_common_fnc_canDig});
                     exceptions[] = {};
@@ -87,7 +87,7 @@ class CfgVehicles
     class rid_wireDetonator: Items_base_F
     {
         class ACE_Actions {
-            class activateTrigger {
+            class RID_activateTrigger {
                 displayName = "Press the buttons";
                 condition = "alive _target";
                 statement = QUOTE([_target] spawn FUNC(boxTrigger));
@@ -98,7 +98,7 @@ class CfgVehicles
                 runOnHover = 0;
                 distance = 0.5;
             };
-            class defuseTrigger: activateTrigger {
+            class RID_defuseTrigger: RID_activateTrigger {
                 displayName = "Detach wires";
                 condition = QUOTE(_target getVariable['rid_core_isConnected', false]);
                 statement = QUOTE(_target setVariable['rid_core_isConnected', false, true]);
@@ -127,7 +127,7 @@ class CfgVehicles
     class rid_wireBox: Items_base_F
     {
         class ACE_Actions {
-            class defuseTrigger {
+            class RID_defuseTrigger {
                 displayName = "Detach wires";
                 condition = QUOTE((_target getVariable['rid_core_master', objNull]) getVariable['rid_core_isConnected', false]);
                 statement = QUOTE((_target getVariable['rid_core_master', objNull]) setVariable['rid_core_isConnected', false, true]);
