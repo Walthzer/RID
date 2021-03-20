@@ -68,12 +68,6 @@ _ied addEventHandler ["Hit", {
 	params ["_unit", "_source", "_damage", "_instigator"];
     _medDamage = random [1.5, 5, 10];
     _minDamage = random [0.001, 0.3, 1.5];
-    systemChat format ["%1", _medDamage];
-    systemChat format ["%1", _minDamage];
-    systemChat format ["%1", _source];
-    systemChat format ["%1", _damage];
-    systemChat format ["%1", _instigator];
-    systemChat format ["%1", _instigator];
     if (_damage > _medDamage ) then {
         _unit setDamage 1;
     } else {
