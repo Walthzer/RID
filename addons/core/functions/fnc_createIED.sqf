@@ -63,6 +63,31 @@ _fnc_addExtTrigger = {
 [_ied, _fnc_addExtTrigger, [_ied]] call EFUNC(network,createNetworkNode);
 [_ied, FUNC(detonateIED)] call EFUNC(network,assignNetworkReciever);
 
+// handling manual destruction of the IED, detonation should be instant
+_ied addEventHandler ["Hit", {
+	params ["_unit", "_source", "_damage", "_instigator"];
+    _medDamage = random [1.5, 5, 10];
+    _minDamage = random [0.001, 0.3, 1.5];
+    systemChat format ["%1", _medDamage];
+    systemChat format ["%1", _minDamage];
+    systemChat format ["%1", _source];
+    systemChat format ["%1", _damage];
+    systemChat format ["%1", _instigator];
+    systemChat format ["%1", _instigator];
+    if (_damage > _medDamage ) then {
+        _unit setDamage 1;
+    } else {
+        if(_medDamage < 4 && _damage > _minDamage ) then {
+            _unit setDamage 1;
+        } else {
+        _unit setDamage 0;
+        }
+    };
+}];
+_ied addEventHandler ["Killed", {
+	params ["_unit", "_killer", "_instigator", "_useEffects"];
+        [_unit] call rid_core_fnc_detonateIED;
+}];
 //Attach ACE actions to IED:
 [_ied] remoteExecCall [QFUNC(addIEDActions), 0, true];
 _ied;
