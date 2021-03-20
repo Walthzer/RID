@@ -1,4 +1,4 @@
-tools/multimeter/*
+tools/multimeter/__pycache__/*
 release/*
 releases/*
 keys/*
