@@ -14,3 +14,4 @@ PREP(tryDetonateIED);
 PREP(RscDisplayAttributes_createIED);
 PREP(tripWireActivation);
 PREP(removeTripWire);
+PREP(conditionalCrawlerActivation);

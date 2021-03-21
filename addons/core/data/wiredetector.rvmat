@@ -8,12 +8,12 @@ PixelShaderID="Super";
 VertexShaderID="Super";
 class Stage0
 {
-    texture="z\rid\addons\core\data\wiredetonator_base_CO.tga";
+    texture="z\rid\addons\core\data\wiredetonator_base_co.tga";
     uvSource="tex";
 };
 class Stage1
 {
-    texture="z\rid\addons\core\data\wiredetonator_base_NOHQ.tga";
+    texture="z\rid\addons\core\data\wiredetonator_base_nohq.tga";
     uvSource="none";
 };
 class Stage2
@@ -42,7 +42,7 @@ class Stage3
 };
 class Stage4
 {
-    texture="z\rid\addons\core\data\wiredetonator_base_AS.paa";
+    texture="z\rid\addons\core\data\wiredetonator_base_as.paa";
     uvSource="tex";
     class uvTransform
     {
@@ -54,7 +54,7 @@ class Stage4
 };
 class Stage5
 {
-    texture="z\rid\addons\core\data\wiredetonator_base_SMDI.paa";
+    texture="z\rid\addons\core\data\wiredetonator_base_smdi.paa";
     uvSource="tex";
     class uvTransform
     {

@@ -24,7 +24,7 @@ class CfgAmmo {
     };
     class rid_tripWire_segment_Ammo: rid_tripWire_base_Ammo
     {
-        model=QPATHTOF(rid_tripwire);
+        model=QPATHTOF(models\rid_tripwire);
         mineTrigger="rid_tripWire_base_trigger";
         mineModelDisabled="";
     };
