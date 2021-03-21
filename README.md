@@ -11,6 +11,9 @@
     <a href="https://github.com/acemod/ACE3/blob/master/LICENSE">
         <img  alt="RID License" src="https://img.shields.io/badge/License-GPLv3-red.svg?style=flat-square">
     </a>
+    <a href="https://discord.gg/qwH4CChjJQ">
+        <img  alt="Discord" src="https://img.shields.io/discord/823292240532996096?style=flat-square">
+    </a>
 </p>
 
 <p align="center">
