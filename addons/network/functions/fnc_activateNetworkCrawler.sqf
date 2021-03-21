@@ -13,11 +13,11 @@
  *
 */
 params[["_node", objNull, [objNull]]];
-
+TRACE_1("activateNetworkCrawler",_node);
 
 if (isNull _node) exitWith {ERROR_1("%1 is not an OBJECT", _node)};
 
-if (not (_node getVariable[QGVAR(isNetworkNode), false])) exitWith {WARNING_1("%1 is not a Network Node", _node)};
+if (not (_node getVariable[QGVAR(isNetworkNode), false])) exitWith {ERROR_1("%1 is not a Network Node", _node)};
 
 private _nodeNetworkConnections = _node getVariable [QGVAR(networkConnections), []];
 if (count _nodeNetworkConnections == 0) exitWith {INFO_1("%1 has no Network Connections", _node)};
