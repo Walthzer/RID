@@ -68,7 +68,7 @@ class CfgVehicles
 
     class rid_commandWireComplete: rid_wireHelper {
         class ACE_Actions {
-            class defuseWire {
+            class RID_defuseWire {
                 displayName = "Cut";
                 condition = "alive _target";
                 statement = QUOTE(_target call FUNC(commandWireCut));
@@ -162,7 +162,7 @@ class CfgVehicles
     class rid_wireBox_master: rid_wireBox_base
     {
         class ACE_Actions {
-            class defuseTrigger {
+            class RID_defuseTrigger {
                 condition = "(_target getVariable['rid_core_master', objNull]) getVariable['rid_core_isConnected', false]";
                 statement = "(_target getVariable['rid_core_master', objNull]) setVariable['rid_core_isConnected', false, true]";
             };
