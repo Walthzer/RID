@@ -48,7 +48,7 @@ _fnc_spawnWireBox = {
     private _relPos = _object modelToWorld [((_bbr select 0 select 0) + (_bbr select 1 select 0))/2, _bbr select 0 select 1, _bbr select 0 select 2];
 
     private _position = [_relPos select 0, _relPos select 1, _height];
-    private _wireBox = createVehicle ["rid_wireBox", _position, [], 0, "CAN_COLLIDE"];
+    private _wireBox = createVehicle ["rid_wireBox_master", _position, [], 0, "CAN_COLLIDE"];
     [_wireBox, _object] call BIS_fnc_attachToRelative;
 
     _wireBox setVectorDir (vectorDir _object);

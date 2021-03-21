@@ -100,17 +100,6 @@ INFO("RID: Zeus Enhanced modules loaded!");
     ] call zen_dialog_fnc_create;
 }] call zen_custom_modules_fnc_register;
 
-["RID", "Create Vibration Detector",
-{
-    // Get all the passed parameters
-    params [["_position", [0,0,0], [[]], 3], ["_objectUnderCursor", objNull, [objNull]]];
-    
-    if (isNull _objectUnderCursor) exitWith {};
-    
-    [_objectUnderCursor] remoteExecCall [QFUNC(createVibrationDetector), 2];
-    ["Detector Created!"] call zen_common_fnc_showMessage;
-}] call zen_custom_modules_fnc_register;
-
 ["RID", "Create Tripwire",
 {
     // Get all the passed parameters
@@ -157,6 +146,18 @@ INFO("RID: Zeus Enhanced modules loaded!");
         
     } else {
         if (true) exitWith {["Tripwire canceled: no object selected"] call zen_common_fnc_showMessage};
+    };
+}] call zen_custom_modules_fnc_register;
+
+["RID", "Spawn Vibration Detector",
+{
+    // Get all the passed parameters
+    params [["_position", [0,0,0], [[]], 3], ["_objectUnderCursor", objNull, [objNull]]];
+    _position = ASLToATL _position;
+
+    if ((not (_position isEqualTo [])) && isNull _objectUnderCursor) then {
+        private _box = createVehicle ["rid_wireBox_vibrationDetector", _position, [], 0, "CAN_COLLIDE"];
+        [_box, {{ _x addCuratorEditableObjects [[_this],true ] } forEach allCurators;}] remoteExec ["call", 2];
     };
 }] call zen_custom_modules_fnc_register;
 

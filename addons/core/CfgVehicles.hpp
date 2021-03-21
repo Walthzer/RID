@@ -17,7 +17,6 @@ class CfgVehicles
         };
     };
 
-
     class Helper_Base_F;
     class rid_tripWire_helper: Helper_Base_F {};
     
@@ -32,15 +31,16 @@ class CfgVehicles
         scopeCurator = 2;
         editorPreview = "";
         icon = "iconObject_2x1";
-        model = QPATHTOF(rid_dirt);
-        class SimpleObject {
+        model = QPATHTOF(models\rid_dirt);
+        hiddenSelections[] = {"camo"};
+/*         class SimpleObject {
             animate[] = {};
             eden = 0;
             hide[] = {};
             init = "''";
             verticalOffset = 1.284;
             verticalOffsetWorld = 0;
-        };
+        }; */
     };
 
     class rid_wireHelper: static {
@@ -52,7 +52,7 @@ class CfgVehicles
         scopeCurator = 1;
         armor = 100;
         cost = 0;
-        model = QPATHTOF(rid_wireHelper);
+        model = QPATHTOF(models\rid_wireHelper);
         destrType="DestructDefault";
         simulation="house";
         driveThroughEnabled = 1;
@@ -62,7 +62,7 @@ class CfgVehicles
     };
 
     class rid_commandWireCut: rid_wireHelper {
-        model = QPATHTOF(rid_commandWireCut);
+        model = QPATHTOF(models\rid_commandWireCut);
         destrType="DestructNo";
     };
 
@@ -70,14 +70,14 @@ class CfgVehicles
         class ACE_Actions {
             class defuseWire {
                 displayName = "Cut";
-                condition = QUOTE(alive _target);
+                condition = "alive _target";
                 statement = QUOTE(_target call FUNC(commandWireCut));
                 distance = 1;
                 selection = "poles";
             };
         };
         armor = 0.5;
-        model = QPATHTOF(rid_commandWireComplete);
+        model = QPATHTOF(models\rid_commandWireComplete);
         class EventHandlers {
             class CBA_Extended_EventHandlers: CBA_Extended_EventHandlers {};
         };
@@ -100,8 +100,8 @@ class CfgVehicles
             };
             class defuseTrigger: activateTrigger {
                 displayName = "Detach wires";
-                condition = QUOTE(_target getVariable['rid_core_isConnected', false]);
-                statement = QUOTE(_target setVariable['rid_core_isConnected', false, true]);
+                condition = "_target getVariable['rid_core_isConnected', false]";
+                statement = "_target setVariable['rid_core_isConnected', false, true]";
                 selection = "poles";
             };
         };
@@ -114,23 +114,23 @@ class CfgVehicles
         scope = 2;
         scopeCurator = 2;
         displayName = "Wire Detonator";
-        model = QPATHTOF(rid_wireDetonator);
+        model = QPATHTOF(models\rid_wireDetonator);
         icon = "iconObject_4x1";
         editorSubcategory = "EdSubcat_Electronics";
 
         class EventHandlers
         {
-            init = QUOTE(ARR_2(_this select 0, {(_this select 0) setVariable['rid_core_isConnected', true, true]}) call EFUNC(network,createNetworkNode)); //Thank you Dahlgren
+            init = QUOTE([ARR_2(_this select 0,{_this select 0 setVariable[ARR_3('rid_core_isConnected',true,true)]})] call EFUNC(network,createNetworkNode)); //Thank you Dahlgren
         };
     };
 
-    class rid_wireBox: Items_base_F
+    class rid_wireBox_base: Items_base_F
     {
         class ACE_Actions {
             class defuseTrigger {
                 displayName = "Detach wires";
-                condition = QUOTE((_target getVariable['rid_core_master', objNull]) getVariable['rid_core_isConnected', false]);
-                statement = QUOTE((_target getVariable['rid_core_master', objNull]) setVariable['rid_core_isConnected', false, true]);
+                condition = "_target getVariable['rid_core_isConnected', false]";
+                statement = "_target setVariable['rid_core_isConnected', false, true]";
                 distance = 0.5;
                 selection = "poles";
             };
@@ -142,7 +142,33 @@ class CfgVehicles
         scope = 1;
         armor = 25;
         displayName = "Wire Box";
-        model = QPATHTOF(rid_wireBox);
+        icon = "iconObject_4x1";
+        editorSubcategory = "EdSubcat_Electronics";
+        model = QPATHTOF(models\rid_wireBox_flat);
+    };
+
+    class rid_wireBox_vibrationDetector: rid_wireBox_base
+    {
+        displayName = "Vibration Detector";
+        scope = 2;
+        scopeCurator = 2;
+
+        class EventHandlers
+        {
+            init = QUOTE([ARR_2(_this select 0,{_this select 0 setVariable[ARR_3('rid_core_isConnected',true,true)]})] call EFUNC(network,createNetworkNode);[_this select 0] call FUNC(createVibrationDetector));
+        };
+    };
+
+    class rid_wireBox_master: rid_wireBox_base
+    {
+        class ACE_Actions {
+            class defuseTrigger {
+                condition = "(_target getVariable['rid_core_master', objNull]) getVariable['rid_core_isConnected', false]";
+                statement = "(_target getVariable['rid_core_master', objNull]) setVariable['rid_core_isConnected', false, true]";
+            };
+        };
+
+        model = QPATHTOF(models\rid_wireBox);
     };
 
     class MineBase;
@@ -165,7 +191,7 @@ class CfgVehicles
         displayName = "RID Network Tripwire";
         editorPreview = QPATHTOF(data\rid_tripWire_segment_preview.jpg);
         ammo = "rid_tripWire_segment_Ammo";
-        model = QPATHTOF(rid_tripwire);
+        model = QPATHTOF(models\rid_tripwire);
         mapSize=1;
     };
 };
