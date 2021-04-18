@@ -4,3 +4,4 @@
 Walthzer\Shark
 
 # CONTRIBUTORS
+Slatery

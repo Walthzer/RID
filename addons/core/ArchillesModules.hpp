@@ -88,16 +88,6 @@ INFO("RID: Achilles modules loaded!");
     [_objectUnderCursor, _thresholdMass] remoteExecCall [QFUNC(createPressurePlate), 2];
 }] call Ares_fnc_RegisterCustomModule;
 
-["RID", "Create Vibration Detector",
-{
-    // Get all the passed parameters
-    params [["_position", [0,0,0], [[]], 3], ["_objectUnderCursor", objNull, [objNull]]];
-    
-    if (isNull _objectUnderCursor) exitWith {};
-    
-    [_objectUnderCursor] remoteExecCall [QFUNC(createVibrationDetector), 2];
-}] call Ares_fnc_RegisterCustomModule;
-
 ["RID", "Create Tripwire",
 {
     // Get all the passed parameters
@@ -130,6 +120,17 @@ INFO("RID: Achilles modules loaded!");
         
     } else {
         if (true) exitWith {["Tripwire canceled: no object selected"] call Achilles_fnc_showZeusErrorMessage};
+    };
+}] call Ares_fnc_RegisterCustomModule;
+
+["RID", "Spawn Vibration Detector",
+{
+    // Get all the passed parameters
+    params [["_position", [0,0,0], [[]], 3], ["_objectUnderCursor", objNull, [objNull]]];
+    
+    if ((not (_position isEqualTo [])) && isNull _objectUnderCursor) then {
+        private _box = createVehicle ["rid_wireBox_vibrationDetector", _position, [], 0, "CAN_COLLIDE"];
+        [_box, {{ _x addCuratorEditableObjects [[_this],true ] } forEach allCurators;}] remoteExec ["call", 2];
     };
 }] call Ares_fnc_RegisterCustomModule;
 

@@ -15,6 +15,7 @@
  *Public: [Yes]
 */
 params["_arg", ["_onNewLinkCode", {}, []],["_arguments", [], [[]]]];
+TRACE_3("createNetworkNode",_arg,_onNewLinkCode,_arguments);
 
 //Confirm if argument is either an ARRAY or OBJECT
 if (not (IS_ARRAY(_arg) or IS_OBJECT(_arg))) exitWith {ERROR_1("%1 is not ARRAY nor OBJECT", _arg)};
