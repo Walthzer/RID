@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Walthzer</author>
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1397</width>
+    <height>691</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>RID: Trace Utility</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>rid.ico</normaloff>rid.ico</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="PlotCanvas" name="widget" native="true"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QDockWidget" name="TraceSelecter">
+   <property name="maximumSize">
+    <size>
+     <width>249</width>
+     <height>524287</height>
+    </size>
+   </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Trace Selecter:</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="TraceSelecterContents">
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QTreeView" name="FileViewer">
+       <property name="maximumSize">
+        <size>
+         <width>211</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1397</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOperating_Directory"/>
+   </widget>
+   <widget class="QMenu" name="menuMode">
+    <property name="title">
+     <string>Mode</string>
+    </property>
+    <addaction name="actionImage_Mode"/>
+    <addaction name="actionTrace_Mode"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuMode"/>
+  </widget>
+  <widget class="QToolBar" name="imageToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionMark_Cresent"/>
+   <addaction name="actionLink_Markings"/>
+   <addaction name="separator"/>
+   <addaction name="actionReview_Contours"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QDockWidget" name="InformationTab">
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Information:</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QUndoView" name="undoView"/>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="toolModifiersBox">
+       <property name="title">
+        <string>Tool Modifiers:</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2"/>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QToolBar" name="traceToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>true</bool>
+   </attribute>
+   <addaction name="actionMove_Node"/>
+   <addaction name="separator"/>
+   <addaction name="actionValue_Diaog"/>
+   <addaction name="separator"/>
+  </widget>
+  <action name="actionOperating_Directory">
+   <property name="text">
+    <string>Working Directory</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WindowShortcut</enum>
+   </property>
+  </action>
+  <action name="actionMark_Cresent">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Mark Cresent</string>
+   </property>
+   <property name="toolTip">
+    <string>Mark cresent shaped trace endings using circle detection.</string>
+   </property>
+   <property name="shortcut">
+    <string>Q</string>
+   </property>
+  </action>
+  <action name="actionLink_Markings">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Link Markings</string>
+   </property>
+   <property name="toolTip">
+    <string>Link marked cresent endings to unify broken traces</string>
+   </property>
+   <property name="shortcut">
+    <string>W</string>
+   </property>
+  </action>
+  <action name="actionReview_Contours">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Review Contours</string>
+   </property>
+   <property name="shortcut">
+    <string>E</string>
+   </property>
+  </action>
+  <action name="actionTrace_Mode">
+   <property name="text">
+    <string>Trace</string>
+   </property>
+   <property name="toolTip">
+    <string>Activate Trace Mode</string>
+   </property>
+  </action>
+  <action name="actionImage_Mode">
+   <property name="text">
+    <string>Image</string>
+   </property>
+  </action>
+  <action name="actionValue_Diaog">
+   <property name="text">
+    <string>Value Diaog</string>
+   </property>
+  </action>
+  <action name="actionMove_Node">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Move Node</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotCanvas</class>
+   <extends>QWidget</extends>
+   <header>RIDTraceUtilityUIExtra.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>imageToolBar</sender>
+   <signal>actionTriggered(QAction*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>ToolChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>65</x>
+     <y>24</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>232</x>
+     <y>200</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>FileViewer</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>FileViewerBoubleClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>180</x>
+     <y>333</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>234</x>
+     <y>333</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>menuBar</sender>
+   <signal>triggered(QAction*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>modeSwitched()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>139</x>
+     <y>15</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>230</x>
+     <y>166</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>traceToolBar</sender>
+   <signal>actionTriggered(QAction*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>ToolChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>268</x>
+     <y>55</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>231</x>
+     <y>166</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>ToolChanged()</slot>
+  <slot>FileViewerBoubleClick()</slot>
+  <slot>modeSwitched()</slot>
+ </slots>
+</ui>

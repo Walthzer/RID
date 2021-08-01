@@ -7,7 +7,9 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 import ridObjects as rid
-from RIDTraceUtilityUI import Ui_MainWindow, imageModes
+from RIDTraceUtilityUI import Ui_MainWindow
+from RIDTraceUtilityUIExtra import PlotCanvas
+#from RIDTraceUtilityCommands import 
 from skimage import io, measure, img_as_bool, img_as_ubyte, filters
 from skimage.feature import canny
 from scipy import ndimage

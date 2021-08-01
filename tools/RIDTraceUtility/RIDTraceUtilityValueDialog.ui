@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>555</width>
+    <height>645</height>
+   </rect>
+  </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
+  </property>
+  <property name="windowTitle">
+   <string>RID: Trace Value Editor</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>true</bool>
+  </property>
+  <property name="modal">
+   <bool>false</bool>
+  </property>
+  <layout class="QHBoxLayout" name="dialogLayout">
+   <item>
+    <widget class="QGroupBox" name="tracesBox">
+     <property name="maximumSize">
+      <size>
+       <width>240</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>Traces</string>
+     </property>
+     <layout class="QVBoxLayout" name="tracesBoxLayout">
+      <item>
+       <widget class="TraceTableView" name="tracesTable">
+        <property name="cursor" stdset="0">
+         <cursorShape>CrossCursor</cursorShape>
+        </property>
+        <property name="dragDropMode">
+         <enum>QAbstractItemView::NoDragDrop</enum>
+        </property>
+        <property name="defaultDropAction">
+         <enum>Qt::IgnoreAction</enum>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="tagsBox">
+     <property name="title">
+      <string>TAG's</string>
+     </property>
+     <layout class="QVBoxLayout" name="tagsBoxLayout">
+      <item>
+       <widget class="QListView" name="tagsList">
+        <property name="tabKeyNavigation">
+         <bool>true</bool>
+        </property>
+        <property name="dragDropMode">
+         <enum>QAbstractItemView::DragOnly</enum>
+        </property>
+        <property name="defaultDropAction">
+         <enum>Qt::IgnoreAction</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="tagButtonLayout">
+        <item>
+         <widget class="QPushButton" name="addTags">
+          <property name="text">
+           <string>Add a TAG</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="reloadTags">
+          <property name="text">
+           <string>Reload TAG's</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TraceTableView</class>
+   <extends>QTableView</extends>
+   <header>RIDTraceUtilityValueDialogExtra</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>addTags</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>addTAG()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>575</x>
+     <y>857</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>452</x>
+     <y>889</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>reloadTags</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reloadTAGS()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>972</x>
+     <y>859</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>908</x>
+     <y>888</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>addTAG()</slot>
+  <slot>reloadTAGS()</slot>
+ </slots>
+</ui>
