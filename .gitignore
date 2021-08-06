@@ -11,3 +11,4 @@ texHeaders.bin
 *.biprivatekey
 Thumbs.db
 *.pyc
+.plantumldiagrams
