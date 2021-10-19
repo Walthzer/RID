@@ -20,15 +20,33 @@
  * Public: [Yes]
  */
 params[["_position", [], [[]]], ["_iedType", "", [""]], ["_pcbType", "", [""]], ["_wires", -1, [0]], ["_trigger", "", [""]]];
+TRACE_5("CreateIED",_position,_iedType,_pcbType,_wires,_trigger);
 
 if (_position isEqualTo [] || _iedType isEqualTo "" || _pcbType isEqualTo "" || _wires isEqualTo -1 || _trigger isEqualTo "") exitWith {ERROR("CreateIED: Bad argument")};
 
 //Validate _iedType class exists
-if (!isClass (configFile >> "CfgVehicles" >> _iedType)) exitWith { ERROR("iedType class Invalid") };
+private _iedPath = configFile >> "CfgVehicles" >> _iedType;
+if (!isClass (_iedPath)) exitWith { ERROR("iedType class Invalid") };
 
-private _ied = createVehicle [_iedType, _position, [], 0, "CAN_COLLIDE"]; //TODO: Allow random offset to bury the IED
-_ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbType, _wires, _trigger], true];
+//Use new style of IED's or not
+private _ied = 0;
+if (rid_useNonStaticIED) then {
+    private _ammo = getText(_iedPath >> "ammo");
+    _iedObject = createVehicle [_ammo, _position, [], 0, "CAN_COLLIDE"]; //TODO: Allow random offset to bury the IED
+    [_iedObject, false] call ace_explosives_fnc_allowDefuse;
+    private _virtualIED = createVehicle ["rid_virtualIED", _position, [], 0, "CAN_COLLIDE"];
+    _virtualIED setVariable [QGVAR(ied), _iedObject];
+
+    _iedObject attachto [_virtualIED];
+    _ied = _virtualIED;
+
+    TRACE_3("NonStaticIED",_ammo,_ied,_virtualIED);
+} else {
+    _ied = createVehicle [_iedType, _position, [], 0, "CAN_COLLIDE"];
+};
+
 [_ied, {{ _x addCuratorEditableObjects [[_this],true ] } forEach allCurators;}] remoteExec ["call", 2];
+_ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbType, _wires, _trigger], true];
 
 //Assign IED a pcb minigame
 if(_trigger != "ext") then {

@@ -17,7 +17,12 @@ TRACE_1("activateNetworkCrawler",_node);
 
 if (isNull _node) exitWith {ERROR_1("%1 is not an OBJECT", _node)};
 
-if (not (_node getVariable[QGVAR(isNetworkNode), false])) exitWith {ERROR_1("%1 is not a Network Node", _node)};
+if (not ([_node] call FUNC(isNetworkNode))) exitWith {ERROR_1("%1 is not a Network Node", _node)};
+
+//Prevent companionless virtualIEDs from being functional network components.
+if (TypeOf _node == "rid_virtualIED" && {not ([_node] call EFUNC(core,validVirtualIEDCompanionExists))}) exitWith {
+    deleteVehicle _node;
+};
 
 private _nodeNetworkConnections = _node getVariable [QGVAR(networkConnections), []];
 if (count _nodeNetworkConnections == 0) exitWith {INFO_1("%1 has no Network Connections", _node)};
@@ -34,6 +39,11 @@ private _fnc_retrieveNetworkConnections = {
         if (isNull _networkComponent || {!alive _networkComponent}) then {
         } else {
             if (_networkComponent getVariable[QGVAR(isNetworkNode), false]) then {
+                //Prevent companionless virtualIEDs from being functional network components.
+                if (TypeOf _networkComponent == "rid_virtualIED" && {not ([_networkComponent] call EFUNC(core,validVirtualIEDCompanionExists))}) exitWith {
+                    deleteVehicle _networkComponent;
+                    continue;
+                };
                 private _nodeNetworkReciever = _networkComponent getVariable[QGVAR(NetworkReciever), []];
                 if (count _nodeNetworkReciever > 0) then {
                     _nodeNetworkReciever params [["_function", {}, [{}]],["_arguments", [], []]];

@@ -13,13 +13,22 @@
  *
 */
 params["_ied", ["_delay", -2, [0]]];
+TRACE_2("detonateIED",_ied,_delay);
 //Cofirm given IED exists in the world
 if (_ied isEqualTo objNull) exitWith { ERROR("Function exited: _ied object doesn't exist");};
 
-//prepare variables
 private _iedType = TypeOf _ied;
-private _iedAmmo = getText (configFile >> "CfgVehicles" >> _iedType >> "ammo");
+private _detonationObject = 0;
 
-private _detonationObject = _iedAmmo createVehicle (getPosATL _ied);
+if (_iedType == "rid_virtualIED") then {
+	_detonationObject = _ied getVariable [QGVAR(ied), objNull];
+	TRACE_2("VirtualIED",_ied,_detonationObject);
+	deleteVehicle _ied;
+} else {
+	private _iedAmmo = getText (configFile >> "CfgVehicles" >> _iedType >> "ammo");
+	_detonationObject = _iedAmmo createVehicle (getPosATL _ied);
+	deleteVehicle _ied;
+};
+
+if (isNull _detonationObject) exitWith {};
 [[_detonationObject], _delay] call ace_explosives_fnc_scriptedExplosive;
-deleteVehicle _ied;

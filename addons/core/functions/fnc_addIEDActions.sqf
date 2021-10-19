@@ -1,19 +1,19 @@
 #include "script_component.hpp"
 /*
- * Author: Walthzer/Shark
- * Attach the ACE interaction menu actions to an IED object. 
- *
- * Arguments:
- * 0: IED <OBJECT>
- *
- * Return Value:
- * None
- *
- * Example:
- * [_ied] call rid_core_fnc_addIEDActions
- *
- * Public: [No]
- */
+* Author: Walthzer/Shark
+* Attach the ACE interaction menu actions to an IED object. 
+*
+* Arguments:
+* 0: IED <OBJECT>
+*
+* Return Value:
+* None
+*
+* Example:
+* [_ied] call rid_core_fnc_addIEDActions
+*
+* Public: [No]
+*/
 params["_ied"];
 
 if (!hasInterface) exitWith {};
@@ -36,7 +36,8 @@ private _fnc_defuse = {
         (_dialog displayCtrl _x) ctrlEnable false;
     } forEach  (_target getVariable [QEGVAR(pcb,cutWires), [] ]);
     //Assign the path to the traces.paa selected.
-    ctrlSetText [1894, (_pcb select 0 select 4)];};
+    ctrlSetText [1894, (_pcb select 0 select 4)];
+};
 
 private _fnc_dig = {
     params["_target", "_unit"];
@@ -55,9 +56,19 @@ private _fnc_dig = {
     };
     if(!(_exitCode isEqualTo {})) exitWith {call _exitCode};
 
-    private _weaponHolder = createVehicle ["Weapon_Empty", (getPosATL _target), [], 0, "CAN_COLLIDE"];
+    private _weaponHolder = createVehicle ["groundWeaponHolder", (getPosATL _target), [], 0, "CAN_COLLIDE"];
+    private _iedAmmo = 0;
+    
+    if ((typeOf _target) == "rid_virtualIED") then {
+        private _ied = _target getVariable QGVAR(ied);
+        _iedAmmo = TypeOf _ied;
+        TRACE_2("Dig up rid_virtualIED",_iedAmmo,_ied);
+        deleteVehicle _ied;
+    } else {
+        _iedAmmo = getText (configFile >> "CfgVehicles" >> (TypeOf _target) >> "ammo");
+        TRACE_1("Dig up IED",_iedAmmo,_target);
+    };
     deleteVehicle _target;
-    private _iedAmmo = getText (configFile >> "CfgVehicles" >> (TypeOf _target) >> "ammo");
     private _iedMagazine = getText (configFile >> "CfgAmmo" >> _iedAmmo >> "defaultMagazine");
     _weaponHolder addMagazineCargo [_iedMagazine, 1];
 };
@@ -75,7 +86,12 @@ private _fnc_digCondition = {
     true;
 };
 
-private _action = ["Main","","", {}, {true}, {}, [], [0,0,0], 1] call ace_interact_menu_fnc_createAction;
+private _mainCondition = {true};
+if (rid_useNonStaticIED) then {
+    _mainCondition = {[_target] call FUNC(validVirtualIEDCompanionExists)};
+};
+
+private _action = ["Main","","", {},_mainCondition, {}, [], [0,0,0], 1] call ace_interact_menu_fnc_createAction;
 [_ied, 0, [], _action] call ace_interact_menu_fnc_addActionToObject;
 
 _action = ["Defuse","Defuse","z\ace\addons\explosives\UI\Defuse_ca.paa",_fnc_defuse,_fnc_defuseCondition, {}, [], [0,0,0], 2] call ace_interact_menu_fnc_createAction;
