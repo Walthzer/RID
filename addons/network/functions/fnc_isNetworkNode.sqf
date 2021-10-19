@@ -4,7 +4,7 @@
  * Determines if an object is a networkNode, keeping in mind IEDs and VirtualIEDs 
  *
  * Arguments:
- * 0: object <Object>	
+ * 0: object <Object>    
  *
  * Return Value:
  * is networkNode <BOOLEAN>
@@ -18,12 +18,12 @@ params["_object"];
 
 private _objectClass = typeOf _object;
 if (isClass(configFile >> "CfgAmmo" >> _objectClass)) then {
-	private _objectPos = getPosATL _object;
-	private _virtualIED = nearestObject [_iedPos, "rid_virtualIED"];
+    private _objectPos = getPosATL _object;
+    private _virtualIED = nearestObject [_iedPos, "rid_virtualIED"];
 
-	if (isNull _virtualIED || {(_ied distance _virtualIED) > MaxVirtualIEDDistance}) exitWith {false};
+    if (isNull _virtualIED || {(_ied distance _virtualIED) > MaxVirtualIEDDistance}) exitWith {false};
 
-	_object = _virtualIED;
+    _object = _virtualIED;
 };
 
 _object getVariable[QGVAR(isNetworkNode), false];
