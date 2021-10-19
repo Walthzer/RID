@@ -5,7 +5,7 @@ class rid_standard_3W_base {
     movingEnable = false;
     enableSimulation = true;
     name="PCB";
-    onLoad = QUOTE(uiNamespace setVariable ['rid_pcb_dialog', _this select 0]);
+    onLoad = QUOTE(uiNamespace setVariable [ARR_2('rid_pcb_dialog', _this select 0)]);
     attributes[] = {QGVAR(lopDetection), QGVAR(hasPower), QGVAR(hasDetonator), QGVAR(hasExternal)};
     class wireDictionary {
         0[]={CR3("bat"),CR3("ext"),CR3("det")};
