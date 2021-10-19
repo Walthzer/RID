@@ -25,7 +25,7 @@ private _fnc_defuse = {
     _unit action ["Deactivate", _unit, _target];
 
     if(_pcb isEqualTo []) exitWith {
-        systemChat "Nothing to defuse";
+        systemChat (localize "STR_RID_Core_Nothing_To_Defuse");
     };
     uiNamespace setVariable[QEGVAR(pcb,ied), _target];
     createDialog (_pcb select 0 select 0);
@@ -52,7 +52,7 @@ private _fnc_dig = {
 
         //Inform player the IED is still connected:
         if(("ext" in (_pcbParameters select 2)) && (QEGVAR(pcb,hasExternal) in (_pcb select 1))) exitWith {
-            _exitCode = {systemChat "The IED won't come loose, its still connected to something"}};
+            _exitCode = {systemChat (localize "STR_RID_Core_IED_Still_Connected")}};
     };
     if(!(_exitCode isEqualTo {})) exitWith {call _exitCode};
 
@@ -94,8 +94,8 @@ if (rid_useNonStaticIED) then {
 private _action = ["Main","","", {},_mainCondition, {}, [], [0,0,0], 1] call ace_interact_menu_fnc_createAction;
 [_ied, 0, [], _action] call ace_interact_menu_fnc_addActionToObject;
 
-_action = ["Defuse","Defuse","z\ace\addons\explosives\UI\Defuse_ca.paa",_fnc_defuse,_fnc_defuseCondition, {}, [], [0,0,0], 2] call ace_interact_menu_fnc_createAction;
+_action = ["Defuse",localize "STR_RID_Core_Defuse","z\ace\addons\explosives\UI\Defuse_ca.paa",_fnc_defuse,_fnc_defuseCondition, {}, [], [0,0,0], 2] call ace_interact_menu_fnc_createAction;
 [_ied, 0, ["Main"], _action] call ace_interact_menu_fnc_addActionToObject;
 
-_action = ["Dig_up","Dig up","",_fnc_dig,_fnc_digCondition, {}, [], [0,0,0], 2] call ace_interact_menu_fnc_createAction;
+_action = ["Dig_up",localize "STR_RID_Core_Dig_Up","",_fnc_dig,_fnc_digCondition, {}, [], [0,0,0], 2] call ace_interact_menu_fnc_createAction;
 [_ied, 0, ["Main"], _action] call ace_interact_menu_fnc_addActionToObject;
