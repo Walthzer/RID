@@ -44,16 +44,21 @@ INFO("RID: Achilles modules loaded!");
         [["Realistic_IED_Defusal_Zeus","NetworkLink"],15,"not isNil ""Achilles_var_submit_selection""",35,"not isNil ""Achilles_var_submit_selection""",true,true] call BIS_fnc_advHint;
     };
     
-    if (not (isNull _objectUnderCursor) and (_objectUnderCursor getVariable["rid_network_isNetworkNode", false])) then {
-        private _primaryNode = _objectUnderCursor;
-        [] spawn _fnc_showInstructions;
-        private _secundaryNode = ["Objects", true] call Achilles_fnc_SelectUnits;
-        if (isNil "_secundaryNode") exitWith {};
-        if (not (_secundaryNode getVariable["rid_network_isNetworkNode", false])) exitWith {["Connection canceled: Object was not network node"] call Achilles_fnc_showZeusErrorMessage};
-        [_primaryNode, _secundaryNode, true] call rid_network_fnc_createNetworkLink;
-        
-    } else {
-        if (true) exitWith {["Connection canceled: Object was not network node"] call Achilles_fnc_showZeusErrorMessage};
+    if (not (isNull _objectUnderCursor)) then {
+        if ([_objectUnderCursor] call FUNC(isCfgAmmoInstance)) then {
+            _objectUnderCursor = [_objectUnderCursor] call FUNC(getVirtualIEDFromCompanion);
+        };
+        if (_objectUnderCursor getVariable["rid_network_isNetworkNode", false]) then {
+            private _primaryNode = _objectUnderCursor;
+            [] spawn _fnc_showInstructions;
+            private _secundaryNode = ["Objects", true] call Achilles_fnc_SelectUnits;
+            if (isNil "_secundaryNode") exitWith {};
+            if (not ([_secundaryNode] call EFUNC(network,isNetworkNode))) exitWith {["Connection canceled: Object was not network node"] call Achilles_fnc_showZeusErrorMessage};
+            [_primaryNode, _secundaryNode, true] call rid_network_fnc_createNetworkLink;
+            
+        } else {
+            if (true) exitWith {["Connection canceled: Object was not network node"] call Achilles_fnc_showZeusErrorMessage};
+        };
     };
 
     if (isNull _objectUnderCursor) then {
@@ -61,7 +66,7 @@ INFO("RID: Achilles modules loaded!");
         [] spawn _fnc_showInstructions;
         private _secundaryNode = ["Objects", true] call Achilles_fnc_SelectUnits;
         if (isNil "_secundaryNode") exitWith {};
-        if (not (_secundaryNode getVariable["rid_network_isNetworkNode", false])) exitWith {["Connection canceled: Object was not network node"] call Achilles_fnc_showZeusErrorMessage};
+        if (not ([_secundaryNode] call EFUNC(network,isNetworkNode))) exitWith {["Connection canceled: Object was not network node"] call Achilles_fnc_showZeusErrorMessage};
         [_primaryNode, _secundaryNode, true] call rid_network_fnc_createNetworkLink;
     };
 }] call Ares_fnc_RegisterCustomModule;

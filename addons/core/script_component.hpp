@@ -15,4 +15,6 @@
     #define DEBUG_SETTINGS DEBUG_SETTINGS_CORE
 #endif
 
+#define MaxVirtualIEDDistance 0.1 //Max Distance between IED and a virtualIED
+
 #include "\z\rid\addons\main\script_macros.hpp"

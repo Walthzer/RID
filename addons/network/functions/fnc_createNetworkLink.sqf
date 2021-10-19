@@ -19,7 +19,16 @@ params["_node0", "_node1", "_createCable"];
 
 
 if (not (IS_OBJECT(_node0) and IS_OBJECT(_node1))) exitWith {ERROR_2("%1 and %2 are not objects!", _node0, _node1)};
-if (not ((_node0 getVariable[QGVAR(isNetworkNode), false]) and (_node1 getVariable[QGVAR(isNetworkNode), false]))) exitWith {ERROR_2("%1 and %2 are not Network Nodes!", _node0, _node1)};
+if (not (([_node0] call FUNC(isNetworkNode))) and ([_node1] call FUNC(isNetworkNode))) exitWith {ERROR_2("%1 and %2 are not Network Nodes!", _node0, _node1)};
+
+if([_node0] call EFUNC(core,isCfgAmmoInstance)) then {
+    _node0 = [_node0] call EFUNC(core,getVirtualIEDFromCompanion);
+};
+
+if([_node1] call EFUNC(core,isCfgAmmoInstance)) then {
+    _node1 = [_node1] call EFUNC(core,getVirtualIEDFromCompanion);
+};
+
 
 private _nodes = if (_createCable) then {
     [_node0, _node1] call FUNC(createWire);

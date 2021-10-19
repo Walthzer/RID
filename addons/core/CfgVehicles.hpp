@@ -19,8 +19,14 @@ class CfgVehicles
 
     class Helper_Base_F;
     class rid_tripWire_helper: Helper_Base_F {};
-    
     class rid_wireLink: Helper_Base_F {};
+
+    class rid_virtualIED: Helper_Base_F {
+        author = "Walthzer/Shark";
+        class EventHandlers {
+            class CBA_Extended_EventHandlers: CBA_Extended_EventHandlers {};
+        };
+    };
 
     class static;
     class rid_dirt: static {

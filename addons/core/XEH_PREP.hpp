@@ -15,3 +15,6 @@ PREP(RscDisplayAttributes_createIED);
 PREP(tripWireActivation);
 PREP(removeTripWire);
 PREP(conditionalCrawlerActivation);
+PREP(isCfgAmmoInstance);
+PREP(getVirtualIEDFromCompanion);
+PREP(validVirtualIEDCompanionExists);

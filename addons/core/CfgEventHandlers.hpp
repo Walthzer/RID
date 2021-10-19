@@ -22,4 +22,17 @@ class Extended_Killed_EventHandlers {
             serverKilled = QUOTE(call FUNC(commandWireCut));
         };
     };
+    class rid_virtualIED {
+        class ADDON {
+            killed = QUOTE([this select 0] call FUNC(conditionalCrawlerActivation));
+        };
+    };
+};
+
+class Extended_Deleted_EventHandlers {
+    class rid_virtualIED {
+        class ADDON {
+            deleted = QUOTE(deleteVehicle ((_this select 0) getVariable 'rid_core_ied'));
+        };
+    };
 };
