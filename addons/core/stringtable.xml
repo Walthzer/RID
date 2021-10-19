@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="RID">
+    <Package name="Core">
+        <Key ID="STR_RID_Core_Nothing_To_Defuse">
+            <English>Nothing to defuse</English>
+        </Key>
+        <Key ID="STR_RID_Core_IED_Still_Connected">
+            <English>The IED won't come loose, its still connected to something</English>
+        </Key>
+        <Key ID="STR_RID_Core_Dig_Up">
+            <English>Dig Up</English>
+        </Key>
+        <Key ID="STR_RID_Core_Defuse">
+            <English>Defuse</English>
+        </Key>
+    </Package>
+</Project>
