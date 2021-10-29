@@ -11,6 +11,6 @@ ADDON = true;
 "CHECKBOX",
 ["Use new style of IED's", "Use acual mines for RID IED's"],
 "RID",
-false,
+true,
 true
 ] call CBA_fnc_addSetting;

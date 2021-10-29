@@ -35,7 +35,7 @@ if (rid_useNonStaticIED) then {
     _iedObject = createVehicle [_ammo, _position, [], 0, "CAN_COLLIDE"]; //TODO: Allow random offset to bury the IED
     [_iedObject, false] call ace_explosives_fnc_allowDefuse;
     private _virtualIED = createVehicle ["rid_virtualIED", _position, [], 0, "CAN_COLLIDE"];
-    _virtualIED setVariable [QGVAR(ied), _iedObject];
+    _virtualIED setVariable [QGVAR(ied), _iedObject, true];
 
     _iedObject attachto [_virtualIED];
     _ied = _virtualIED;
