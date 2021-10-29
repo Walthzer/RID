@@ -21,6 +21,6 @@ private _ied = _virtualIED getVariable[QGVAR(ied), objNull];
 private _deleteCompanionOnDeletion = _virtualIED getVariable[QGVAR(deleteCompanionOnDeletion), true];
 
 if (!isNull _ied && {_deleteCompanionOnDeletion}) then {
-	TRACE_1("Deleting Companion",_ied);
-	deleteVehicle _ied;
+    TRACE_1("Deleting Companion",_ied);
+    deleteVehicle _ied;
 };
