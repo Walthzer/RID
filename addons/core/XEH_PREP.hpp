@@ -18,3 +18,4 @@ PREP(conditionalCrawlerActivation);
 PREP(isCfgAmmoInstance);
 PREP(getVirtualIEDFromCompanion);
 PREP(validVirtualIEDCompanionExists);
+PREP(onVirtualIEDDeletion);
