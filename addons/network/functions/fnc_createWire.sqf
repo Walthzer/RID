@@ -28,7 +28,7 @@ private _y1 = (_node1Pos select 1);
 private _cableParentPos = [(_x0 + _x1)/2, (_y0 + _y1)/2, 0];
 
 private _cableParent = "Helper_Base_F" createVehicle _cableParentPos;
-[_cableParent, {{ _x addCuratorEditableObjects [[_this],true ] } forEach allCurators;}] remoteExec ["call", 2];
+["ace_zeus_addObject", [[_cableParent]]] call CBA_fnc_serverEvent;
 
 private _distanceBetweenNodes = (_node0 distance2D _node1);
 private _directionVector = _node0Pos vectorFromTo _node1Pos;

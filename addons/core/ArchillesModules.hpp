@@ -135,7 +135,7 @@ INFO("RID: Achilles modules loaded!");
     
     if ((not (_position isEqualTo [])) && isNull _objectUnderCursor) then {
         private _box = createVehicle ["rid_wireBox_vibrationDetector", _position, [], 0, "CAN_COLLIDE"];
-        [_box, {{ _x addCuratorEditableObjects [[_this],true ] } forEach allCurators;}] remoteExec ["call", 2];
+        ["ace_zeus_addObject", [[_box]]] call CBA_fnc_serverEvent;
     };
 }] call Ares_fnc_RegisterCustomModule;
 
@@ -146,7 +146,7 @@ INFO("RID: Achilles modules loaded!");
     
     if ((not (_position isEqualTo [])) && isNull _objectUnderCursor) then {
         private _box = createVehicle ["rid_wireDetonator", _position, [], 0, "CAN_COLLIDE"];
-        [_box, {{ _x addCuratorEditableObjects [[_this],true ] } forEach allCurators;}] remoteExec ["call", 2];
+        ["ace_zeus_addObject", [[_box]]] call CBA_fnc_serverEvent;
     };
 }] call Ares_fnc_RegisterCustomModule;
 };

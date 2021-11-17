@@ -45,7 +45,8 @@ if (rid_useNonStaticIED) then {
     _ied = createVehicle [_iedType, _position, [], 0, "CAN_COLLIDE"];
 };
 
-[_ied, {{ _x addCuratorEditableObjects [[_this],true ] } forEach allCurators;}] remoteExec ["call", 2];
+["ace_zeus_addObject", [[_ied]]] call CBA_fnc_serverEvent;
+
 _ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbType, _wires, _trigger], true];
 
 //Assign IED a pcb minigame
@@ -82,5 +83,8 @@ _fnc_addExtTrigger = {
 [_ied, FUNC(detonateIED)] call EFUNC(network,assignNetworkReciever);
 
 //Attach ACE actions to IED:
-[_ied] remoteExecCall [QFUNC(addIEDActions), 0, true];
+[
+    [QGVAR(addIEDActions), [_ied]] call CBA_fnc_globalEventJIP,
+    _ied
+] call CBA_fnc_removeGlobalEventJIP;
 _ied;
