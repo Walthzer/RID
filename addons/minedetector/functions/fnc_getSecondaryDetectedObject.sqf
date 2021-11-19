@@ -5,7 +5,7 @@ params ["_unit", "_primaryObject", "_primaryIsCW"];
 
 //Utilize ACE code to retrieve a reference point of the detector head. 
 private _worldPosition = _unit modelToWorld (_unit selectionPosition "granat");
-private _ref = (_unit weaponDirection currentWeapon _unit) call ace_common_fnc_createOrthonormalReference;
+private _ref = (_unit weaponDirection currentWeapon _unit) call ACE_FUNC(common,createOrthonormalReference);
 _ref params ["_v1", "_v2", "_v3"];
 private _detectorPointAGL = _worldPosition vectorAdd
                                 (_v1 vectorMultiply ( 0.9 * __DR)) vectorAdd

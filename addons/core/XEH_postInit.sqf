@@ -23,7 +23,17 @@ if (isServer) then {
 if (hasInterface) then {
     [QGVAR(addIEDActions), {
         params["_ied"];
-        [_ied] call FUNC(addIEDActions);
+
+        private _mainCondition = [{true}, {[_target] call FUNC(validVirtualIEDCompanionExists)}] select ((typeOf _ied) == "rid_virtualIED");
+
+        private _action = ["Main","","", {},_mainCondition, {}, [], [0,0,0], 1] call ACE_FUNC(interact_menu,createAction);
+        [_ied, 0, [], _action] call ACE_FUNC(interact_menu,addActionToObject);
+
+        _action = ["Defuse",LLSTRING(Defuse),"z\ace\addons\explosives\UI\Defuse_ca.paa",{[_target] call FUNC(displayDefusePCB)},{[_player] call FUNC(canDefuse)}, {}, [], [0,0,0], 2] call ACE_FUNC(interact_menu,createAction);
+        [_ied, 0, ["Main"], _action] call ACE_FUNC(interact_menu,addActionToObject);
+
+        _action = ["Dig_up",LLSTRING(DigUp),"",{[_target] call FUNC(digUpIED)},{[_player, "ACE_EntrenchingTool"] call FUNC(hasTool)}, {}, [], [0,0,0], 2] call ACE_FUNC(interact_menu,createAction);
+        [_ied, 0, ["Main"], _action] call ACE_FUNC(interact_menu,addActionToObject);
     }] call CBA_fnc_addEventHandler;
 };
 

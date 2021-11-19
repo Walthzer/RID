@@ -33,4 +33,4 @@ if (_iedType == "rid_virtualIED") then {
 };
 
 if (isNull _detonationObject) exitWith {ERROR("_detonationObject is null")};
-[[_detonationObject], _delay] call ace_explosives_fnc_scriptedExplosive;
+[[_detonationObject], _delay] call ACE_FUNC(explosives,scriptedExplosive);

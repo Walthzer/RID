@@ -6,7 +6,7 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
-        requiredAddons[] = {"ace_common"};
+        requiredAddons[] = {"ace_explosives"};
         author = "";
         authors[] = {"Walthzer/Shark"};
         authorUrl = "https://github.com/Walthzer?tab=repositories";

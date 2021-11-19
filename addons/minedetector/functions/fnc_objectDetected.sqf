@@ -14,7 +14,7 @@ private _primaryObjectClassName = typeOf _primaryObject;
 private _primaryObjectConfigType = ["CfgAmmo", "CfgVehicles"] select (isClass (configFile >> "CfgVehicles" >> _primaryObjectClassName)); 
 private _primaryIsCW = isNumber (configFile >> _primaryObjectConfigType >> _primaryObjectClassName >> "isCW");
 
-private _detected = [[_unit, _primaryObject, _primaryIsCW], FUNC(getSecondaryDetectedObject), _unit, QGVAR(secondaryDetectedObjects), 0.15] call ace_common_fnc_cachedCall;
+private _detected = [[_unit, _primaryObject, _primaryIsCW], FUNC(getSecondaryDetectedObject), _unit, QGVAR(secondaryDetectedObjects), 0.15] call ACE_FUNC(common,cachedCall);
 
 _detected params ["_secondaryObject", "_secondaryIsCW", "_secondaryDistance"];
 private _argCache = [_primaryObject, _primaryDistance, _secondaryObject, _secondaryDistance];

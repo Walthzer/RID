@@ -24,7 +24,7 @@ if (not (IS_ARRAY(_arg) or IS_OBJECT(_arg))) exitWith {ERROR_1("%1 is not ARRAY 
 //If argument is an ARRAY, create the empty object else use the argument as the empty object
 private _object = if (IS_ARRAY(_arg)) then {
     private _node = "Helper_Base_F" createVehicle _arg;
-    ["ace_zeus_addObject", [[_node]]] call CBA_fnc_serverEvent;
+    ["ace_zeus_addObjects", [[_node]]] call CBA_fnc_serverEvent;
     _node;
 } else {
     _arg;

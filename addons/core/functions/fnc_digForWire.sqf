@@ -29,9 +29,9 @@ private _fnc_digCompleted = {
         _wire setVariable [QEGVAR(network,cableParent), _cableParent, true];
         deleteVehicle _wireHelper;
     };
-    [_player, _playerAnimation, 1] call ace_common_fnc_doAnimation;
+    [_player, _playerAnimation, 1] call ACE_FUNC(common,doAnimation);
 
 };
 
-[6, [_player, (animationState _player)], _fnc_digCompleted, {[_this select 0 select 0, _this select 0 select 1, 1] call ace_common_fnc_doAnimation}, "Diggy Diggy"] call ace_common_fnc_progressBar;
-[_player, "AinvPknlMstpSnonWnonDnon_medic4"] call ace_common_fnc_doAnimation;
+[6, [_player, (animationState _player)], _fnc_digCompleted, {[_this select 0 select 0, _this select 0 select 1, 1] call ACE_FUNC(common,doAnimation)}, "Diggy Diggy"] call ACE_FUNC(common,progressBar);
+[_player, "AinvPknlMstpSnonWnonDnon_medic4"] call ACE_FUNC(common,doAnimation);

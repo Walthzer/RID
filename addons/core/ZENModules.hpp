@@ -92,7 +92,7 @@ INFO("RID: Zeus Enhanced modules loaded!");
         ],
         {
             private _threshold = parseNumber ((_this select 0)#0);
-            [_this select 1, _threshold] remoteExecCall [QFUNC(createPressurePlate), 2];
+            [QGVAR(createPressurePlate), [_objectUnderCursor, _thresholdMass]] call CBA_fnc_serverEvent;
             ["Detector Created!"] call zen_common_fnc_showMessage;
         },
         {},
@@ -157,7 +157,7 @@ INFO("RID: Zeus Enhanced modules loaded!");
 
     if ((not (_position isEqualTo [])) && isNull _objectUnderCursor) then {
         private _box = createVehicle ["rid_wireBox_vibrationDetector", _position, [], 0, "CAN_COLLIDE"];
-        ["ace_zeus_addObject", [[_box]]] call CBA_fnc_serverEvent;
+        ["ace_zeus_addObjects", [[_box]]] call CBA_fnc_serverEvent;
     };
 }] call zen_custom_modules_fnc_register;
 
@@ -169,7 +169,7 @@ INFO("RID: Zeus Enhanced modules loaded!");
 
     if ((not (_position isEqualTo [])) && isNull _objectUnderCursor) then {
         private _box = createVehicle ["rid_wireDetonator", _position, [], 0, "CAN_COLLIDE"];
-        ["ace_zeus_addObject", [[_box]]] call CBA_fnc_serverEvent;
+        ["ace_zeus_addObjects", [[_box]]] call CBA_fnc_serverEvent;
     };
 }] call zen_custom_modules_fnc_register;
 };

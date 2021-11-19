@@ -90,7 +90,7 @@ INFO("RID: Achilles modules loaded!");
     if (_dialogResult isEqualTo []) exitWith {};
     
     _thresholdMass = parseNumber(_dialogResult select 0);
-    [_objectUnderCursor, _thresholdMass] remoteExecCall [QFUNC(createPressurePlate), 2];
+    [QGVAR(createPressurePlate), [_objectUnderCursor, _thresholdMass]] call CBA_fnc_serverEvent;
 }] call Ares_fnc_RegisterCustomModule;
 
 ["RID", "Create Tripwire",
@@ -135,7 +135,7 @@ INFO("RID: Achilles modules loaded!");
     
     if ((not (_position isEqualTo [])) && isNull _objectUnderCursor) then {
         private _box = createVehicle ["rid_wireBox_vibrationDetector", _position, [], 0, "CAN_COLLIDE"];
-        ["ace_zeus_addObject", [[_box]]] call CBA_fnc_serverEvent;
+        ["ace_zeus_addObjects", [[_box]]] call CBA_fnc_serverEvent;
     };
 }] call Ares_fnc_RegisterCustomModule;
 
@@ -146,7 +146,7 @@ INFO("RID: Achilles modules loaded!");
     
     if ((not (_position isEqualTo [])) && isNull _objectUnderCursor) then {
         private _box = createVehicle ["rid_wireDetonator", _position, [], 0, "CAN_COLLIDE"];
-        ["ace_zeus_addObject", [[_box]]] call CBA_fnc_serverEvent;
+        ["ace_zeus_addObjects", [[_box]]] call CBA_fnc_serverEvent;
     };
 }] call Ares_fnc_RegisterCustomModule;
 };
