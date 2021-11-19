@@ -1,4 +1,3 @@
-PREP(addIEDActions);
 PREP(boxTrigger);
 PREP(calculatePressure);
 PREP(calculateVibrations);
@@ -19,3 +18,7 @@ PREP(isCfgAmmoInstance);
 PREP(getVirtualIEDFromCompanion);
 PREP(validVirtualIEDCompanionExists);
 PREP(onVirtualIEDDeletion);
+PREP(digUpIED);
+PREP(displayDefusePCB);
+PREP(canDefuse);
+PREP(hasTool);

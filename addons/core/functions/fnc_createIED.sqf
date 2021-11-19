@@ -20,7 +20,7 @@
  * Public: [Yes]
  */
 params[["_position", [], [[]]], ["_iedType", "", [""]], ["_pcbType", "", [""]], ["_wires", -1, [0]], ["_trigger", "", [""]]];
-TRACE_5("CreateIED",_position,_iedType,_pcbType,_wires,_trigger);
+TRACE_5("Function start",_position,_iedType,_pcbType,_wires,_trigger);
 
 if (_position isEqualTo [] || _iedType isEqualTo "" || _pcbType isEqualTo "" || _wires isEqualTo -1 || _trigger isEqualTo "") exitWith {ERROR("CreateIED: Bad argument")};
 
@@ -29,11 +29,11 @@ private _iedPath = configFile >> "CfgVehicles" >> _iedType;
 if (!isClass (_iedPath)) exitWith { ERROR("iedType class Invalid") };
 
 //Use new style of IED's or not
-private _ied = 0;
-if (rid_useNonStaticIED) then {
+private _ied = objNull;
+if (GVAR(useNonStaticIED)) then {
     private _ammo = getText(_iedPath >> "ammo");
     _iedObject = createVehicle [_ammo, _position, [], 0, "CAN_COLLIDE"]; //TODO: Allow random offset to bury the IED
-    [_iedObject, false] call ace_explosives_fnc_allowDefuse;
+    [_iedObject, false] call ACE_FUNC(explosives,allowDefuse);
     private _virtualIED = createVehicle ["rid_virtualIED", _position, [], 0, "CAN_COLLIDE"];
     _virtualIED setVariable [QGVAR(ied), _iedObject, true];
 
@@ -45,7 +45,8 @@ if (rid_useNonStaticIED) then {
     _ied = createVehicle [_iedType, _position, [], 0, "CAN_COLLIDE"];
 };
 
-[_ied, {{ _x addCuratorEditableObjects [[_this],true ] } forEach allCurators;}] remoteExec ["call", 2];
+["ace_zeus_addObjects", [[_ied]]] call CBA_fnc_serverEvent;
+
 _ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbType, _wires, _trigger], true];
 
 //Assign IED a pcb minigame
@@ -53,9 +54,11 @@ if(_trigger != "ext") then {
     _pcb = [_ied, _pcbType, _wires, _trigger] call EFUNC(pcb,retrievePCB);
     _ied setVariable [QEGVAR(pcb,pcbParameters), [_pcbType, _wires, _trigger], true];
     _ied setVariable [QEGVAR(pcb,pcb), _pcb, true];
-    if("vib" in _trigger && {isNull (_ied getVariable[QGVAR(vibrationDetector), objNull])}) then {
-        [_ied, true] remoteExecCall [QFUNC(createVibrationDetector), 2];
+    if ("vib" in _trigger && {isNull (_ied getVariable[QGVAR(vibrationDetector), objNull])}) then {
+        TRACE_1("Assigning Vibration Detector to IED",_ied);
+        [QGVAR(createVibrationDetector), [_ied, true]] call CBA_fnc_serverEvent;
     };
+    TRACE_1("IED minigame assigned",_ied,_pcb);
 };
 
 _fnc_addExtTrigger = {
@@ -82,5 +85,8 @@ _fnc_addExtTrigger = {
 [_ied, FUNC(detonateIED)] call EFUNC(network,assignNetworkReciever);
 
 //Attach ACE actions to IED:
-[_ied] remoteExecCall [QFUNC(addIEDActions), 0, true];
+[
+    [QGVAR(addIEDActions), [_ied]] call CBA_fnc_globalEventJIP,
+    _ied
+] call CBA_fnc_removeGlobalEventJIP;
 _ied;

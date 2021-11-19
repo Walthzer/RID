@@ -7,8 +7,8 @@ class CfgVehicles
         class ACE_SelfActions {
             class ACE_Equipment {
                 class RID_DigForCable {
-                    displayName = "Dig for cable";
-                    condition = QUOTE([_player] call ace_common_fnc_isEngineer && {[_player] call ace_common_fnc_canDig});
+                    displayName = CSTRING(DigForCableAction_Displayname);
+                    condition = QUOTE([_player] call ACE_FUNC(common,canDig) && {ARG_2(true,[_player] call ACE_FUNC(common,isEngineer),GVAR(requireEngineer))});
                     exceptions[] = {};
                     statement = QUOTE(call FUNC(digForWire));
                     showDisabled = 0;
@@ -22,6 +22,8 @@ class CfgVehicles
     class rid_wireLink: Helper_Base_F {};
 
     class rid_virtualIED: Helper_Base_F {
+        scope = 1;
+        scopeCurator = 1;
         author = "Walthzer/Shark";
         class EventHandlers {
             class CBA_Extended_EventHandlers: CBA_Extended_EventHandlers {};
@@ -75,7 +77,7 @@ class CfgVehicles
     class rid_commandWireComplete: rid_wireHelper {
         class ACE_Actions {
             class RID_defuseWire {
-                displayName = "Cut";
+                displayName = CSTRING(CutAction_Displayname);
                 condition = "alive _target";
                 statement = QUOTE(_target call FUNC(commandWireCut));
                 distance = 1;
@@ -93,8 +95,8 @@ class CfgVehicles
     class rid_wireDetonator: Items_base_F
     {
         class ACE_Actions {
-            class RID_activateTrigger {
-                displayName = "Press the buttons";
+            class RID_activateWireDetonator {
+                displayName = CSTRING(ActivateWireDetonatorAction_Displayname);
                 condition = "alive _target";
                 statement = QUOTE([_target] spawn FUNC(boxTrigger));
                 icon = "";
@@ -104,8 +106,8 @@ class CfgVehicles
                 runOnHover = 0;
                 distance = 0.5;
             };
-            class RID_defuseTrigger: RID_activateTrigger {
-                displayName = "Detach wires";
+            class RID_defuseWireDetonator: RID_activateWireDetonator {
+                displayName = CSTRING(DefuseWireDetonatorAction_Displayname);
                 condition = "_target getVariable['rid_core_isConnected', false]";
                 statement = "_target setVariable['rid_core_isConnected', false, true]";
                 selection = "poles";
@@ -119,7 +121,7 @@ class CfgVehicles
         editorPreview = QPATHTOF(data\rid_wireDetonator_preview.jpg);
         scope = 2;
         scopeCurator = 2;
-        displayName = "Wire Detonator";
+        displayName = CSTRING(WireDetonator);
         model = QPATHTOF(models\rid_wireDetonator);
         icon = "iconObject_4x1";
         editorSubcategory = "EdSubcat_Electronics";
@@ -133,8 +135,8 @@ class CfgVehicles
     class rid_wireBox_base: Items_base_F
     {
         class ACE_Actions {
-            class RID_defuseTrigger {
-                displayName = "Detach wires";
+            class RID_defuseWireBox {
+                displayName = CSTRING(DefuseWireDetonatorAction_Displayname);
                 condition = "_target getVariable['rid_core_isConnected', false]";
                 statement = "_target setVariable['rid_core_isConnected', false, true]";
                 distance = 0.5;
@@ -147,7 +149,7 @@ class CfgVehicles
         mapSize = 0.2;
         scope = 1;
         armor = 25;
-        displayName = "Wire Box";
+        displayName = CSTRING(WireBox);
         icon = "iconObject_4x1";
         editorSubcategory = "EdSubcat_Electronics";
         model = QPATHTOF(models\rid_wireBox_flat);
@@ -155,7 +157,7 @@ class CfgVehicles
 
     class rid_wireBox_vibrationDetector: rid_wireBox_base
     {
-        displayName = "Vibration Detector";
+        displayName = CSTRING(VibrationDetector);
         scope = 2;
         scopeCurator = 2;
 

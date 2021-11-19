@@ -7,10 +7,30 @@ ADDON = false;
 ADDON = true;
 
 //CBA SETTINGS
-["rid_useNonStaticIED",
-"CHECKBOX",
-["Use new style of IED's", "Use acual mines for RID IED's"],
-"RID",
-true,
-true
+private _category = "RID";
+[
+    QGVAR(requireSpecialist),
+    "CHECKBOX",
+    [LLSTRING(RequireExplosivesSpecialist_DisplayName),LLSTRING(RequireExplosivesSpecialist_Description)],
+    _category,
+    true,
+    true
+] call CBA_fnc_addSetting;
+
+[
+    QGVAR(requireEngineer),
+    "CHECKBOX",
+    [LLSTRING(RequireEngineer_DisplayName),LLSTRING(RequireEngineer_Description)],
+    _category,
+    true,
+    true
+] call CBA_fnc_addSetting;
+
+[
+    QGVAR(useNonStaticIED),
+    "CHECKBOX",
+    [LLSTRING(useNonStaticIED_Displayname), LLSTRING(useNonStaticIED_Description)],
+    _category,
+    true,
+    true
 ] call CBA_fnc_addSetting;
