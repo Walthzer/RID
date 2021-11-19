@@ -1,17 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="RID">
     <Package name="Core">
-        <Key ID="STR_RID_Core_Nothing_To_Defuse">
+        <Key ID="STR_RID_Core_NothingToDefuse">
             <English>Nothing to defuse</English>
         </Key>
-        <Key ID="STR_RID_Core_IED_Still_Connected">
+        <Key ID="STR_RID_Core_StillConnected">
             <English>The IED won't come loose, its still connected to something</English>
         </Key>
-        <Key ID="STR_RID_Core_Dig_Up">
+        <Key ID="STR_RID_Core_DigUp">
             <English>Dig Up</English>
         </Key>
         <Key ID="STR_RID_Core_Defuse">
             <English>Defuse</English>
+        </Key>
+        <Key ID="STR_RID_Core_useNonStaticIED_Displayname">
+            <English>Utilize Mines for IED's</English>
+        </Key>
+        <Key ID="STR_RID_Core_useNonStaticIED_Description">
+            <English>Are CfgAmmo instances used for IED objects? Default: Yes</English>
+        </Key>
+        <Key ID="STR_RID_Core_RequireExplosivesSpecialist_Displayname">
+            <English>Require Specialist for defusal</English>
+        </Key>
+        <Key ID="STR_RID_Core_RequireExplosivesSpecialist_Description">
+            <English>Does a unit need to be an explosives specialist to defuse? Default: Yes</English>
+        </Key>
+        <Key ID="STR_RID_Core_RequireEngineer_Displayname">
+            <English>Require Engineer for Digging</English>
+        </Key>
+        <Key ID="STR_RID_Core_RequireEngineer_Description">
+            <English>Does a unit need to be an engineer to dig? Default: Yes</English>
+        </Key>
+        <Key ID="STR_RID_Core_NetworkLinkHint_Displayname">
+            <English>Creating a Network Link</English>
+        </Key>
+        <Key ID="STR_RID_Core_NetworkLinkHint_Description">
+            <English>In order to create a link another Network Node has to be selected. %1Select one now and confirm the selection with: %1%3[ENTER]%4 %1You can cancel the Link with: %1%3[ESCAPE]%4</English>
+        </Key>
+        <Key ID="STR_RID_Core_NetworkLinkHint_Tip">
+            <English>If a new Node was created for this Link, it will not be deleted if you cancel the Link</English>
+        </Key>
+        <Key ID="STR_RID_Core_TripwireHint_Displayname">
+            <English>Creating a Tripwire</English>
+        </Key>
+        <Key ID="STR_RID_Core_TripwireHint_Description">
+            <English>In order to create a tripwire another object has to be selected. %1Select one now and confirm the selection with: %1%3[ENTER]%4 %1You can cancel the Link with: %1%3[ESCAPE]%4</English>
+        </Key>
+        <Key ID="STR_RID_Core_DigForCableAction_Displayname">
+            <English>Dig for cable</English>
+        </Key>
+        <Key ID="STR_RID_Core_CutAction_Displayname">
+            <English>Cut</English>
+        </Key>
+        <Key ID="STR_RID_Core_WireDetonator">
+            <English>Wire Detonator</English>
+        </Key>
+        <Key ID="STR_RID_Core_WireBox">
+            <English>Wire Box</English>
+        </Key>
+        <Key ID="STR_RID_Core_VibrationDetector">
+            <English>Vibration Detector</English>
+        </Key>
+        <Key ID="STR_RID_Core_ActivateWireDetonatorAction_Displayname">
+            <English>Press the buttons</English>
+        </Key>
+        <Key ID="STR_RID_Core_DefuseWireDetonatorAction_Displayname">
+            <English>Detach wires</English>
         </Key>
     </Package>
 </Project>

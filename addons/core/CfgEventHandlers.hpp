@@ -24,7 +24,7 @@ class Extended_Killed_EventHandlers {
     };
     class rid_virtualIED {
         class ADDON {
-            killed = QUOTE([this select 0] call FUNC(conditionalCrawlerActivation));
+            serverKilled = QUOTE([this select 0] call FUNC(conditionalCrawlerActivation));
         };
     };
 };
@@ -32,7 +32,7 @@ class Extended_Killed_EventHandlers {
 class Extended_Deleted_EventHandlers {
     class rid_virtualIED {
         class ADDON {
-            deleted = QUOTE(deleteVehicle ((_this select 0) getVariable 'rid_core_ied'));
+            deleted = QUOTE(call FUNC(onVirtualIEDDeletion));
         };
     };
 };

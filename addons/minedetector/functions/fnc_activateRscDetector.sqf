@@ -5,4 +5,4 @@ GVAR(RscDetector_enabledEH) = ["ace_minedetector_detectorEnabled", FUNC(enableRs
 GVAR(RscDetector_disabeldEH) = ["ace_minedetector_detectorDisabled", FUNC(disableRscDetector)] call CBA_fnc_addEventHandler;
 
 //Remove display of RscDetector if detector is not primary weapon anymore:
-[{!([ace_player] call ace_minedetector_fnc_hasDetector)}, FUNC(deactivateRscDetector)] call CBA_fnc_waitUntilAndExecute;
+[{!([ace_player] call ACE_FUNC(minedetector,hasDetector))}, FUNC(deactivateRscDetector)] call CBA_fnc_waitUntilAndExecute;

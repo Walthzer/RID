@@ -6,4 +6,4 @@
 ["ace_minedetector_detectorDisabled", GVAR(RscDetector_disabeldEH)] call CBA_fnc_removeEventHandler;
 
 //Setup display of RscDetector if detector is equipped:
-[{[ace_player] call ace_minedetector_fnc_hasDetector}, FUNC(activateRscDetector)] call CBA_fnc_waitUntilAndExecute;
+[{[ace_player] call ACE_FUNC(minedetector,hasDetector)}, FUNC(activateRscDetector)] call CBA_fnc_waitUntilAndExecute;

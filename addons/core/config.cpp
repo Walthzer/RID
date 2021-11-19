@@ -3,7 +3,7 @@
 class CfgPatches {
     class ADDON {
         name = COMPONENT_NAME;
-        units[] = {"rid_dirt", "rid_wireHelper", "rid_commandWireCut", "rid_commandWireComplete", "rid_wireDetonator", "rid_wireBox_base", "rid_wireBox_master", "rid_wireBox_vibrationDetector", "rid_tripWire_segment"};
+        units[] = {"rid_dirt", "rid_wireHelper", "rid_commandWireCut", "rid_commandWireComplete", "rid_wireDetonator", "rid_wireBox_base", "rid_wireBox_master", "rid_wireBox_vibrationDetector", "rid_tripWire_segment", "rid_virtualIED"};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
         requiredAddons[] = {"rid_main"};

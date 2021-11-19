@@ -22,13 +22,15 @@ private _detonationObject = 0;
 
 if (_iedType == "rid_virtualIED") then {
     _detonationObject = _ied getVariable [QGVAR(ied), objNull];
+    _ied setVariable[QGVAR(deleteCompanionOnDeletion), false, true];
     TRACE_2("VirtualIED",_ied,_detonationObject);
     deleteVehicle _ied;
+    
 } else {
     private _iedAmmo = getText (configFile >> "CfgVehicles" >> _iedType >> "ammo");
     _detonationObject = _iedAmmo createVehicle (getPosATL _ied);
     deleteVehicle _ied;
 };
 
-if (isNull _detonationObject) exitWith {};
-[[_detonationObject], _delay] call ace_explosives_fnc_scriptedExplosive;
+if (isNull _detonationObject) exitWith {ERROR("_detonationObject is null")};
+[[_detonationObject], _delay] call ACE_FUNC(explosives,scriptedExplosive);
