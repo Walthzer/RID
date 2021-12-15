@@ -14,6 +14,7 @@
  *
 */
 params["_object", ["_threshold", 110, [0]]];
+TRACE_2("Function start",_object,_threshold);
 
 //Confirm _object is an OBJECT
 if (not (IS_OBJECT(_object))) exitWith {ERROR_1("%1 is not an OBJECT", _object)};

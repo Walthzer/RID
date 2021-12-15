@@ -1,1 +1,15 @@
-PREP(empty);
+PREP(onMissionSave);
+PREP(onEntityMenu);
+PREP(onPreview);
+PREP(onCopy);
+PREP(onPaste);
+PREP(onConnectingEnd);
+PREP(getCustomConnectionClasses);
+PREP(getStoredConnections);
+PREP(findActiveConnections);
+PREP(getEntityID);
+PREP(isCustomConnectionClass);
+PREP(registerObjectID);
+PREP(getObjectByID);
+PREP(restoreStoredConnections);
+PREP(fadeChildCtrl);

@@ -4,7 +4,7 @@ class CfgAmmo {
     class rid_tripWire_base_Ammo: APERSTripMine_Wire_Ammo 
     {
         author = "Walthzer/Shark";
-        isCW=1;
+        GVARMAIN(isCW) = 1;
         SoundSetExplosion[] = {};
         defaultMagazine="APERSTripMine_Wire_Mag";
         hiddenSelections[]={"camo", "start", "end"};

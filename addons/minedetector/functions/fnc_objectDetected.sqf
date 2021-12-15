@@ -12,7 +12,7 @@ if (GVAR(canCreateTimeoutResetRscDetector)) then {
 
 private _primaryObjectClassName = typeOf _primaryObject;
 private _primaryObjectConfigType = ["CfgAmmo", "CfgVehicles"] select (isClass (configFile >> "CfgVehicles" >> _primaryObjectClassName)); 
-private _primaryIsCW = isNumber (configFile >> _primaryObjectConfigType >> _primaryObjectClassName >> "isCW");
+private _primaryIsCW = isNumber (configFile >> _primaryObjectConfigType >> _primaryObjectClassName >> QGVARMAIN(isCW));
 
 private _detected = [[_unit, _primaryObject, _primaryIsCW], FUNC(getSecondaryDetectedObject), _unit, QGVAR(secondaryDetectedObjects), 0.15] call ACE_FUNC(common,cachedCall);
 

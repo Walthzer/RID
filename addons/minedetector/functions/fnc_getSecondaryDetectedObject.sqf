@@ -22,7 +22,7 @@ private _distance = -1;
 {
     private _secondaryObjectClassName = typeOf _x;
     private _secondaryObjectConfigType = ["CfgAmmo", "CfgVehicles"] select (isClass (configFile >> "CfgVehicles" >> _secondaryObjectClassName)); 
-    _secondaryIsCW = isNumber (configFile >> _secondaryObjectConfigType >> _secondaryObjectClassName >> "isCW");
+    _secondaryIsCW = isNumber (configFile >> _secondaryObjectConfigType >> _secondaryObjectClassName >> QGVARMAIN(isCW));
     private _isValidObject = ((_primaryIsCW || _secondaryIsCW) && !(_primaryIsCW && _secondaryIsCW));
 
     _isDetectable = ace_minedetector_detectableClasses getVariable _secondaryObjectClassName;

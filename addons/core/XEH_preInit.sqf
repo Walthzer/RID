@@ -4,8 +4,6 @@ ADDON = false;
 
 #include "XEH_PREP.hpp"
 
-ADDON = true;
-
 //CBA SETTINGS
 private _category = "RID";
 [
@@ -34,3 +32,21 @@ private _category = "RID";
     true,
     true
 ] call CBA_fnc_addSetting;
+
+//Cache Compatible Classes from CfgAmmo for use in IED creation.
+if (isNil QGVAR(IEDCompatibleAmmoCache)) then {
+    GVAR(IEDCompatibleAmmoCache) = [];
+    private _ammoRemoteTrigger = "getText (_x >> 'mineTrigger') isEqualTo 'RemoteTrigger'" configClasses (configFile >> "CfgAmmo");
+    
+    //Prevent Duplicated Models or Base classes from being cached. rid_forceUseAsIED overrides this.
+    private _models = [''];
+    {
+        private _index = _models pushBackUnique (getText (_x >> 'model'));
+        if (_index > -1 || {(getNumber (_x >> QGVARMAIN(forceUseAsIED))) > 0}) then {
+            GVAR(IEDCompatibleAmmoCache) pushBack _x;
+        };
+
+    } forEach _ammoRemoteTrigger;
+};
+
+ADDON = true;
