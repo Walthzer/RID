@@ -8,10 +8,9 @@ class CfgVehicles
             class ACE_Equipment {
                 class RID_DigForCable {
                     displayName = CSTRING(DigForCableAction_Displayname);
-                    condition = QUOTE([_player] call ACE_FUNC(common,canDig) && {ARG_2(true,[_player] call ACE_FUNC(common,isEngineer),GVAR(requireEngineer))});
+                    condition = QUOTE([_player] call FUNC(canDig));
                     exceptions[] = {};
                     statement = QUOTE(call FUNC(digForWire));
-                    showDisabled = 0;
                 };
             };
         };
