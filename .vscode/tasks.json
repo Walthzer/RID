@@ -10,26 +10,27 @@
         },
         {
             "label": "Start Arma 3 (RidDevVR Editing)",
-            "dependsOn": ["hemtt build"],
+            "dependsOn": [
+                "hemtt build"
+            ],
             "type": "process",
             "options": {
-                "cwd": "N:\\SteamLibrary\\steamapps\\common\\Arma 3" // Change to your Arma 3 installation path
+                "cwd": "N:\\SteamLibrary\\steamapps\\common\\Arma 3"
             },
-            "command": "arma3_x64", // Also possible, if available: arma3profiling_x64, arma3diag_x64
+            "command": "arma3_x64",
             "args": [
-                "C:\\Users\\NKvD Officer Walthze\\Documents\\Arma 3 - Other Profiles\\PFC%20D%2e%20Shark\\missions\\RidDevVR.VR\\mission.sqm", // Loads directly into editor if you have a mission folder open in VSCode
-                "-mod=!Workshop\\@CBA_A3;!Workshop\\@ace;!Workshop\\@3den Enhanced;!Workshop\\@Zeus Enhanced;!Workshop\\@Zeus Enhanced - ACE3 Compatibility;N:\\ArmaGithubAddonRepositories\\RID", // Add mods seperated by ";", absolute paths work as well
+                "C:\\Users\\NKvD Officer Walthze\\Documents\\Arma 3 - Other Profiles\\LCPL%20D%2e%20Shark\\missions\\RidDevVR.VR\\mission.sqm",
+                "-mod=!Workshop\\@CBA_A3;!Workshop\\@ace;!Workshop\\@3den Enhanced;!Workshop\\@Zeus Enhanced;!Workshop\\@Zeus Enhanced - ACE3 Compatibility;!Workshop\\@Zeus Enhanced;!Workshop\\@Advanced Developer Tools;N:\\ArmaGithubAddonRepositories\\RID",
                 "-debug",
                 "-skipIntro",
-                //"-window",
                 "-noSplash",
                 "-showScriptErrors"
             ],
-            // Enable launching via shortcut "Tasks: Run Test Task"
             "group": {
                 "kind": "test",
                 "isDefault": true
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "Stop Arma 3",
@@ -38,7 +39,7 @@
             "args": [
                 "/F",
                 "/IM",
-                "arma3_x64.exe" // Other values: arma3diag_x64.exe, arma3profiling_x64.exe
+                "arma3_x64.exe"
             ],
             "problemMatcher": []
         },

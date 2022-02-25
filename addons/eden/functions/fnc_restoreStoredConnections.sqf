@@ -1,7 +1,7 @@
 #include "script_component.hpp"
 /*
  * Author: Walthzer/Shark
- * Restore stored custom Eden connections to visible Eden connections.
+ * Restore passed custom Eden connections to visible Eden connections.
  *
  * Arguments:
  * 0: storedConnections <ARRAY>
@@ -15,9 +15,9 @@
  * Public: [No]
  */
 params["_connections"];
+TRACE_1("restoreStoredConnections",_connections);
 
 ["RID Restore Connections"] collect3DENHistory {
-    private _connections = 
     if (IS_ARRAY(_connections)) then {
         {
             _x params ["_connectionType", "_fromID", "_toID"];

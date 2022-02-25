@@ -19,15 +19,15 @@
 if (GVAR(didResave)) exitWith {GVAR(didResave) = false};
 
 //Update the storedConnections attribute of Eden entities to match it with active custom connections.
-["RID Save Connections"] collect3DENHistory {
+["RID Saved Mission Data"] collect3DENHistory {
+    //Custom Connections
+        QGVAR(attributes) set3DENMissionAttribute [QGVAR(storedConnections), call FUNC(findActiveConnections)];
 
-    QGVAR(attributes) set3DENMissionAttribute [QGVAR(storedConnections), call FUNC(findActiveConnections)];
-
-    //No changes are unsaved anymore, reset so we default to saved connections. see rid_eden_fnc_getStoredConnections
-    uiNamespace setVariable [QGVAR(previewConnections), []];
-
-    //OnMMissionSave runs AFTER 3DEN saves the mission, resave to save the changes made by this script.
+        //No changes are unsaved anymore, reset so we default to saved connections. see rid_eden_fnc_getStoredConnections
+        uiNamespace setVariable [QGVAR(previewConnections), []];
+    //---------
+    
+    //OnMissionSave runs AFTER 3DEN saves the mission, resave to save the changes made by this script.
     GVAR(didResave) = true;
     do3DENAction "MissionSave";
 };
-

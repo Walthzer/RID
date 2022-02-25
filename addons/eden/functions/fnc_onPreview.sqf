@@ -14,10 +14,10 @@
  *
  * Public: [No]
  */
-diag_log ["PRE-PREVIEW"];
+MESSAGE_WITH_TITLE("RID","PRE-PREVIEW");
 
-["RID Preview Connections"] collect3DENHistory {
-
-    uiNamespace setVariable [QGVAR(previewConnections), call FUNC(findActiveConnections)];
-
+["RID Cached Mission Data"] collect3DENHistory {
+    //Custom Connections
+        uiNamespace setVariable [QGVAR(previewConnections), call FUNC(findActiveConnections)];
+    //---------
 };

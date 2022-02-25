@@ -15,6 +15,6 @@
  * Public: [No]
  */
 params["_entity"];
-TRACE_1("Function start",_entity);
+TRACE_1("getEntityID",_entity);
 
 (_entity get3DENAttribute QGVAR(objectID)) select 0;

@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 /*
- * Calculated the Mass of evry object in a trigger's area
+ * Calculated the Mass of every object in a trigger's area
  * 
  * Arguments:
  * 0: Trigger (OBJECT)
@@ -33,7 +33,4 @@ private _massOnPlate = 0;
     _massOnPlate = _massOnPlate + (_objectMass + (getMass _x));
 } forEach _thisList;
 
-if (_massOnPlate > _maxMass) exitWith {
-    true;
-};
-false;
+_massOnPlate > _maxMass

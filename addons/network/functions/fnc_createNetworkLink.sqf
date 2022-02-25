@@ -18,14 +18,14 @@
 params["_node0", "_node1", "_createCable", ["_makeNodes", false, [false]]];
 
 
-if (!([node0] call FUNC(isNetworkNode))) then {
+if (!([_node0] call FUNC(isNetworkNode))) then {
     if(!_makeNodes) exitWith {ERROR_1("%1 is not a network node and makeNode is false",_x)};
-    [node0] call FUNC(createNetworkNode);
+    [_node0] call FUNC(createNetworkNode);
 };
 
-if (!([node1] call FUNC(isNetworkNode))) then {
+if (!([_node1] call FUNC(isNetworkNode))) then {
     if(!_makeNodes) exitWith {ERROR_1("%1 is not a network node and makeNode is false",_x)};
-    [node1] call FUNC(createNetworkNode);
+    [_node1] call FUNC(createNetworkNode);
 };
 
 if([_node0] call EFUNC(core,isCfgAmmoInstance)) then {

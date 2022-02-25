@@ -2,38 +2,6 @@
 if (isClass(configFile >> "CfgPatches" >> "achilles_data_f_achilles")) then {
 INFO("RID: Achilles modules loaded!");
 
-["RID", "Spawn IED",
-{
-    // Get all the passed parameters
-    params [["_position", [0,0,0], [[]], 3], ["_objectUnderCursor", objNull, [objNull]]];
-    
-    private _dialogResult =
-    [
-        "Specify IED",
-        [
-            // The last number is optional! If you want the first selection you can remove the number.
-            ["IED Type:", ["Large IED (Dug-In)","Small IED (Dug-In)","Large IED (Urban)","Small IED (Urban)"]],
-            ["Internal trigger:", ["No","Vibration detector"]]
-            //["Vibration detector tuning:", ["Men", "Wheeled vehicles", "Tracked vehicles"]]
-            
-        ]
-        //rid_core_fnc_RscDisplayAttributes_createIED"
-    ] call Ares_fnc_showChooseDialog;
-    
-    if (_dialogResult isEqualTo []) exitWith {};
-    
-    private _iedType = switch (_dialogResult select 0) do {
-        
-        case 0: { "IEDLandBig_F" };
-        case 1: { "IEDLandSmall_F" };
-        case 2: { "IEDUrbanBig_F" };
-        case 3: { "IEDUrbanSmall_F" };
-    };
-
-    private _trigger = ["ext", "vib"] select (_dialogResult select 1);
-    [_position, _iedType, "standard", 3, _trigger] call FUNC(createIED);
-}] call Ares_fnc_RegisterCustomModule;
-
 ["RID", "Create Network Link",
 {
     // Get all the passed parameters

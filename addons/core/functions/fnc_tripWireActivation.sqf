@@ -16,18 +16,21 @@
 //GET NEAREST "rid_helper" and retrieve rid_core_tripWire_node -> rid_network_fnc_activateNetworkCrawler + rid_core_fnc_tripWireCleanUp;
 private _position = _this;
 
-//play *SNAP* sound:
-playSound QEGVAR(pcb,sounds_cut);
-
 //Verify _effectPosition was passed:
 //if (isNull _position) exitWith {ERROR("_effectPosition was not passed")}; TODO: Actually fix this check, currently balancing on the fact nothing goes wrong! 
 
-private _helper = nearestObject    [_position, "rid_tripWire_helper"];
+private _helper = nearestObject [_position, "rid_tripWire_helper"];
 if (isNull _helper) exitWith {ERROR("No rid_tripWire_helper found; Tripwire probably improperly created!")};
 
 private _tripWireNodes = _helper getVariable [QGVAR(tripWireNodes), []];
 
 if (_tripWireNodes isEqualTo []) exitWith {ERROR("Helper has no tripWireNode defined; Helper probably improperly created!")};
+
+
+//play *SNAP* sound at each of the nodes:
+{
+    _x say3D QEGVAR(pcb,sounds_cut);
+} forEach _tripWireNodes;
 
 //Retrieve other tripwireParts
 private _tripwiresParts = (_tripWireNodes select 0) getVariable [QGVAR(tripwires_parts), []];

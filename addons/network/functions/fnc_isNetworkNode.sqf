@@ -19,9 +19,9 @@ params["_object"];
 private _objectClass = typeOf _object;
 if (isClass(configFile >> "CfgAmmo" >> _objectClass)) then {
     private _objectPos = getPosATL _object;
-    private _virtualIED = nearestObject [_iedPos, "rid_virtualIED"];
+    private _virtualIED = nearestObject [_objectPos, "rid_virtualIED"];
 
-    if (isNull _virtualIED || {(_ied distance _virtualIED) > MaxVirtualIEDDistance}) exitWith {false};
+    if (isNull _virtualIED || {(_object distance _virtualIED) > MaxVirtualIEDDistance}) exitWith {false};
 
     _object = _virtualIED;
 };

@@ -113,64 +113,85 @@ class Cfg3DEN
             };
         };
 
-        class GVAR(IEDCreation): Title
+        class GVAR(iedCreation): Title
         {
 
-            attributeSave = QUOTE([]);
-            attributeLoad = QUOTE([]); 
+            attributeSave = QUOTE(ARR_2([lbCurSel (_this controlsGroupCtrl 101),lbCurSel (_this controlsGroupCtrl 103)]));
+            attributeLoad = QUOTE(if (_value isEqualTo []) then {_value = [ARR_2(0,0)]}; [ARR_2((_this controlsGroupCtrl 101),(uiNamespace getVariable [ARR_2(QQEGVAR(core,cachedIEDItems), [])]))] call FUNC(comboAddItems); ((_this controlsGroupCtrl 101) lbSetCurSel (_value select 0)); ((_this controlsGroupCtrl 103) lbSetCurSel (_value select 1)););
 
             h = SIZE_M * GRID_H * 3;
 
             class Controls: Controls
             {
                 class Title: Title {};
-                class Value: ctrlEdit {
+                class Value: ctrlCombo {
                     idc = 101;
-                    autocomplete = "";
+                    //Populate Listbox if attributeLoad hasn't done so. (e.g. multiple entities edited at once)
+                    onLoad = QUOTE(if !((lbSize (_this select 0)) == 0) then {[ARR_2(_this select 0,(uiNamespace getVariable [ARR_2(QQEGVAR(core,cachedIEDItems), [])]))] call FUNC(comboAddItems)});
                     font = FONT_NORMAL;
                     x = ATTRIBUTE_TITLE_W * GRID_W;
-                    y = SIZE_M * GRID_H;
+                    y = 0;
                     w = ATTRIBUTE_CONTENT_W * GRID_W;
                     h = SIZE_M * GRID_H;
+
                 };
                 class Title1: Title {
-                    text = "Assign Internal Trigger: ";
+                    idc = 102;
+                    text = "Internal Trigger: ";
                     x = 0;
-                    y = SIZE_M * GRID_H;
+                    y = (1 + SIZE_M) * GRID_H;
                 };
-                class Value1: ctrlCheckbox {
-                    idc = 101;
+                class Value1: ctrlCombo {
+                    idc = 103;
+                    onLoad = "";
                     x = ATTRIBUTE_TITLE_W * GRID_W;
-                    w = SIZE_M * GRID_W;
+                    y = (1 + SIZE_M) * GRID_H;
+                    w = ATTRIBUTE_CONTENT_W * GRID_W;
                     h = SIZE_M * GRID_H;
-                };
-                class Title2: Title {
-                    text = "Preview IED: ";
-                    tooltip = "Enable the preview IED for positioning.";
-                    x = 0;
-                    y = SIZE_M * GRID_H;
-                };
-                class Value2: ctrlCheckbox {
-                    idc = 101;
-                    x = ATTRIBUTE_TITLE_W * GRID_W;
-                    w = SIZE_M * GRID_W;
-                    h = SIZE_M * GRID_H;
+
+                    class Items
+                    {
+                        class none 
+                        {
+                            text = "none";
+                            value  = 0;
+                            data = "";
+                            default = 1;
+                            tooltip = "No internal trigger";
+                        };
+                        class vibration 
+                        {
+                            text = "Vibration";
+                            value = 1;
+                            data = "vib";
+                            tooltip = "Vibration Detector";
+                        };
+                    };
                 };
             };
         };
     };
 
+    //Base customConnectionClass
+    class GVAR(customConnection)
+    {
+        displayName = "";
+        data = QGVAR(customConnection);
+        GVARMAIN(isCustom) = 1;
+        GVARMAIN(OnScenarioStart) = "";
+        GVARMAIN(OnConnection) = "";
+        color[] = {0,0,0,1};
+        cursor = "3DENConnectSync";
+    };
+
     class Connections
     {
-        class GVAR(networkConnection)
+        class GVAR(networkConnection): GVAR(customConnection)
         {
             displayName = "RID Network Connection";
             data = QGVAR(networkConnection);
-            GVARMAIN(isCustom) = 1;
             GVARMAIN(OnScenarioStart) = QUOTE([ARR_4((_this select 0), (_this select 1), true, true)] call EFUNC(network,createNetworkLink));
-            //GVARMAIN(OnScenarioStart) = QUOTE(systemChat str _this);
             color[] = {0,1,0,1};
-            cursor = "3DENConnectSync";
         };
     };
 
@@ -212,6 +233,70 @@ class Cfg3DEN
         };
     };
 
+    class Logic
+    {
+        class AttributeCategories
+        {
+
+            class rid_attributes
+            {
+                displayName = "";
+                collapsed = 1;
+                class Attributes
+                {
+                    class GVAR(objectID)
+                    {
+                        displayName = "";
+                        tooltip = "";
+                        property = QGVAR(objectID);
+                        control = QGVAR(empty);
+
+                        expression = QUOTE(if (is3DEN || {_value < 0}) exitWith {}; [ARR_2(_this,_value)] call FUNC(registerObjectID));
+
+                        defaultValue = "-1";
+
+                        unique = 0;
+                        validate = "none";
+                        condition = "1";
+                        typeName = "NUMBER";
+                    };
+                };
+            };
+        };
+    };
+
+    class Marker
+    {
+        class AttributeCategories
+        {
+
+            class rid_attributes
+            {
+                displayName = "";
+                collapsed = 1;
+                class Attributes
+                {
+                    class GVAR(objectID)
+                    {
+                        displayName = "";
+                        tooltip = "";
+                        property = QGVAR(objectID);
+                        control = QGVAR(empty);
+
+                        expression = QUOTE(if (is3DEN || {_value < 0}) exitWith {}; [ARR_2(_this,_value)] call FUNC(registerObjectID));
+
+                        defaultValue = "-1";
+
+                        unique = 0;
+                        validate = "none";
+                        condition = "1";
+                        typeName = "NUMBER";
+                    };
+                };
+            };
+        };
+    };
+
     class Object
     {
         class AttributeCategories
@@ -239,7 +324,7 @@ class Cfg3DEN
                         condition = "1";
                         typeName = "NUMBER";
                     };
-                    class GVAR(pressurePlate): GVAR(storedConnections)
+                    class GVAR(pressurePlate)
                     {
                         //--- Mandatory properties
                         displayName = "Assign Pressure Plate Detector:"; // Name assigned to UI control class Title

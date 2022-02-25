@@ -1,5 +1,7 @@
 #include "\z\ace\addons\main\script_macros.hpp"
 
+#define QQUOTE(var1) QUOTE(QUOTE(var1))
+
 #define ACE_PREFIX ace
 
 #define ACE_FUNCMAIN(var1) TRIPLES(ACE_PREFIX,fnc,var1)

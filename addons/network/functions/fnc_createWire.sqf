@@ -16,18 +16,19 @@
 * Public: [No]
 */
 params["_node0", "_node1"];
+TRACE_2("createWire",_node0,_node1)
 
-private _node0Pos = (getPosASL _node0);
+private _node0Pos = (getPosATL _node0);
 private _x0 = (_node0Pos select 0);
 private _y0 = (_node0Pos select 1);
 
-private _node1Pos = (getPosASL _node1);
+private _node1Pos = (getPosATL _node1);
 private _x1 = (_node1Pos select 0);
 private _y1 = (_node1Pos select 1);
 
 private _cableParentPos = [(_x0 + _x1)/2, (_y0 + _y1)/2, 0];
 
-private _cableParent = "Helper_Base_F" createVehicle _cableParentPos;
+private _cableParent = createVehicle ["Helper_Base_F",_cableParentPos, [], 0, "CAN_COLLIDE"];
 ["ace_zeus_addObjects", [[_cableParent]]] call CBA_fnc_serverEvent;
 
 private _distanceBetweenNodes = (_node0 distance2D _node1);

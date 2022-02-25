@@ -19,43 +19,80 @@ class CfgVehicles
             class AnyBrain;
         };
     };
-    class GVAR(IEDModule): Module_F
+    class GVAR(iedModule): Module_F
     {
         // Standard object definitions
         scope = 2;
-        scopeCurator = 0;
-        displayName = "create IED";
+        scopeCurator = 2;
+        displayName = "IED";
         icon = "a3\ui_f\data\igui\cfg\cursors\explosive_ca";
         category = "RID";
 
-        function = "";
+        function = QFUNC(iedModule);
         functionPriority = 1;
-        isGlobal = 1;
-        isTriggerActivated = 1;
+        isGlobal = 0;
+        isTriggerActivated = 0;
         isDisposable = 1;
         is3DEN = 1;
+        GVARMAIN(on3DENStart) = 1;
 
-        curatorInfoType = "RscDisplayAttributeModuleNuke"; //RscDisplay for Zeus
+        curatorInfoType = GVAR(RscIEDCreation); //RscDisplay for Zeus
 
         class Attributes
         {
-            class GVAR(IEDCreation)
+            class GVAR(iedCreation)
             {
-                //--- Mandatory properties
-                displayName = "IED Class: "; // Name assigned to UI control class Title
-                tooltip = "Class from CfgAmmo to use for the IED."; // Tooltip assigned to UI control class Title
-                property = QGVAR(IEDClass); // Unique config property name saved in SQM
-                control = QGVAR(IEDClass); // UI control base class displayed in Edit Attributes window, points to Cfg3DEN >> Attributes
+                displayName = "IED Class: ";
+                tooltip = "Class from CfgAmmo to use for the IED.";
+                property = GVAR(iedCreation);
+                control = GVAR(iedCreation);
 
-                expression = QUOTE(true);
-                defaultValue = "";
+                expression = QUOTE(if (is3DEN) exitWith {}; [ARR_2(QQUOTE(expression),[ARR_2(_this,_value)])] call FUNC(iedModule));
+                defaultValue = "[0,0]";
 
-                //--- Optional properties
-                unique = 0; // When 1, only one entity of the type can have the value in the mission (used for example for variable names or player control)
-                validate = "none"; // Validate the value before saving. If the value is not of given type e.g. "number", the default value will be set. Can be "none", "expression", "condition", "number" or "variable"
-                typeName = "ARRAY"; // Defines data type of saved value, can be STRING, NUMBER or BOOL. Used only when control is "Combo", "Edit" or their variants
+                unique = 0;
+                validate = "none";
+                typeName = "ARRAY";
             };
-            class ModuleDescription {}; // Module description should be shown last
+            class ModuleDescription {};
+        };
+
+    };
+    class GVAR(tripwireModule): Module_F
+    {
+        scope = 1;
+        scopeCurator = 1;
+        displayName = "Tripwire";
+        icon = "a3\ui_f\data\igui\rsccustominfo\sensors\targets\missilealt_ca";
+        category = "RID";
+
+        function = QFUNC(tripwireModule);
+        functionPriority = 1;
+        isGlobal = 0;
+        isTriggerActivated = 0;
+        isDisposable = 1;
+        is3DEN = 1;
+        GVARMAIN(on3DENStart) = 1;
+
+        curatorInfoType = "";
+
+        class Attributes
+        {
+            class GVAR(tripwireCreation)
+            {
+                displayName = "";
+                tooltip = "";
+                property = GVAR(tripwireCreation);
+                control = QGVAR(empty);
+
+                expression = QUOTE(if (is3DEN) exitWith {}; [ARR_2(QQUOTE(expression),[ARR_2(_this,_value)])] call FUNC(tripwireModule));
+                defaultValue = "[0,0]";
+
+                unique = 0;
+                validate = "none";
+                typeName = "ARRAY";
+            };
+            class ModuleDescription {};
         };
 
     };

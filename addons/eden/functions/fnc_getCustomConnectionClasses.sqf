@@ -16,7 +16,7 @@
  */
 params [["_wantClassNames", false, [false]]];
 
-private _classes = if (!isNil QGVAR(customConnectionClasses)) then {
+private _classes = if !(isNil QGVAR(customConnectionClasses)) then {
     GVAR(customConnectionClasses)
 } else {
     GVAR(customConnectionClasses) = call (uiNamespace getVariable [QGVAR(cacheCustomConnectionsClasses), {[]}]);

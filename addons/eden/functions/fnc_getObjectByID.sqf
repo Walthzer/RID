@@ -1,7 +1,7 @@
 #include "script_component.hpp"
 /*
  * Author: Walthzer/Shark
- * Use rid_eden_idMap HashMap to retrieve an Object by its Eden ID.
+ * Use rid_eden_idMap HashMap to retrieve an Object by its Eden ID outside of the Eden context.
  *
  * Arguments:
  * 0: Eden ID <NUMBER>
@@ -15,6 +15,8 @@
  * Public: [No]
  */
 params["_edenID"];
-TRACE_1("Function start",_edenID);
 
-GVAR(idMap) get _edenID;
+private _object = GVAR(idMap) getOrDefault [_edenID, objNull];
+
+TRACE_2("getObjectByID",_edenID,_object);
+_object

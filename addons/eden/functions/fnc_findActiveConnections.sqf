@@ -1,7 +1,7 @@
 #include "script_component.hpp"
 /*
  * Author: Walthzer/Shark
- * Return all active custom Eden Connections and clean up erroneous objectID attributes
+ * Return all active custom Eden Connections
  *
  * Arguments:
  * None
@@ -14,23 +14,16 @@
  *
  * Public: [No]
  */
-
-_fnc_continueFromLoop = {
-    params ["_entity"];
-    _entity set3DENAttribute [QGVAR(objectID), -1];
-    continue
-};
-
 private _processedObjects = [];
 private _foundConnections = [];
 {
     private _entity = _x;
     private _connections = get3DENConnections _entity;
-    if (_connections isEqualTo []) then {[_entity] call _fnc_continueFromLoop};
+    if (_connections isEqualTo []) then {continue};
     
     //Not all connections are arrays e.g. GROUP
     private _customConnections = _connections select {IS_ARRAY(_x) && {(_x select 0) in ([true] call FUNC(getCustomConnectionClasses))}};
-    if (_customConnections isEqualTo []) then {[_entity] call _fnc_continueFromLoop};
+    if (_customConnections isEqualTo []) then {continue};
 
     private _entityID = [_entity] call FUNC(getEntityID);
     {
