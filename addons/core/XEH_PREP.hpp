@@ -20,4 +20,5 @@ PREP(onVirtualIEDDeletion);
 PREP(digUpIED);
 PREP(displayDefusePCB);
 PREP(canDefuse);
+PREP(canDig);
 PREP(hasTool);
