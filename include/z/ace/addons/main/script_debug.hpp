@@ -20,7 +20,7 @@ STACK TRACING
 **/
 //#define ENABLE_CALLSTACK
 //#define ENABLE_PERFORMANCE_COUNTERS
-//#define DEBUG_EVENTS
+// #define DEBUG_EVENTS
 
 #ifdef ENABLE_CALLSTACK
     #define CALLSTACK(function) {if(ACE_IS_ERRORED) then { ['AUTO','AUTO'] call ACE_DUMPSTACK_FNC; ACE_IS_ERRORED = false; }; ACE_IS_ERRORED = true; ACE_STACK_TRACE set [ACE_STACK_DEPTH, [diag_tickTime, __FILE__, __LINE__, ACE_CURRENT_FUNCTION, 'ANON', _this]]; ACE_STACK_DEPTH = ACE_STACK_DEPTH + 1; ACE_CURRENT_FUNCTION = 'ANON'; private _ret = _this call ##function; ACE_STACK_DEPTH = ACE_STACK_DEPTH - 1; ACE_IS_ERRORED = false; _ret;}
