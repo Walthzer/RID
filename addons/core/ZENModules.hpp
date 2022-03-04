@@ -5,24 +5,6 @@
 if (isClass(configFile >> "CfgPatches" >> "zen_main")) then {
 INFO("RID: Zeus Enhanced modules loaded!");
 
-["RID", "Spawn IED",
-{
-    // Get all the passed parameters
-    params [["_position", [0,0,0], [[]], 3], ["_objectUnderCursor", objNull, [objNull]]];
-    _position = ASLToATL _position;
-    [
-        "Specify IED",
-        [
-            ["COMBO", "IED Type:", [["IEDLandBig_F", "IEDLandSmall_F", "IEDUrbanBig_F", "IEDUrbanSmall_F"], ["Large IED (Dug-In)","Small IED (Dug-In)","Large IED (Urban)","Small IED (Urban)"]]],
-            ["COMBO", "Internal trigger:", [["ext", "vib"], ["No","Vibration detector"]]]
-            
-        ],
-        {[(_this select 1), (_this select 0)#0, "standard", 3, (_this select 0)#1] call FUNC(createIED)},
-        {},
-        _position
-    ] call zen_dialog_fnc_create;
-}] call zen_custom_modules_fnc_register;
-
 ["RID", "Create Network Link",
 {
     // Get all the passed parameters
@@ -91,8 +73,11 @@ INFO("RID: Zeus Enhanced modules loaded!");
             ["EDIT", ["Threshold mass:", format ["Man: 100 kg.%1Man with full kit: 140 kg.%1Humvee: 3500kg", endl]], [100, {str (parseNumber _this)}]]
         ],
         {
-            private _threshold = parseNumber ((_this select 0)#0);
-            [QGVAR(createPressurePlate), [_objectUnderCursor, _thresholdMass]] call CBA_fnc_serverEvent;
+            params ["_dialogValues", "_args"];
+            _args params ["_object"];
+
+            private _threshold = parseNumber (_dialogValues select 0);
+            [QGVAR(createPressurePlate), [_object, _thresholdMass]] call CBA_fnc_serverEvent;
             ["Detector Created!"] call zen_common_fnc_showMessage;
         },
         {},
@@ -167,7 +152,7 @@ INFO("RID: Zeus Enhanced modules loaded!");
     params [["_position", [0,0,0], [[]], 3], ["_objectUnderCursor", objNull, [objNull]]];
     _position = ASLToATL _position;
 
-    if ((not (_position isEqualTo [])) && isNull _objectUnderCursor) then {
+    if (_position isNotEqualTo [] && isNull _objectUnderCursor) then {
         private _box = createVehicle ["rid_wireDetonator", _position, [], 0, "CAN_COLLIDE"];
         ["ace_zeus_addObjects", [[_box]]] call CBA_fnc_serverEvent;
     };

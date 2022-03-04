@@ -12,7 +12,7 @@
  * [_ied] call rid_core_fnc_detonateIED;
  *
 */
-params["_ied", ["_delay", -2, [0]]];
+params["_ied", ["_delay", -1, [0]]];
 TRACE_2("detonateIED",_ied,_delay);
 //Cofirm given IED exists in the world
 if (_ied isEqualTo objNull) exitWith { ERROR("Function exited: _ied object doesn't exist");};

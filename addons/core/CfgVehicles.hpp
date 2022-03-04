@@ -53,7 +53,7 @@ class CfgVehicles
     class rid_wireHelper: static {
         author = "Walthzer/Shark";
         mapSize = 1;
-        isCW=1;
+        GVARMAIN(isCW) = 1;
         ace_minedetector_detectable=1;
         scope = 1;
         scopeCurator = 1;
@@ -114,7 +114,7 @@ class CfgVehicles
         };
 
         author = "Walthzer/Shark";
-        isCW=1;
+        GVARMAIN(isCW) = 1;
         ace_minedetector_detectable=1;
         mapSize = 0.2;
         editorPreview = QPATHTOF(data\rid_wireDetonator_preview.jpg);
@@ -143,7 +143,7 @@ class CfgVehicles
             };
         };
         author = "Walthzer/Shark";
-        isCW=1;
+        GVARMAIN(isCW) = 1;
         ace_minedetector_detectable=1;
         mapSize = 0.2;
         scope = 1;
@@ -168,8 +168,8 @@ class CfgVehicles
 
     class rid_wireBox_master: rid_wireBox_base
     {
-        class ACE_Actions {
-            class RID_defuseTrigger {
+        class ACE_Actions: ACE_Actions {
+            class RID_defuseWireBox: RID_defuseWireBox {
                 condition = "(_target getVariable['rid_core_master', objNull]) getVariable['rid_core_isConnected', false]";
                 statement = "(_target getVariable['rid_core_master', objNull]) setVariable['rid_core_isConnected', false, true]";
             };
@@ -182,7 +182,7 @@ class CfgVehicles
     class rid_tripWire_base: MineBase
     {
         author = "Walthzer/Shark";
-        isCW=1;
+        GVARMAIN(isCW) = 1;
         mapSize=3.0599999;
         scope=2;
         ammo="rid_tripWire_base_Ammo";

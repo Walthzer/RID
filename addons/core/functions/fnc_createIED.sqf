@@ -5,8 +5,8 @@
  * Should the only provided trigger be external, it will keep the IED "dumb" until a network link to it is made.
  *
  * Arguments:
- * 0: Position <ARRAY>
- * 1: IED Type <STRING>
+ * 0: PositionATL <ARRAY>
+ * 1: CfgAmmo OR CfgVehicles className <STRING>
  * 2: PCB Type <STRING>
  * 3: Wires <INTEGER>
  * 4: Trigger Type <STRING>
@@ -15,34 +15,32 @@
  * Created IED <OBJECT>
  *
  * Example:
- * [[0,0,0], "IEDLandBig_F", "standard", 3, "ext"] call rid_core_fnc_createIED
+ * [[0,0,0], "IEDLandSmall_Remote_Ammo", "standard", 3, "ext"] call rid_core_fnc_createIED
  *
  * Public: [Yes]
  */
-params[["_position", [], [[]]], ["_iedType", "", [""]], ["_pcbType", "", [""]], ["_wires", -1, [0]], ["_trigger", "", [""]]];
-TRACE_5("Function start",_position,_iedType,_pcbType,_wires,_trigger);
+private _validArgs = params[["_positionATL", [], [[]]], ["_iedClassname", "", [""]], ["_pcbType", "", [""]], ["_wires", -1, [0]], ["_trigger", "", [""]]];
+TRACE_5("Function start",_positionATL,_iedClassname,_pcbType,_wires,_trigger);
 
-if (_position isEqualTo [] || _iedType isEqualTo "" || _pcbType isEqualTo "" || _wires isEqualTo -1 || _trigger isEqualTo "") exitWith {ERROR("CreateIED: Bad argument")};
+if !(_validArgs) exitWith {ERROR("CreateIED: Bad argument")};
 
-//Validate _iedType class exists
-private _iedPath = configFile >> "CfgVehicles" >> _iedType;
-if (!isClass (_iedPath)) exitWith { ERROR("iedType class Invalid") };
+private _isCfgAmmo = isClass (configFile >> "CfgAmmo" >> _iedClassname);
+if !(_isCfgAmmo || {isClass (configFile >> "CfgVehicles" >> _iedClassname)}) exitWith {ERROR("CreateIED: Invalid IED Classname")};
 
-//Use new style of IED's or not
-private _ied = objNull;
-if (GVAR(useNonStaticIED)) then {
-    private _ammo = getText(_iedPath >> "ammo");
-    _iedObject = createVehicle [_ammo, _position, [], 0, "CAN_COLLIDE"]; //TODO: Allow random offset to bury the IED
-    [_iedObject, false] call ACE_FUNC(explosives,allowDefuse);
-    private _virtualIED = createVehicle ["rid_virtualIED", _position, [], 0, "CAN_COLLIDE"];
+private _ied = if (_isCfgAmmo) then {
+    _iedObject = createVehicle [_iedClassname, _positionATL, [], 0, "CAN_COLLIDE"];
+
+    private _EHId = ["ace_allowDefuse", [_iedObject, false]] call CBA_fnc_globalEventJIP;
+    [_EHId, _iedObject] call CBA_fnc_removeGlobalEventJIP;
+
+    private _virtualIED = createVehicle ["rid_virtualIED", _positionATL, [], 0, "CAN_COLLIDE"];
     _virtualIED setVariable [QGVAR(ied), _iedObject, true];
 
     _iedObject attachto [_virtualIED];
-    _ied = _virtualIED;
+    _virtualIED;
 
-    TRACE_3("NonStaticIED",_ammo,_ied,_virtualIED);
 } else {
-    _ied = createVehicle [_iedType, _position, [], 0, "CAN_COLLIDE"];
+    createVehicle [_iedClassname, _positionATL, [], 0, "CAN_COLLIDE"];
 };
 
 ["ace_zeus_addObjects", [[_ied]]] call CBA_fnc_serverEvent;

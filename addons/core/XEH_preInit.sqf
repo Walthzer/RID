@@ -4,7 +4,7 @@ ADDON = false;
 
 #include "XEH_PREP.hpp"
 
-ADDON = true;
+GVAR(excludedMines) = [];
 
 //CBA SETTINGS
 private _category = "RID";
@@ -26,11 +26,4 @@ private _category = "RID";
     true
 ] call CBA_fnc_addSetting;
 
-[
-    QGVAR(useNonStaticIED),
-    "CHECKBOX",
-    [LLSTRING(useNonStaticIED_Displayname), LLSTRING(useNonStaticIED_Description)],
-    _category,
-    true,
-    true
-] call CBA_fnc_addSetting;
+ADDON = true;

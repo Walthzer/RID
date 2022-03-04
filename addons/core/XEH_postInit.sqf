@@ -2,6 +2,9 @@
 #include "ArchillesModules.hpp"
 #include "ZENModules.hpp"
 
+//Work around for needing excludedMines in preInit.
+[{!isNil "ace_explosives_excludedMines" }, {ACE_explosives_excludedMines append GVAR(excludedMines)}] call CBA_fnc_waitUntilAndExecute;
+
 if (isServer) then {
     [QGVAR(createPressurePlate), {
     params["_object", "_threshold"];

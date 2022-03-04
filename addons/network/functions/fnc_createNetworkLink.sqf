@@ -15,11 +15,18 @@
  * [8481:Empty.p3d, 4852:IEDLandSmall_F.p3d] call rid_network_fnc_createNetworkLink;
  *
 */
-params["_node0", "_node1", "_createCable"];
+params["_node0", "_node1", "_createCable", ["_makeNodes", false, [false]]];
 
 
-if (not (IS_OBJECT(_node0) and IS_OBJECT(_node1))) exitWith {ERROR_2("%1 and %2 are not objects!", _node0, _node1)};
-if (not (([_node0] call FUNC(isNetworkNode))) and ([_node1] call FUNC(isNetworkNode))) exitWith {ERROR_2("%1 and %2 are not Network Nodes!", _node0, _node1)};
+if (!([_node0] call FUNC(isNetworkNode))) then {
+    if(!_makeNodes) exitWith {ERROR_1("%1 is not a network node and makeNode is false",_x)};
+    [_node0] call FUNC(createNetworkNode);
+};
+
+if (!([_node1] call FUNC(isNetworkNode))) then {
+    if(!_makeNodes) exitWith {ERROR_1("%1 is not a network node and makeNode is false",_x)};
+    [_node1] call FUNC(createNetworkNode);
+};
 
 if([_node0] call EFUNC(core,isCfgAmmoInstance)) then {
     _node0 = [_node0] call EFUNC(core,getVirtualIEDFromCompanion);
@@ -28,7 +35,6 @@ if([_node0] call EFUNC(core,isCfgAmmoInstance)) then {
 if([_node1] call EFUNC(core,isCfgAmmoInstance)) then {
     _node1 = [_node1] call EFUNC(core,getVirtualIEDFromCompanion);
 };
-
 
 private _nodes = if (_createCable) then {
     [_node0, _node1] call FUNC(createWire);

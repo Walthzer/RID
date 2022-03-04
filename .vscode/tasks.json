@@ -4,18 +4,54 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "conda",
+            "label": "hemtt build",
             "type": "shell",
-            "command": "conda activate"
+            "command": "hemtt build"
         },
         {
-            "label": "echo_on",
-            "type": "shell",
-            "command": "echo on"
+            "label": "Start Arma 3 (RidDevVR Editing)",
+            "dependsOn": [
+                "hemtt build"
+            ],
+            "type": "process",
+            "options": {
+                "cwd": "N:\\SteamLibrary\\steamapps\\common\\Arma 3"
+            },
+            "command": "arma3_x64",
+            "args": [
+                "C:\\Users\\NKvD Officer Walthze\\Documents\\Arma 3 - Other Profiles\\LCPL%20D%2e%20Shark\\missions\\RidDevVR.VR\\mission.sqm",
+                "-mod=!Workshop\\@CBA_A3;!Workshop\\@ace;!Workshop\\@3den Enhanced;!Workshop\\@Zeus Enhanced;!Workshop\\@Zeus Enhanced - ACE3 Compatibility;!Workshop\\@Zeus Enhanced;!Workshop\\@Advanced Developer Tools;N:\\ArmaGithubAddonRepositories\\RID",
+                "-debug",
+                "-skipIntro",
+                "-noSplash",
+                "-showScriptErrors"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": []
         },
         {
-            "label": "setup_conda",
-            "dependsOn": ["echo_on", "conda"]
+            "label": "Stop Arma 3",
+            "type": "shell",
+            "command": "taskkill",
+            "args": [
+                "/F",
+                "/IM",
+                "arma3_x64.exe"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "RPT Watcher",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-command",
+                "Get-ChildItem -Path $env:USERPROFILE\\AppData\\Local\\Arma` 3 -Filter *.rpt | Sort-Object LastAccessTime -Descending | Select-Object -First 1 | Get-Content -Tail 1 -Wait -Encoding utf8"
+            ],
+            "problemMatcher": []
         }
     ]
 }
