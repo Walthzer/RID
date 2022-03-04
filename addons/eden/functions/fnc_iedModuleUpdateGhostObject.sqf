@@ -28,6 +28,6 @@ _ghostIED setPosATL _modulePosATL;
 if ((get3DENActionState "SurfaceSnapToggle") == 1) then {
     _ghostIED setVectorUp (surfaceNormal _modulePosATL);
 } else {
-	//Rotation
+    //Rotation
     _ghostIED setVectorDirAndUp [vectorDir _module, vectorUp _module];
 };

@@ -17,8 +17,8 @@
 (flatten (get3DENSelected "")) params [["_entity0", objNull, [objNull]], ["_entity1", objNull, [objNull]]];
 
 ["RID Create Tripwire"] collect3DENHistory {
-	private _modulePosition = [[_entity0, _entity1]] call FUNC(calculateObjectsCenter);
-	private _module = create3DENEntity ["Logic", QGVAR(tripwireModule), _modulePosition];
-	
-	[_module, [_entity0, _entity1]] call FUNC(tripwireModuleInitialize);
+    private _modulePosition = [[_entity0, _entity1]] call FUNC(calculateObjectsCenter);
+    private _module = create3DENEntity ["Logic", QGVAR(tripwireModule), _modulePosition];
+    
+    [_module, [_entity0, _entity1]] call FUNC(tripwireModuleInitialize);
 };
