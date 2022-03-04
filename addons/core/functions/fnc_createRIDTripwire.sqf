@@ -46,10 +46,18 @@ private _fnc_createPart = {
 
     //Spawn the tripwire segment:
     private _segment = createVehicle ["rid_tripWire_segment_ammo", (ASLToAGL _position), [], 0, "CAN_COLLIDE"];
-
+    
+    //Work around for preInit. PR a fix in ACE
+    if (isNil "ace_explosives_excludedMines") then {
+        GVAR(excludedMines) pushBackUnique _segment;
+    } else {
+        private _EHId = ["ace_allowDefuse", [_segment, false]] call CBA_fnc_globalEventJIP;
+        [_EHId, _segment] call CBA_fnc_removeGlobalEventJIP;
+    };
+    
     //Do setVectorDir on the segement for ever player locally and new players if the tripWire still exists when they join.
-    private _eventHandlerId = [QGVAR(fixVector), [_segment, _vector]] call CBA_fnc_globalEventJIP;
-    [_eventHandlerId, _segment] call CBA_fnc_removeGlobalEventJIP;
+    private _EHId = [QGVAR(fixVector), [_segment, _vector]] call CBA_fnc_globalEventJIP;
+    [_EHId, _segment] call CBA_fnc_removeGlobalEventJIP;
 
     [_segment, _helper];
 };

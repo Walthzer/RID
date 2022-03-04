@@ -29,7 +29,9 @@ if !(_isCfgAmmo || {isClass (configFile >> "CfgVehicles" >> _iedClassname)}) exi
 
 private _ied = if (_isCfgAmmo) then {
     _iedObject = createVehicle [_iedClassname, _positionATL, [], 0, "CAN_COLLIDE"];
-    [_iedObject, false] call ACE_FUNC(explosives,allowDefuse);
+
+    private _EHId = ["ace_allowDefuse", [_iedObject, false]] call CBA_fnc_globalEventJIP;
+    [_EHId, _iedObject] call CBA_fnc_removeGlobalEventJIP;
 
     private _virtualIED = createVehicle ["rid_virtualIED", _positionATL, [], 0, "CAN_COLLIDE"];
     _virtualIED setVariable [QGVAR(ied), _iedObject, true];
