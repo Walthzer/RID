@@ -168,8 +168,8 @@ class CfgVehicles
 
     class rid_wireBox_master: rid_wireBox_base
     {
-        class ACE_Actions {
-            class RID_defuseTrigger {
+        class ACE_Actions: ACE_Actions {
+            class RID_defuseWireBox: RID_defuseWireBox {
                 condition = "(_target getVariable['rid_core_master', objNull]) getVariable['rid_core_isConnected', false]";
                 statement = "(_target getVariable['rid_core_master', objNull]) setVariable['rid_core_isConnected', false, true]";
             };
