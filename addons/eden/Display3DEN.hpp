@@ -14,7 +14,7 @@ class display3DEN
                 class GVAR(tools)
                 {
                     text = "RID";
-                    picture = "\z\rid\logo_rid_ca.paa";
+                    picture = QPATHTOEF(common,data\logo_rid_ca.paa);
                     items[] = {QGVAR(tripwireTool)};
                 };
                 class GVAR(tripwireTool)
