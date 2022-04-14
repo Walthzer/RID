@@ -3,69 +3,91 @@
     <Package name="Core">
         <Key ID="STR_RID_Core_NothingToDefuse">
             <English>Nothing to defuse</English>
+            <Chinesesimp>没有需要拆除的组件</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_StillConnected">
             <English>The IED won't come loose, its still connected to something</English>
+            <Chinesesimp>无法挖出IED，它仍然与某些东西连接着</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_DigUp">
             <English>Dig Up</English>
+            <Chinesesimp>挖出</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_Defuse">
             <English>Defuse</English>
+            <Chinesesimp>拆除</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_useNonStaticIED_Displayname">
             <English>Utilize Mines for IED's</English>
+            <Chinesesimp>使用地雷制作IED</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_useNonStaticIED_Description">
             <English>Are CfgAmmo instances used for IED objects? Default: Yes</English>
+            <Chinesesimp>CfgAmmo实例是否用于IED物品？默认：是</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_RequireExplosivesSpecialist_Displayname">
             <English>Require Specialist for defusal</English>
+            <Chinesesimp>需要爆破专家技能才能进行拆弹</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_RequireExplosivesSpecialist_Description">
             <English>Does a unit need to be an explosives specialist to defuse? Default: Yes</English>
+            <Chinesesimp>是否需要单位为爆炸物专家才能拆弹？默认：是</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_RequireEngineer_Displayname">
             <English>Require Engineer for Digging</English>
+            <Chinesesimp>需要工兵技能才能进行挖掘</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_RequireEngineer_Description">
             <English>Does a unit need to be an engineer to dig? Default: Yes</English>
+            <Chinesesimp>是否需要单位为工兵才能挖掘？默认：是</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_NetworkLinkHint_Displayname">
             <English>Creating a Network Link</English>
+            <Chinesesimp>创建连接线</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_NetworkLinkHint_Description">
             <English>In order to create a link another Network Node has to be selected. %1Select one now and confirm the selection with: %1%3[ENTER]%4 %1You can cancel the Link with: %1%3[ESCAPE]%4</English>
+            <Chinesesimp>创建连接需要选择另一个节点 %1选择一个节点并按 %1%3[ENTER]%4 键确认 %1按 %1%3[ESCAPE]%4 键可以取消</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_NetworkLinkHint_Tip">
             <English>If a new Node was created for this Link, it will not be deleted if you cancel the Link</English>
+            <Chinesesimp>删除连接并不会删除相连的节点</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_TripwireHint_Displayname">
             <English>Creating a Tripwire</English>
+            <Chinesesimp>创建绊线引信</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_TripwireHint_Description">
             <English>In order to create a tripwire another object has to be selected. %1Select one now and confirm the selection with: %1%3[ENTER]%4 %1You can cancel the Link with: %1%3[ESCAPE]%4</English>
+            <Chinesesimp>创建绊线引信需要选择另一个物体作为终点 %1选择一个节点并按 %1%3[ENTER]%4 键确认 %1按 %1%3[ESCAPE]%4 键可以取消</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_DigForCableAction_Displayname">
             <English>Dig for cable</English>
+            <Chinesesimp>挖掘电线</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_CutAction_Displayname">
             <English>Cut</English>
+            <Chinesesimp>剪断</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_WireDetonator">
             <English>Wire Detonator</English>
+            <Chinesesimp>有线起爆器</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_WireBox">
             <English>Wire Box</English>
+            <Chinesesimp>电线盒</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_VibrationDetector">
             <English>Vibration Detector</English>
+            <Chinesesimp>震动探测器</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_ActivateWireDetonatorAction_Displayname">
             <English>Press the buttons</English>
+            <Chinesesimp>按下按钮</Chinesesimp>
         </Key>
         <Key ID="STR_RID_Core_DefuseWireDetonatorAction_Displayname">
             <English>Detach wires</English>
+            <Chinesesimp>拆除电线</Chinesesimp>
         </Key>
     </Package>
 </Project>

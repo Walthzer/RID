@@ -5,3 +5,4 @@ Walthzer\Shark
 
 # CONTRIBUTORS
 Slatery
+Luminous815
