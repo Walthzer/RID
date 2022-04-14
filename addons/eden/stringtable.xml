@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="RID">
+    <Package name="Eden">
+        <Key ID="STR_RID_Eden_SelectTwoEntities">
+            <English>Selected two entities for tripwire creation.</English>
+        </Key>
+    </Package>
+</Project>
