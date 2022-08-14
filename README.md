@@ -8,7 +8,7 @@
     <a href="https://github.com/Walthzer/RID/issues">
         <img alt="RID Issues" src="https://img.shields.io/github/issues/Walthzer/RID?style=flat-square">
     </a>
-    <a href="https://github.com/acemod/ACE3/blob/master/LICENSE">
+    <a href="https://github.com/Walthzer/RID/blob/master/LICENSE">
         <img  alt="RID License" src="https://img.shields.io/badge/License-GPLv3-red.svg?style=flat-square">
     </a>
     <a href="https://discord.gg/qwH4CChjJQ">
